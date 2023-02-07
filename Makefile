@@ -6,7 +6,7 @@
 #    By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/06 21:23:17 by efirmino          #+#    #+#              #
-#    Updated: 2023/02/07 14:00:31 by efirmino         ###   ########.fr        #
+#    Updated: 2023/02/07 14:14:06 by jbarbate         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,9 +29,9 @@ FLAGS           =		-Wall -Wextra -Werror
 
 USER			=		$(shell whoami)
 
-HEADERS			=		-I/Users/efirmino/.brew/opt/readline/include -I include
+HEADERS			=		-I/Users/$(USER)/.brew/opt/readline/include -I include
 
-LIB_PATH		=		-L. libft/libft.a -lreadline -L/Users/efirmino/.brew/opt/readline/lib
+LIB_PATH		=		-L. libft/libft.a -lreadline -L/Users/$(USER)/.brew/opt/readline/lib
 
 NAME            =		minishell
 
