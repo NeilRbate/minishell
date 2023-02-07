@@ -2,3 +2,6 @@
 .DS_Store
 *.swp
 .vscode
+src/main.c
+libft/
+Makefile
