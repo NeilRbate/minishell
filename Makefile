@@ -6,30 +6,36 @@
 #    By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/06 21:23:17 by efirmino          #+#    #+#              #
-#    Updated: 2023/02/06 21:36:46 by efirmino         ###   ########.fr        #
+#    Updated: 2023/02/07 12:46:59 by efirmino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS            =       src/main.c 
+SRCS       		=		src/main.c \
+						src/signal_handle.c \
+						src/echo.c
 
-OBJS            =   	$(SRCS:.c=.o)
+OBJS            =		$(SRCS:.c=.o)
 
-RM              =       rm -f
+RM              =		rm -f
 
-CC              =       cc
+CC              =		cc
 
-FLAGS           =       -Wall -Wextra -Werror
+FLAGS           =		-Wall -Wextra -Werror
 
-LIB_PATH		=		-L. libft/libft.a -lreadline
+USER			=		$(shell whoami)
 
-NAME            =       minishell
+HEADERS			=		-I/Users/efirmino/.brew/opt/readline/include -I include
+
+LIB_PATH		=		-L. libft/libft.a -lreadline -L/Users/efirmino/.brew/opt/readline/lib
+
+NAME            =		minishell
 
 .c.o:
-				@$(CC) $(FLAGS) -c $< -o $(<:.c=.o)
+				@$(CC) $(FLAGS) $(HEADERS) -c $< -o $(<:.c=.o)
 
 $(NAME):        $(OBJS)
 				@make -C libft
-				$(CC) $(FLAGS) $(LIB_PATH) $(OBJS) -o $(NAME)
+				$(CC) $(FLAGS) $(OBJS) $(HEADERS) $(LIB_PATH) -o $(NAME)
 
 
 all:            $(NAME)
