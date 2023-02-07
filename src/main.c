@@ -6,11 +6,11 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:31:56 by efirmino          #+#    #+#             */
-/*   Updated: 2023/02/07 12:23:06 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/02/07 13:59:57 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/ms_ex.h"
+#include "../include/minishell.h"
 
 int	main(void)
 {

@@ -6,15 +6,20 @@
 #    By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/06 21:23:17 by efirmino          #+#    #+#              #
-#    Updated: 2023/02/07 12:46:59 by efirmino         ###   ########.fr        #
+#    Updated: 2023/02/07 14:00:31 by efirmino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS       		=		src/main.c \
+SRCS_EXEC       =		src/main.c \
 						src/signal_handle.c \
 						src/echo.c
 
-OBJS            =		$(SRCS:.c=.o)
+SRCS_PARS		=		src/parsing.c src/parsing_tools.c src/free.c
+
+OBJS_EXEC       =		$(SRCS_EXEC:.c=.o)
+
+OBJS_PARS       =		$(SRCS_PARS:.c=.o)
+
 
 RM              =		rm -f
 
@@ -33,16 +38,16 @@ NAME            =		minishell
 .c.o:
 				@$(CC) $(FLAGS) $(HEADERS) -c $< -o $(<:.c=.o)
 
-$(NAME):        $(OBJS)
+$(NAME):        $(OBJS_EXEC) $(OBJS_PARS)
 				@make -C libft
-				$(CC) $(FLAGS) $(OBJS) $(HEADERS) $(LIB_PATH) -o $(NAME)
+				$(CC) $(FLAGS) $(OBJS_EXEC) $(OBJS_PARS) $(HEADERS) $(LIB_PATH) -o $(NAME)
 
 
 all:            $(NAME)
 
 clean:
 				@make clean -C libft
-				$(RM) $(OBJS)
+				$(RM) $(OBJS_EXEC) $(OBJS_PARS)
 
 fclean:         clean
 				@make fclean -C libft

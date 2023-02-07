@@ -6,15 +6,16 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 11:08:56 by efirmino          #+#    #+#             */
-/*   Updated: 2023/02/07 12:45:57 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/02/07 14:01:39 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/ms_ex.h"
+#include "../include/minishell.h"
 
 void	ft_new_command(void)
 {
 	char	*str;
+	t_cmd	*cmds;
 
 	str = 0;
 	str = readline(PROMPT_MESS);
@@ -33,7 +34,8 @@ void	ft_new_command(void)
 	else
 	{
 		add_history(str);
-		ft_echo(str, 0, 1);
+		cmds = ft_parsing(str);
+		ft_execute(cmds);
 		free(str);
 	}
 }
