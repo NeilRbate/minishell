@@ -1,4 +1,4 @@
-*.swp
 *.o
-*.DS_Store
-src/main.c
+.DS_Store
+*.swp
+.vscode
