@@ -12,6 +12,7 @@
 typedef struct	s_cmd
 {
 	char			**cmd;
+	char			*type;
 	char			*infile;
 	char			*outfile;
 	struct s_cmd	*next;
