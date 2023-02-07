@@ -1,6 +1,8 @@
 #ifndef PARSING_H
 # define PARSING_H
 
+# include "../libft/libft.h"
+
 /* For write and other else */
 # include <unistd.h>
 
@@ -9,14 +11,18 @@
 
 typedef struct s_cmd
 {
-	char	**cmd;
-	char	*type;
-	s_cmd	*next;
+	char			**cmd;
+	char			*type;
+	struct s_cmd	*next;
 }				t_cmd;
 
-t_cmd	*ft_create_cmdlist(void);
+t_cmd	*ft_create_cmdlist(char **cmd, char *type);
 int		ft_add_cmdelem(t_cmd *list, char **cmd, char *type);
 int		ft_cmdlist_size(t_cmd *list);
 void	ft_del_cmdlist(t_cmd *list);
+void	ft_print_cmdlist(t_cmd *list);
+
+t_cmd	*ft_parsing(char *str);
+void	ft_freesplit(char **split);
 
 #endif
