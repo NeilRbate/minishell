@@ -1,4 +1,4 @@
 *.swp
 *.o
 *.DS_Store
-main.c
+src/main.c
