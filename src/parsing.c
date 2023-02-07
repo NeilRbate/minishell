@@ -25,12 +25,7 @@ t_cmd	*ft_parsing(char *str)
 	char	**args;
 
 	if (ft_strchr(str, '|') == NULL)
-	{
-		args = ft_split(str, 32);
-		ret = ft_create_cmdlist(args, NULL);
-		ft_freesplit(args);
-		return (ret);
-	}
+		return (ft_create_cmdlist(ft_split(str, 32), NULL));
 	args = ft_split(str, '|');
 	ret = ft_split_args(args);
 	ft_freesplit(args);

@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 11:08:56 by efirmino          #+#    #+#             */
-/*   Updated: 2023/02/07 14:14:24 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/02/07 15:04:36 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	ft_new_command(void)
 	{
 		add_history(str);
 		cmds = ft_parsing(str);
+		ft_print_cmdlist(cmds);
 //		ft_execute(cmds);
 		free(str);
 	}

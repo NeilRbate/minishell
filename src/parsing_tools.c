@@ -6,6 +6,7 @@ void	ft_print_cmdlist(t_cmd *list)
 
 	while (list != NULL)
 	{
+		ft_putendl_fd(list->cmd[0], 1);
 		ft_putendl_fd("---cmd---", 1);
 		i = 0;
 		while (list->cmd[i])
