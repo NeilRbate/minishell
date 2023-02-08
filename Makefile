@@ -6,7 +6,7 @@
 #    By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/06 21:23:17 by efirmino          #+#    #+#              #
-#    Updated: 2023/02/07 14:14:06 by jbarbate         ###   ########.fr        #
+#    Updated: 2023/02/08 08:42:57 by jbarbate         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,11 @@ SRCS_EXEC       =		src/main.c \
 						src/signal_handle.c \
 						src/echo.c
 
-SRCS_PARS		=		src/parsing.c src/parsing_tools.c src/free.c
+SRCS_PARS		=		src/parsing/parsing.c \
+						src/parsing/lexer.c \
+						src/parsing/cmdlist_tools.c \
+						src/parsing/idlist_tools.c\
+						src/parsing/free.c \
 
 OBJS_EXEC       =		$(SRCS_EXEC:.c=.o)
 

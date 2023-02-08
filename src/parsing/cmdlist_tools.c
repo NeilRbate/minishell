@@ -1,4 +1,4 @@
-#include "../include/parsing.h"
+#include "../../include/parsing.h"
 
 void	ft_print_cmdlist(t_cmd *list)
 {
@@ -6,7 +6,6 @@ void	ft_print_cmdlist(t_cmd *list)
 
 	while (list != NULL)
 	{
-		ft_putendl_fd(list->cmd[0], 1);
 		ft_putendl_fd("---cmd---", 1);
 		i = 0;
 		while (list->cmd[i])
@@ -33,35 +32,16 @@ int	ft_cmdlist_size(t_cmd	*list)
 	return (i);
 }
 
-void	ft_del_cmdlist(t_cmd *list)
-{
-	t_cmd	*stock;
-	
-	while (list != NULL)
-	{
-		stock = list->next;
-		if (list->cmd != NULL)
-			ft_freesplit(list->cmd);
-		if (list->type != NULL)
-			free(list->type);
-		free(list);
-		list = stock;
-	}
-}
-
 int	ft_add_cmdelem(t_cmd *list, char **cmd, char *type)
 {
 	t_cmd	*stock;
 
+	stock = ft_create_cmdlist(cmd, type);
+	if (!stock)
+		return (-1);
 	while (list->next != NULL)
 		list = list->next;
-	stock = malloc(sizeof(*stock));
-	if (!stock)
-		return (ft_putendl_fd("error: malloc fail", 2), 1);
 	list->next = stock;
-	stock->cmd = cmd;
-	stock->type = type;
-	stock->next = NULL;
 	return (0);
 }
 

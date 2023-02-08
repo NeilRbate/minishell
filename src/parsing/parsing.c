@@ -1,4 +1,4 @@
-#include "../include/parsing.h"
+#include "../../include/parsing.h"
 
 t_cmd	*ft_split_args(char **args)
 {
@@ -19,7 +19,7 @@ t_cmd	*ft_split_args(char **args)
 	return (ret);
 }
 
-t_cmd	*ft_parsing(char *str)
+t_cmd	*temp_pars(char *str)
 {
 	t_cmd	*ret;
 	char	**args;
@@ -30,4 +30,14 @@ t_cmd	*ft_parsing(char *str)
 	ret = ft_split_args(args);
 	ft_freesplit(args);
 	return (ret);
+}
+
+t_cmd	*ft_parsing(char *str)
+{
+	t_id	*lex;
+
+	lex = ft_lexical_analyse(str);
+	if (!lex)
+		return (NULL);
+	return (temp_pars(str));
 }
