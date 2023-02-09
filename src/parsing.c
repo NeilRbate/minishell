@@ -31,7 +31,7 @@ t_cmd	*ft_parsing(char *str)
 		ft_freesplit(args);
 		return (ret);
 	}
-	args = ft_split(str, '|');
+	args = ft_split(str, ' ');
 	ret = ft_split_args(args);
 	ft_freesplit(args);
 	return (ret);

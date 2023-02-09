@@ -6,13 +6,14 @@
 #    By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/06 21:23:17 by efirmino          #+#    #+#              #
-#    Updated: 2023/02/07 14:14:06 by jbarbate         ###   ########.fr        #
+#    Updated: 2023/02/09 12:58:19 by efirmino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS_EXEC       =		src/main.c \
 						src/signal_handle.c \
-						src/echo.c
+						src/built_in/echo.c src/built_in/env.c src/built_in/exit.c \
+						src/utils/env.c src/utils/error.c
 
 SRCS_PARS		=		src/parsing.c src/parsing_tools.c src/free.c
 
