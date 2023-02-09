@@ -6,7 +6,7 @@
 #    By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/06 21:23:17 by efirmino          #+#    #+#              #
-#    Updated: 2023/02/08 08:42:57 by jbarbate         ###   ########.fr        #
+#    Updated: 2023/02/09 10:22:21 by jbarbate         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ SRCS_EXEC       =		src/main.c \
 SRCS_PARS		=		src/parsing/parsing.c \
 						src/parsing/lexer.c \
 						src/parsing/cmdlist_tools.c \
-						src/parsing/idlist_tools.c\
+						src/parsing/idlist_tools.c \
+						src/parsing/idlist_ctrl.c \
 						src/parsing/free.c \
 
 OBJS_EXEC       =		$(SRCS_EXEC:.c=.o)

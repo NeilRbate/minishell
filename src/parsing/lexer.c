@@ -4,7 +4,7 @@ int	ft_deftype(char c, char d, int *i)
 {
 	if (c == 39)
 		return ((*i += 1), 1);
-	else if (c == '"')
+	else if (c == 34)
 		return ((*i += 1), 2);
 	else if (c == '|')
 		return ((*i += 1), 3);
@@ -51,11 +51,9 @@ int	ft_cuttype(int type, t_id *lex, char *str, int k)
 	s = NULL;
 	if (type == 0)
 	{
-		while (str[j] && type == 0)
+		while (str[j] && ft_deftype(str[i], str[i + 1], &i) == 0)
 		{
-			type = ft_deftype(str[i], str[i + 1], &i);
-			if (type == 0)
-				j++;
+			j++;
 			i++;
 		}
 		i--;
@@ -105,6 +103,5 @@ t_id	*ft_lexical_analyse(char *str)
 	free(lex->data);
 	free(lex);
 	lex = stock;
-	ft_print_lex(lex);
 	return (lex);
 }

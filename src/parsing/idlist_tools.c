@@ -1,20 +1,50 @@
 #include "../../include/parsing.h"
 
+int	ft_del_oneid(t_id *id)
+{
+	t_id	*stock;
+
+	if (id->prev == NULL && id->next == NULL)
+	{
+		id->data[0] = '\0';
+		return (0);
+	}
+	if(id->prev == NULL && id)
+	{
+		stock = id->next;
+		stock->prev = NULL;
+		free(id->data);
+		free(id);
+		id = stock;
+		return (0);
+	}
+	if (id->next == NULL && id)
+	{
+		stock = id->prev;
+		stock->next = NULL;
+		free(id->data);
+		free(id);
+		id = stock;
+		return (0);
+	}
+	stock = id->prev;
+	id->next->prev = stock;
+	stock->next = id->next;
+	return (free(id->data), free(id), 0);
+}
+
 void	ft_print_lex(t_id *lex)
 {
 	while (lex != NULL)
 	{
-		ft_putendl_fd("--------", 1);
 		ft_putstr_fd("type -> ", 1);
 		ft_putnbr_fd(lex->type, 1);
-		ft_putstr_fd("\n", 1);
-		ft_putstr_fd("index ->", 1);
+		ft_putstr_fd(" index ->", 1);
 		ft_putnbr_fd(lex->index, 1);
-		ft_putstr_fd("\n", 1);
-		ft_putstr_fd("string->'", 1);
+		ft_putstr_fd(" string-> |>", 1);
 		ft_putstr_fd(lex->data, 1);
-		ft_putstr_fd("'\n", 1);
-		ft_putendl_fd("--------", 1);
+		ft_putstr_fd("<|", 1);
+		ft_putendl_fd("", 1);
 		lex = lex->next;
 	}
 }
@@ -43,6 +73,7 @@ t_id	*ft_create_idlist(int type, int index, char *data)
 	list->index = index;
 	list->data = data;
 	list->next = NULL;
+	list->prev = NULL;
 	return (list);
 }
 
@@ -55,6 +86,7 @@ int	ft_add_idelem(t_id *list, int type, int index, char *data)
 		return (-1);
 	while (list->next != NULL)
 		list = list->next;
+	new->prev = list;
 	list->next = new;
 	return (0);
 }

@@ -22,6 +22,7 @@
  * 8  ->  >>
  * 9  ->  <
  * 10 ->  <<
+ * 11 -> $
  *
 */
 
@@ -40,6 +41,7 @@ typedef struct	s_id
 	int				index;
 	char			*data;
 	struct	s_id	*next;
+	struct	s_id	*prev;
 }				t_id;
 
 /* ---- t_cmd TOOLS ---- */
@@ -53,6 +55,7 @@ void	ft_print_cmdlist(t_cmd *list);
 t_id	*ft_create_idlist(int type, int index, char *data);
 int		ft_add_idelem(t_id *list, int type, int index, char *data);
 int		ft_idlist_size(t_id *list);
+int		ft_del_oneid(t_id *id);
 void	ft_del_idlist(t_id *list);
 void	ft_print_lex(t_id *lex);
 
@@ -62,4 +65,5 @@ void	ft_freesplit(char **split);
 
 /* ---- lexic parts ---- */
 t_id	*ft_lexical_analyse(char *str);
+t_cmd	*ft_syntax_analyse(t_id *lex);
 #endif

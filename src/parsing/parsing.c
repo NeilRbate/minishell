@@ -31,13 +31,20 @@ t_cmd	*temp_pars(char *str)
 	ft_freesplit(args);
 	return (ret);
 }
+/* Fonction temporaire au dessus ||*/
+
 
 t_cmd	*ft_parsing(char *str)
 {
 	t_id	*lex;
-
+	t_cmd	*cmd;
+	//Tokenise la chaine
 	lex = ft_lexical_analyse(str);
-	if (!lex)
-		return (NULL);
+	ft_putendl_fd("?|?|?| BEFORE CUT ?|?|?|?", 1);
+	ft_print_lex(lex);
+
+	//Traiter les listes-chainées tokenisés
+	cmd = ft_syntax_analyse(lex);
+		//free(str);
 	return (temp_pars(str));
 }
