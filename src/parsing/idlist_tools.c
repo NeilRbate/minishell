@@ -1,38 +1,5 @@
 #include "../../include/parsing.h"
 
-int	ft_del_oneid(t_id *id)
-{
-	t_id	*stock;
-
-	if (id->prev == NULL && id->next == NULL)
-	{
-		id->data[0] = '\0';
-		return (0);
-	}
-	if(id->prev == NULL && id)
-	{
-		stock = id->next;
-		stock->prev = NULL;
-		free(id->data);
-		free(id);
-		id = stock;
-		return (0);
-	}
-	if (id->next == NULL && id)
-	{
-		stock = id->prev;
-		stock->next = NULL;
-		free(id->data);
-		free(id);
-		id = stock;
-		return (0);
-	}
-	stock = id->prev;
-	id->next->prev = stock;
-	stock->next = id->next;
-	return (free(id->data), free(id), 0);
-}
-
 void	ft_print_lex(t_id *lex)
 {
 	while (lex != NULL)

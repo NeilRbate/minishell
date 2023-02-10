@@ -1,49 +1,64 @@
 #include "../../include/parsing.h"
 
-t_id	*ft_quote_ctrl(t_id *id)
+int	ft_quotectrl(t_id *id, int type)
 {
-	if (id->type == 1)
+	if (id->next == NULL)
+		return (ft_putendl_fd("error: invalid syntax", 2), -1);
+	if (id->next->type == type)
+		return (id->next->index);
+	id = id->next;
+	while (id->next != NULL)
 	{
-		id = id->next;
-		while (id->type != 1 && id != NULL)
+		if (type == 2 && id->type == 11)
+		{
+			if (id->next->type == 0)
+				id = id->next->next;
+			else
+				return (ft_putendl_fd("error: invalid syntax", 2), -1);
+		}
+		else
 		{
 			id->type = 0;
-			id = id->next; 
-			if (id == NULL)
-				return (ft_putendl_fd("error: invalid syntax", 2), NULL);
+			id = id->next;
 		}
-		return (id);
+		if (id->type == type)
+			return (id->index);
 	}
-	if (id->type == 2)
-		return (id);
-	return (NULL);
+	if (id->type != 1)
+		return (ft_putendl_fd("error: invalid syntax", 2), -1);
+	return (id->index);
 }
 
-t_id	*ft_id_ctrl(t_id *id)
+int	ft_idctrl(t_id *id)
 {
+	int	i;
+
+	i = 0;
 	while (id != NULL)
 	{
 		if (id->type == 1 || id->type == 2)
 		{
-			id = ft_quote_ctrl(id);
-			if (!id)
-				return (NULL);
+			i = ft_quotectrl(id, id->type);
+			if (i < 0)
+				return (-1);
+			while (i != id->index)
+				id = id->next;
+			if (id->next == NULL)
+				return (0);
+			id = id->next;
 		}
-		id = id->next;
+		else
+			id = id->next;
 	}
-	return (id);
+	return (0);
 }
 
 t_cmd	*ft_syntax_analyse(t_id *lex)
 {
 	t_cmd	*ret;
-	t_id	*stock;
 
 	ret = NULL;
-	stock = ft_id_ctrl(lex);
-	if (!stock)
-		ft_del_idlist(lex);
-	ft_putendl_fd("?|?|?| AFTER CUT ?|?|?|?", 1);
-	ft_print_lex(lex);
+	if (ft_idctrl(lex) != 0)
+		return (ft_del_idlist(lex), NULL);
 	return (ret);
 }

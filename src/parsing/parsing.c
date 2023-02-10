@@ -33,18 +33,14 @@ t_cmd	*temp_pars(char *str)
 }
 /* Fonction temporaire au dessus ||*/
 
-
 t_cmd	*ft_parsing(char *str)
 {
 	t_id	*lex;
 	t_cmd	*cmd;
-	//Tokenise la chaine
-	lex = ft_lexical_analyse(str);
-	ft_putendl_fd("?|?|?| BEFORE CUT ?|?|?|?", 1);
-	ft_print_lex(lex);
 
-	//Traiter les listes-chainées tokenisés
+	lex = ft_lexical_analyse(str);
 	cmd = ft_syntax_analyse(lex);
-		//free(str);
-	return (temp_pars(str));
+	cmd = temp_pars(str);
+	ft_print_lex(lex);
+	return (cmd);
 }
