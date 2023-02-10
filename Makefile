@@ -3,7 +3,7 @@ SRCS_EXEC       =		src/main.c src/signal_handle.c \
 							src/built_in/ft_exit.c src/built_in/ft_pwd.c \
 								src/utils/env.c src/utils/error.c
 
-SRCS_PARS		=		src/parsing.c src/parsing_tools.c src/free.c
+SRCS_PARS		=		src/parsing/*.c
 
 OBJS_EXEC       =		$(SRCS_EXEC:.c=.o)
 
