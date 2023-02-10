@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 12:25:56 by efirmino          #+#    #+#             */
-/*   Updated: 2023/02/09 14:27:13 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/02/10 09:57:23 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	ft_is_option(char *str, int *option)
 	}
 }
 
-void	ft_echo(t_cmd *command)
+void	ft_echo(t_cmd *cmdd)
 {
 	char	**cmd;
 	int		i;
@@ -43,13 +43,11 @@ void	ft_echo(t_cmd *command)
 	child = fork();
 	if (child == 0)
 	{
-		cmd = command->cmd;
+		cmd = cmdd->cmd;
 		i = 1;
 		option = 0;
 		while (ft_is_option(cmd[i], &option))
-		{
 			i++;
-		}
 		while (cmd[i])
 		{
 			printf("%s", cmd[i]);

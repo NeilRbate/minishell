@@ -6,18 +6,32 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 07:44:12 by efirmino          #+#    #+#             */
-/*   Updated: 2023/02/09 11:06:27 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/02/10 09:27:28 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// static void	ft_update_shlvl(char **env)
-// {
+static void	ft_update_shlvl(void)
+{
+	t_env	*current;
+	int		shlvl;
 
-// }
+	current = data.minishell_env;
+	while (current)
+	{
+		if (!ft_strncmp(current->key, "SHLVL", 6))
+		{
+			shlvl = ft_atoi(current->value);
+			shlvl += 1;
+			free(current->value);
+			current->value = ft_itoa(shlvl);
+		}
+		current = current->next;
+	}
+}
 
-void	ft_add_element(char *key, char *value, t_env **minishell_env)
+void	ft_add_env_element(char *key, char *value)
 {
 	t_env	*current;
 	t_env	*new;
@@ -26,11 +40,11 @@ void	ft_add_element(char *key, char *value, t_env **minishell_env)
 	new->next = 0;
 	new->key = ft_strdup(key);
 	new->value = ft_strdup(value);
-	if (*minishell_env == 0)
-		*minishell_env = new;
+	if (data.minishell_env == 0)
+		data.minishell_env = new;
 	else
 	{
-		current = *minishell_env;
+		current = data.minishell_env;
 		while (current->next)
 			current = current->next;
 		current->next = new;
@@ -39,19 +53,17 @@ void	ft_add_element(char *key, char *value, t_env **minishell_env)
 
 void	ft_get_env(char **envp)
 {
-	t_env	*new;
 	int		i;
 	char	**splited;
 
 	i = 0;
 	data.minishell_env = 0;
-	new = 0;
 	while (envp[i])
 	{
 		splited = ft_split(envp[i], '=');
-		ft_add_element(splited[0], splited[1], &new);
+		ft_add_env_element(splited[0], splited[1]);
 		ft_freesplit(splited);
 		i++;
 	}
-	data.minishell_env = new;
+	ft_update_shlvl();
 }

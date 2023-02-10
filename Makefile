@@ -1,19 +1,7 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/02/06 21:23:17 by efirmino          #+#    #+#              #
-#    Updated: 2023/02/09 12:58:19 by efirmino         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
-SRCS_EXEC       =		src/main.c \
-						src/signal_handle.c \
-						src/built_in/echo.c src/built_in/env.c src/built_in/exit.c \
-						src/utils/env.c src/utils/error.c
+SRCS_EXEC       =		src/main.c src/signal_handle.c \
+							src/built_in/ft_echo.c src/built_in/ft_env.c \
+							src/built_in/ft_exit.c src/built_in/ft_pwd.c \
+								src/utils/env.c src/utils/error.c
 
 SRCS_PARS		=		src/parsing.c src/parsing_tools.c src/free.c
 
@@ -41,17 +29,20 @@ NAME            =		minishell
 
 $(NAME):        $(OBJS_EXEC) $(OBJS_PARS)
 				@make -C libft
-				$(CC) $(FLAGS) $(OBJS_EXEC) $(OBJS_PARS) $(HEADERS) $(LIB_PATH) -o $(NAME)
+				@$(CC) $(FLAGS) $(OBJS_EXEC) $(OBJS_PARS) $(HEADERS) $(LIB_PATH) -o $(NAME)
+				@echo "Makefile : minishell crated"
 
 
 all:            $(NAME)
 
-clean:
+clean:			
 				@make clean -C libft
-				$(RM) $(OBJS_EXEC) $(OBJS_PARS)
+				@$(RM) $(OBJS_EXEC) $(OBJS_PARS)
+				@echo "Makefile : minishell objects removed"
 
 fclean:         clean
 				@make fclean -C libft
-				$(RM) $(NAME)
+				@$(RM) $(NAME)
+				@echo "Makefile : minishell removed"
 
 re:             fclean all
