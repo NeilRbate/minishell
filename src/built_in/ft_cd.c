@@ -1,33 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/10 10:00:08 by efirmino          #+#    #+#             */
-/*   Updated: 2023/02/10 10:02:05 by efirmino         ###   ########.fr       */
+/*   Created: 2023/02/10 09:58:40 by efirmino          #+#    #+#             */
+/*   Updated: 2023/02/10 10:59:00 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../../include/minishell.h"
 
-# include "../libft/libft.h"
-# include "ms_ex.h"
-# include "parsing.h"
-
-# define BASIC 0;
-# define BUILT_IN 1;
-# define PIPE 2;
-
-typedef struct s_big
+void	ft_go_home(void)
 {
-	struct s_env	*minishell_env;
-	int				status_code; // $?
-	t_cmd			*cmds;
-}	t_big;
+	
+}
 
-t_big	data;
+void	ft_cd(t_cmd *command)
+{
+	char	**strs;
+	pid_t	child;
 
-#endif
+	child = fork();
+	if (child == 0)
+	{
+		strs = command->cmd;
+		if (!strs[1])
+			ft_go_home();
+		else
+		{
+			chdir(strs[1]);
+		}
+	}
+	waitpid(child, 0, 0);
+}

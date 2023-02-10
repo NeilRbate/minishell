@@ -6,16 +6,32 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 11:08:56 by efirmino          #+#    #+#             */
-/*   Updated: 2023/02/08 12:12:23 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/02/10 10:19:40 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+// static void	ft_execute(void)
+// {
+// 	t_cmd	*commands;
+
+// 	commands = data.cmds;
+// 	while (commands)
+// 	{
+// 		if (commands->type == BASIC)
+// 			ft_do_basic_cmd(commands);
+// 		else if (commands->type == BUILT_IN)
+// 			ft_do_built_in_cmd(commands);
+// 		else if (commands->type == PIPE)
+// 			ft_do_pipe_cmd(commands);
+// 		commands = commands->next;
+// 	}
+// }
+
 void	ft_new_command(void)
 {
 	char	*str;
-	t_cmd	*cmds;
 
 	str = 0;
 	str = readline(PROMPT_MESS);
@@ -24,26 +40,22 @@ void	ft_new_command(void)
 		// write exit on prompt
 		rl_replace_line("", 0);
 		rl_redisplay();
-		exit(0);
+		ft_exit();
 	}
 	else if (str[0] == 0)
 	{
 		free(str);
-		return (ft_new_command());
 	}
 	else
 	{
-		add_history(str);
-		cmds = ft_parsing(str);
-//		ft_print_cmdlist(cmds);
-//		ft_execute(cmds);
-		free(str);
+		// ft_parsing(str);
+		// ft_execute();
+		ft_env();
 	}
 }
 
 void	ft_sig_handle(int sig)
 {
-	signal(SIGINT, ft_sig_handle);
 	if (sig == SIGINT)
 	{
 		// remove ^C
