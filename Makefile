@@ -1,9 +1,23 @@
-SRCS_EXEC       =		src/main.c src/signal_handle.c \
-							src/built_in/ft_echo.c src/built_in/ft_env.c \
-							src/built_in/ft_exit.c src/built_in/ft_pwd.c \
-								src/utils/env.c src/utils/error.c
+SRCS_EXEC       =		src/main.c \
+							src/signal/signal_handle.c \
+								src/built_in/do_built_in.c \
+								src/built_in/ft_cd.c \
+								src/built_in/ft_echo.c \
+								src/built_in/ft_env.c \
+								src/built_in/ft_exit.c \
+								src/built_in/ft_export.c \
+								src/built_in/ft_pwd.c \
+								src/built_in/ft_unset.c \
+									src/utils/env.c \
+									src/utils/error.c \
+									src/utils/parsing_tools.c\
 
-SRCS_PARS		=		src/parsing/*.c
+SRCS_PARS		=		src/parsing/cmdlist_tools.c \
+						src/parsing/free.c \
+						src/parsing/idlist_ctrl.c \
+						src/parsing/idlist_tools.c \
+						src/parsing/lexer.c \
+						src/parsing/parsing.c 
 
 OBJS_EXEC       =		$(SRCS_EXEC:.c=.o)
 
