@@ -6,28 +6,29 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 11:08:56 by efirmino          #+#    #+#             */
-/*   Updated: 2023/02/10 10:19:40 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/02/11 11:46:48 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-// static void	ft_execute(void)
-// {
-// 	t_cmd	*commands;
+static void	ft_execute(void)
+{
+	// t_cmd	*commands;
 
-// 	commands = data.cmds;
-// 	while (commands)
-// 	{
-// 		if (commands->type == BASIC)
-// 			ft_do_basic_cmd(commands);
-// 		else if (commands->type == BUILT_IN)
-// 			ft_do_built_in_cmd(commands);
-// 		else if (commands->type == PIPE)
-// 			ft_do_pipe_cmd(commands);
-// 		commands = commands->next;
-// 	}
-// }
+	// commands = data.cmds;
+	// while (commands)
+	// {
+	// 	if (commands->type == BASIC)
+	// 		ft_do_basic_cmd(commands);
+	// 	else if (commands->type == BUILT_IN)
+	// 		ft_do_built_in_cmd(commands);
+	// 	// else if (commands->type == PIPE)
+	// 	// 	ft_do_pipe_cmd(commands);
+	// 	commands = commands->next;
+	// }
+	ft_env();
+}
 
 void	ft_new_command(void)
 {
@@ -45,12 +46,13 @@ void	ft_new_command(void)
 	else if (str[0] == 0)
 	{
 		free(str);
+		return ;
 	}
 	else
 	{
 		// ft_parsing(str);
-		// ft_execute();
-		ft_env();
+		ft_execute();
+		return ;
 	}
 }
 

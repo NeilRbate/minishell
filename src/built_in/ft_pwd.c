@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 09:59:00 by efirmino          #+#    #+#             */
-/*   Updated: 2023/02/10 10:33:24 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/02/11 09:10:35 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	ft_pwd(void)
 			}
 			current = current->next;
 		}
+		exit(0);
 	}
 	waitpid(child, 0, 0);
 }

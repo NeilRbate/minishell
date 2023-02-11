@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 07:44:12 by efirmino          #+#    #+#             */
-/*   Updated: 2023/02/10 09:27:28 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/02/11 17:36:50 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,22 @@ void	ft_add_env_element(char *key, char *value)
 	}
 }
 
+static void	ft_get_path(void)
+{
+	t_env	*current;
+
+	current = data.minishell_env;
+	while (current)
+	{
+		if (!ft_strncmp(current->key, "PATH=", 6))
+		{
+			data.cmd_path = ft_split(current->value, ':');
+			break ;
+		}
+		current = current->next;
+	}
+}
+
 void	ft_get_env(char **envp)
 {
 	int		i;
@@ -66,4 +82,5 @@ void	ft_get_env(char **envp)
 		i++;
 	}
 	ft_update_shlvl();
+	ft_get_path();
 }
