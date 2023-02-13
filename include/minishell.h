@@ -11,10 +11,10 @@
 
 typedef struct s_big
 {
-	struct s_env	*minishell_env;
+	t_cmd			*cmds;
+	char			**minishell_env;
 	char			**cmd_path;
 	int				status_code; // $?
-	t_cmd			*cmds;
 }	t_big;
 
 t_big	data;

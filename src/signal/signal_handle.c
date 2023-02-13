@@ -6,11 +6,23 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 11:08:56 by efirmino          #+#    #+#             */
-/*   Updated: 2023/02/11 11:46:48 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/02/13 13:25:04 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	echo_ctl(int n)
+{
+	struct termios	term;
+
+	tcgetattr(0, &term);
+	if (n)
+		term.c_lflag |= ECHOCTL;
+	else
+		term.c_lflag &= ~ECHOCTL;
+	tcsetattr(0, TCSANOW, &term);
+}
 
 static void	ft_execute(void)
 {
@@ -27,7 +39,7 @@ static void	ft_execute(void)
 	// 	// 	ft_do_pipe_cmd(commands);
 	// 	commands = commands->next;
 	// }
-	ft_env();
+	ft_cd(0);
 }
 
 void	ft_new_command(void)
@@ -38,9 +50,7 @@ void	ft_new_command(void)
 	str = readline(PROMPT_MESS);
 	if (str == NULL)
 	{
-		// write exit on prompt
-		rl_replace_line("", 0);
-		rl_redisplay();
+		// rl_redisplay()
 		ft_exit();
 	}
 	else if (str[0] == 0)
@@ -50,6 +60,7 @@ void	ft_new_command(void)
 	}
 	else
 	{
+		add_history(str);
 		// ft_parsing(str);
 		ft_execute();
 		return ;
@@ -60,7 +71,6 @@ void	ft_sig_handle(int sig)
 {
 	if (sig == SIGINT)
 	{
-		// remove ^C
 		printf("\n");
 		rl_replace_line("", 0);
 		rl_on_new_line();

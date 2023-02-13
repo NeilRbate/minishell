@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:31:56 by efirmino          #+#    #+#             */
-/*   Updated: 2023/02/10 10:07:26 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/02/13 08:37:46 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	main(int argc, char **argv, char **envp)
 		return (0);
 	}
 	(void)argv;
+	echo_ctl(0);
 	ft_get_env(envp);
 	signal(SIGINT, ft_sig_handle);
 	while (1)
