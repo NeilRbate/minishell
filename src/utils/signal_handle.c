@@ -6,41 +6,24 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 11:08:56 by efirmino          #+#    #+#             */
-/*   Updated: 2023/02/13 13:25:04 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/02/13 17:42:13 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../include/ms.h"
 
-void	echo_ctl(int n)
-{
-	struct termios	term;
+// static void	ft_execute(void)
+// {
+// 	t_cmd	*command;
 
-	tcgetattr(0, &term);
-	if (n)
-		term.c_lflag |= ECHOCTL;
-	else
-		term.c_lflag &= ~ECHOCTL;
-	tcsetattr(0, TCSANOW, &term);
-}
-
-static void	ft_execute(void)
-{
-	// t_cmd	*commands;
-
-	// commands = data.cmds;
-	// while (commands)
-	// {
-	// 	if (commands->type == BASIC)
-	// 		ft_do_basic_cmd(commands);
-	// 	else if (commands->type == BUILT_IN)
-	// 		ft_do_built_in_cmd(commands);
-	// 	// else if (commands->type == PIPE)
-	// 	// 	ft_do_pipe_cmd(commands);
-	// 	commands = commands->next;
-	// }
-	ft_cd(0);
-}
+// 	command = g_data.cmds;
+// 	if (command->type == BASIC)
+// 		ft_do_basic_cmd(command);
+// 	else if (command->type == BUILT_IN)
+// 		ft_do_built_in_cmd(command);
+// 	// else if (command->type == PIPE)
+// 	// 	ft_do_pipe_cmd(command);
+// }
 
 void	ft_new_command(void)
 {
@@ -50,7 +33,7 @@ void	ft_new_command(void)
 	str = readline(PROMPT_MESS);
 	if (str == NULL)
 	{
-		// rl_redisplay()
+		printf("exit\n");
 		ft_exit();
 	}
 	else if (str[0] == 0)
@@ -61,8 +44,10 @@ void	ft_new_command(void)
 	else
 	{
 		add_history(str);
-		// ft_parsing(str);
-		ft_execute();
+		/* ADD PARSING LINE FUNCTION HERE */
+		/* THE RESULT MUST TO BE PUT IN g_data.cmds */
+		/* THE STR GIVEN MUST TO BE FREED */
+		// ft_execute();
 		return ;
 	}
 }

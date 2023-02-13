@@ -6,11 +6,23 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:31:56 by efirmino          #+#    #+#             */
-/*   Updated: 2023/02/13 08:37:46 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/02/13 17:30:11 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../include/ms.h"
+
+static void	echo_ctl(int n)
+{
+	struct termios	term;
+
+	tcgetattr(0, &term);
+	if (n)
+		term.c_lflag |= ECHOCTL;
+	else
+		term.c_lflag &= ~ECHOCTL;
+	tcsetattr(0, TCSANOW, &term);
+}
 
 int	main(int argc, char **argv, char **envp)
 {

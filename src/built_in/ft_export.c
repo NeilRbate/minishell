@@ -1,16 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_export.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/09 11:01:22 by efirmino          #+#    #+#             */
-/*   Updated: 2023/02/13 12:50:02 by efirmino         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "../../include/minishell.h"
+#include "../../include/ms.h"
 
 static void	ft_export_no_args(void)
 {
@@ -20,7 +8,7 @@ static void	ft_export_no_args(void)
 	int		j;
 
 	i = 0;
-	env = data.minishell_env;
+	env = g_data.minishell_env;
 	while (env[i])
 	{
 		j = 0;
@@ -30,7 +18,7 @@ static void	ft_export_no_args(void)
 		printf("declare -x %s%c%s%c\n", key, '"', env[i] + j + 1, '"');
 		i++;
 	}
-	data.status_code = 0;
+	g_data.status_code = 0;
 }
 
 int	ft_env_key_exist(char *key)
@@ -38,7 +26,7 @@ int	ft_env_key_exist(char *key)
 	char	**env;
 	int		i;
 
-	env = data.minishell_env;
+	env = g_data.minishell_env;
 	i = 0;
 	while (env[i])
 	{
@@ -60,7 +48,7 @@ void	ft_check_n_add(char *key, char *value)
 	{
 		if (ft_isalnum(ckey[i]) == 0 && ckey[i] != '_')
 		{
-			data.status_code = 1;
+			g_data.status_code = 1;
 			ft_putendl_fd("---\nEXPORT FAIL\n---", 2);
 			free(ckey);
 			return ;
@@ -77,7 +65,7 @@ void	ft_check_n_add(char *key, char *value)
 		ft_add_env_element(ckey, value);
 	}
 	free(ckey);
-	data.status_code = 0;
+	g_data.status_code = 0;
 }
 
 void	ft_export_var(char **var_lst)

@@ -6,11 +6,11 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 07:44:12 by efirmino          #+#    #+#             */
-/*   Updated: 2023/02/13 11:27:49 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/02/13 17:42:13 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../include/ms.h"
 
 static void	ft_update_shlvl(void)
 {
@@ -20,7 +20,7 @@ static void	ft_update_shlvl(void)
 	int		i;
 
 	i = 0;
-	env = data.minishell_env;
+	env = g_data.minishell_env;
 	while (env[i])
 	{
 		if (!ft_strncmp("SHLVL=", env[i], 6))
@@ -44,7 +44,7 @@ void	ft_add_env_element(char *key, char *value)
 	char	**new_env;
 	char	*tmp;
 
-	env = data.minishell_env;
+	env = g_data.minishell_env;
 	tmp = 0;
 	i = 0;
 	while (env[i])
@@ -56,12 +56,12 @@ void	ft_add_env_element(char *key, char *value)
 		new_env[i] = ft_strdup(env[i]);
 		i++;
 	}
-	ft_freesplit(env);
+	ft_free_split(env);
 	tmp = ft_strjoin(key, "=");
 	new_env[i++] = ft_strjoin(tmp, value);
 	free(tmp);
 	new_env[i] = 0;
-	data.minishell_env = new_env;
+	g_data.minishell_env = new_env;
 }
 
 void	ft_del_env_element(char *key)
@@ -71,7 +71,7 @@ void	ft_del_env_element(char *key)
 	int		j;
 	char	**new_env;
 
-	env = data.minishell_env;
+	env = g_data.minishell_env;
 	i = 0;
 	while (env[i])
 		i++;
@@ -88,8 +88,8 @@ void	ft_del_env_element(char *key)
 		}
 	}
 	new_env[j] = 0;
-	ft_freesplit(env);
-	data.minishell_env = new_env;
+	ft_free_split(env);
+	g_data.minishell_env = new_env;
 }
 
 static void	ft_get_path(void)
@@ -100,7 +100,7 @@ static void	ft_get_path(void)
 
 	i = 0;
 	paths = 0;
-	env = data.minishell_env;
+	env = g_data.minishell_env;
 	while (env[i])
 	{
 		if (!ft_strncmp("PATH=", env[i], 5))
@@ -110,7 +110,7 @@ static void	ft_get_path(void)
 		}
 		i++;
 	}
-	data.cmd_path = paths;
+	g_data.cmd_path = paths;
 }
 
 void	ft_get_env(char **envp)
@@ -129,7 +129,7 @@ void	ft_get_env(char **envp)
 		i++;
 	}
 	new_env[i] = 0;
-	data.minishell_env = new_env;
+	g_data.minishell_env = new_env;
 	ft_update_shlvl();
 	ft_get_path();
 }
