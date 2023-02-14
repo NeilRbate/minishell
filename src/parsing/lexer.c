@@ -8,7 +8,7 @@ int	ft_deftype(char c, char d, int *i)
 		return ((*i += 1), 2);
 	else if (c == '|')
 		return ((*i += 1), 3);
-	else if (c == '|')
+	else if (c == 92)
 		return ((*i += 1), 4);
 	else if (c == '\t' || c == 32)
 		return ((*i += 1), 5);

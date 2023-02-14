@@ -33,13 +33,57 @@ t_cmd	*temp_pars(char *str)
 }
 /* Fonction temporaire au dessus ||*/
 
+t_id	*ft_clean_id(t_id *id)
+{
+	t_id	*stock;
+
+	while (id->type != 0 && id != NULL)
+	{
+		stock = id;
+		id = id->next;
+		ft_del_idelem(stock);
+	}
+	stock = id;
+	if (stock == NULL || stock->next == NULL)
+		return (stock);
+	while (id != NULL)
+	{
+		if (id->type == 0 || id->type == 3)
+			id = id->next;
+		else
+		{
+			if (id->next != NULL)
+			{
+				id = id->next;
+				ft_del_idelem(id->prev);
+			}
+			else
+			{
+				if (id->type != 0)
+				{
+					id->prev->next = NULL;
+					ft_del_idelem(id);
+				}
+				id = NULL;
+			}
+		}
+	}
+	return (stock);
+}
+
 t_cmd	*ft_parsing(char *str)
 {
 	t_id	*lex;
 	t_cmd	*cmd;
 
+	if (str[0] == '\0')
+		return (ft_putendl_fd("error: invalid syntax", 2), NULL);
 	lex = ft_lexical_analyse(str);
-	cmd = ft_syntax_analyse(lex);
+	if (!lex)
+		return (NULL);
+	if (ft_syntax_analyse(lex) != 0)
+		return (NULL);
+	lex = ft_clean_id(lex);
 	cmd = temp_pars(str);
 	ft_print_lex(lex);
 	return (cmd);

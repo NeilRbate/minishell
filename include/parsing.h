@@ -49,6 +49,7 @@ int		ft_add_idelem(t_id *list, int type, int index, char *data);
 int		ft_idlist_size(t_id *list);
 int		ft_del_oneid(t_id *id);
 void	ft_del_idlist(t_id *list);
+void	ft_del_idelem(t_id *id);
 void	ft_print_lex(t_id *lex);
 
 /* ---- parsing parts ---- */
@@ -56,5 +57,5 @@ t_cmd	*ft_parsing(char *str);
 void	ft_freesplit(char **split);
 /* ---- lexic parts ---- */
 t_id	*ft_lexical_analyse(char *str);
-t_cmd	*ft_syntax_analyse(t_id *lex);
+int		ft_syntax_analyse(t_id *lex);
 #endif

@@ -57,3 +57,23 @@ int	ft_add_idelem(t_id *list, int type, int index, char *data)
 	list->next = new;
 	return (0);
 }
+
+void	ft_del_idelem(t_id *id)
+{
+	t_id	*next;
+	t_id	*prev;
+
+	if(ft_idlist_size(id) == 1)
+		ft_del_idlist(id);
+	else
+	{
+		next = id->next;
+		prev = id->prev;
+		free(id->data);
+		free(id);
+		if (next)
+			next->prev = prev;
+		if (prev)
+			prev->next = next;
+	}
+}
