@@ -1,5 +1,33 @@
 #include "../../include/parsing.h"
 
+/*int	ft_join_cmd(t_id *id)
+{
+	t_id	*stock;
+	char	*d_stock;
+	char	*temp;
+
+	stock = id;
+	while (id != NULL)
+	{
+		if ((id->type == 1 || id ->type == 2) && id->next->type == 0 && id)
+		{
+			id = id->next;
+			d_stock = id->data;
+			while (id->next->type == 0)
+			{
+				id = id->next;
+				temp = ft_strjoin(d_stock, id->data);
+				free(d_stock);
+				d_stock = temp;
+				//ft_del_oneid(id);
+			}
+		}
+		else
+			id = id->next;
+	}
+	return (0);
+}*/
+
 int	ft_quotectrl(t_id *id, int type)
 {
 	if (id->next == NULL)
@@ -12,6 +40,7 @@ int	ft_quotectrl(t_id *id, int type)
 		if (id->type == 11 && type == 2 && id->next->type == 0)
 		{
 			ft_putendl_fd("INTERPRETER LE $$$",2);
+			id->type = 0;
 			id = id->next;
 		}
 		else
@@ -63,7 +92,6 @@ int	ft_idctrl(t_id *id)
 		}
 		else
 			id = id->next;
-			ft_putendl_fd("\ncoucou\n", 2);
 	}
 	return (0);
 }
