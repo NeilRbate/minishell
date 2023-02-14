@@ -1,32 +1,22 @@
 #include "../../include/parsing.h"
 
-/*int	ft_join_cmd(t_id *id)
+int	ft_join_cmd(t_id *id)
 {
 	t_id	*stock;
-	char	*d_stock;
-	char	*temp;
 
+	stock = id;
+	while ((id->type != 1 || id->type != 2) && id != NULL)
+		id = id->next;
+	if (id == NULL)
+		return (0);
+	id = id->next;
 	stock = id;
 	while (id != NULL)
 	{
-		if ((id->type == 1 || id ->type == 2) && id->next->type == 0 && id)
-		{
-			id = id->next;
-			d_stock = id->data;
-			while (id->next->type == 0)
-			{
-				id = id->next;
-				temp = ft_strjoin(d_stock, id->data);
-				free(d_stock);
-				d_stock = temp;
-				//ft_del_oneid(id);
-			}
-		}
-		else
-			id = id->next;
+		//join
 	}
 	return (0);
-}*/
+}
 
 int	ft_quotectrl(t_id *id, int type)
 {
@@ -102,5 +92,6 @@ int	ft_syntax_analyse(t_id *lex)
 		return (-1);
 	if (ft_endctrl(lex) != 0)
 		return (-1);
+	ft_join_cmd(lex);
 	return (0);
 }
