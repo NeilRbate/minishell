@@ -2,22 +2,13 @@
 
 void	ft_env(void)
 {
-	pid_t	child;
-	int		i;
-	char	**env;
+	t_env	*current;
 
-	child = fork();
-	if (child == 0)
+	current = g_data.minishell_env;
+	while (current)
 	{
-		env = g_data.minishell_env;
-		i = 0;
-		while (env[i])
-		{
-			printf("%s\n", env[i]);
-			i++;
-		}
-		g_data.status_code = 0;
-		exit(0);
+		printf("%s=%s\n", current->key, current->value);
+		current = current->next;
 	}
-	waitpid(child, 0, 0);
+	g_data.status_code = 0;
 }

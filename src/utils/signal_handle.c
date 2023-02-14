@@ -6,24 +6,28 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 11:08:56 by efirmino          #+#    #+#             */
-/*   Updated: 2023/02/13 17:42:13 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/02/14 15:14:20 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ms.h"
 
-// static void	ft_execute(void)
-// {
-// 	t_cmd	*command;
+static void	ft_execute(void)
+{
+	t_cmd	*command;
 
-// 	command = g_data.cmds;
-// 	if (command->type == BASIC)
-// 		ft_do_basic_cmd(command);
-// 	else if (command->type == BUILT_IN)
-// 		ft_do_built_in_cmd(command);
-// 	// else if (command->type == PIPE)
-// 	// 	ft_do_pipe_cmd(command);
-// }
+	command = g_data.cmds;
+	if (command->type == BUILT_IN)
+		ft_do_built_in_cmd(command);
+	else if (command->type == BASIC)
+	{
+		ft_set_env_for_exec();
+		ft_do_basic_cmd(command);
+		ft_free_split(g_data.exec_env);
+	}
+	// else if (command->type == PIPE)
+	// 	ft_do_pipe_cmd(command);
+}
 
 void	ft_new_command(void)
 {
@@ -47,7 +51,14 @@ void	ft_new_command(void)
 		/* ADD PARSING LINE FUNCTION HERE */
 		/* THE RESULT MUST TO BE PUT IN g_data.cmds */
 		/* THE STR GIVEN MUST TO BE FREED */
-		// ft_execute();
+		t_cmd	*test = malloc(sizeof(t_cmd));
+		test->cmd = ft_split(str, ' ');
+		test->type = BASIC;
+		g_data.cmds = test;
+		ft_execute();
+		free(str);
+		ft_free_split(test->cmd);
+		free(test);
 		return ;
 	}
 }

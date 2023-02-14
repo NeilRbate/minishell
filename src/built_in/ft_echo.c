@@ -14,9 +14,10 @@ static int	ft_is_option(char *str, int *option)
 		{
 			if (str[i] != 'n')
 				return (0);
+			else
+				*option += 1;
 			i++;
 		}
-		*option += 1;
 		return (1);
 	}
 }

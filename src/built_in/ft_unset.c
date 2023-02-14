@@ -1,56 +1,63 @@
 #include "../../include/ms.h"
 
-static int	ft_check_key(char *str)
+static void	ft_export_error_message(char *key)
 {
-	int	i;
+	char	*tmp;
+	char	*tmpp;
 
+	tmp = ft_strjoin("minishell: unset: `", key);
+	tmpp = ft_strjoin(tmp, "': not a valid identifier");
+	free(tmp);
+	ft_putendl_fd(tmpp, 2);
+	free(tmpp);
+	g_data.status_code = 1;
+}
+
+static int	ft_unset_valid_key(char *key)
+{
+	int		i;
+	char	*str;
+
+	str = key;
 	i = 0;
 	while (str[i])
 	{
 		if (!ft_isalnum(str[i]) && str[i] != '_')
+		{
+			ft_export_error_message(str);
+			g_data.status_code = 1;
 			return (0);
+		}
 		i++;
 	}
 	return (1);
 }
 
-void	ft_error_unset(char *str)
+static void	ft_unset_args(char **to_unset)
 {
-	char	*err;
-	char	*tmp;
+	char	**list;
+	int		i;
 
-	err = ft_strjoin("minishell: unset: '", str);
-	tmp = ft_strjoin(err, "': not a valid identifier");
-	ft_putendl_fd(tmp, 2);
-	free(err);
-	free(tmp);
+	i = 0;
+	list = to_unset;
+	while (list[i])
+	{
+		if (ft_unset_valid_key(list[i]) && ft_env_key_exist(list[i]))
+		{
+			ft_env_del(list[i]);
+			g_data.status_code = 0;
+		}
+		i++;
+	}
 }
 
 void	ft_unset(t_cmd *command)
 {
-	pid_t	child;
-	char	**keys;
-	char	*key;
-	int		i;
+	char	**unset;
 
-	child = fork();
-	if (child == 0)
-	{
-		keys = command->cmd;
-		i = 0;
-		while (keys[++i])
-		{
-			key = ft_strjoin(keys[i], "=");
-			if (ft_check_key(keys[i]) == 0)
-			{
-				if (ft_env_key_exist(keys[i]))
-					ft_del_env_element(keys[i]);
-			}
-			else
-				ft_error_unset(keys[i]);
-			free(key);
-		}
-		exit(0);
-	}
-	waitpid(child, 0, 0);
+	unset = command->cmd;
+	if (!unset[1])
+		return ;
+	else
+		ft_unset_args(unset + 1);
 }

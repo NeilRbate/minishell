@@ -9,6 +9,7 @@ SRCS_EXEC       =		src/main.c \
 							src/built_in/ft_pwd.c \
 							src/built_in/ft_unset.c \
 								src/utils/env.c \
+								src/utils/env2.c \
 								src/utils/free.c \
 								src/utils/signal_handle.c \
 

@@ -1,53 +1,53 @@
-// #include "../include/ms.h"
+#include "../include/ms.h"
 
-// static char	*ft_strtrijoin(char const *s1, char const *s2, char const *s3)
-// {
-// 	int		i;
-// 	int		j;
-// 	char	*str;
-// 	int		len;
+static char	*ft_strtrijoin(char const *s1, char const *s2, char const *s3)
+{
+	int		i;
+	int		j;
+	char	*str;
+	int		len;
 
-// 	i = 0;
-// 	j = 0;
-// 	if (!(s1) || !(s2))
-// 		return (0);
-// 	len = ft_strlen(s1) + ft_strlen(s2) + ft_strlen(s3);
-// 	str = malloc(sizeof(char) * len + 1);
-// 	if (!(str))
-// 		return (0);
-// 	while (s1[i])
-// 			str[j++] = s1[i++];
-// 	i = 0;
-// 	while (s2[i])
-// 			str[j++] = s2[i++];
-// 	i = 0;
-// 	while (s3[i])
-// 			str[j++] = s3[i++];
-// 	str[j] = '\0';
-// 	return (str);
-// }
+	i = 0;
+	j = 0;
+	if (!(s1) || !(s2))
+		return (0);
+	len = ft_strlen(s1) + ft_strlen(s2) + ft_strlen(s3);
+	str = malloc(sizeof(char) * len + 1);
+	if (!(str))
+		return (0);
+	while (s1[i])
+			str[j++] = s1[i++];
+	i = 0;
+	while (s2[i])
+			str[j++] = s2[i++];
+	i = 0;
+	while (s3[i])
+			str[j++] = s3[i++];
+	str[j] = '\0';
+	return (str);
+}
 
-// void	ft_do_basic(t_cmd *cmd)
-// {
-// 	t_cmd	*cmd;
-// 	pid_t	child;
-// 	int		i;
-// 	char	*command;
+void	ft_do_basic_cmd(t_cmd *cmd)
+{
+	pid_t	child;
+	int		i;
+	char	*command;
 
-// 	i = 0;
-// 	child = fork();
-// 	if (child == 0)
-// 	{
-// 		while (g_data.cmd_path[i])
-// 		{
-// 			command = ft_strtrijoin(g_data.cmd_path[i], "/", cmd->cmd[0]);
-// 			if (access(command, F_OK) == 0)
-// 				if (execve(command, cmd->cmd, g_data.minishell_env) == -1)
-// 					ft_cmd_error(cmd->cmd[0]);
-// 			free(command);
-// 			i++;
-// 		}
-// 		ft_cmd_error(cmd->cmd[0]);
-// 	}
-// 	waitpid(child, 0, 0);
-// }
+	i = 0;
+	child = fork();
+	if (child == 0)
+	{
+		while (g_data.cmd_path[i])
+		{
+			command = ft_strtrijoin(g_data.cmd_path[i], "/", cmd->cmd[0]);
+			if (access(command, F_OK) == 0)
+				if (execve(command, cmd->cmd, g_data.exec_env) == -1)
+					//cmd error
+			free(command);
+			i++;
+		}
+		exit(0);
+		//cmd error
+	}
+	waitpid(child, 0, 0);
+}

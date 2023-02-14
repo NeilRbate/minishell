@@ -14,4 +14,22 @@ void	ft_free_split(char **tab)
 	}
 	free(tmp[i]);
 	free(tmp);
+	tmp = 0;
+}
+
+void	ft_free_t_env(void)
+{
+	t_env	*current;
+	t_env	*tmp;
+
+	current = g_data.minishell_env;
+	while (current)
+	{
+		tmp = current->next;
+		free(current->key);
+		free(current->value);
+		free(current);
+		current = tmp;
+	}
+	g_data.minishell_env = 0;
 }

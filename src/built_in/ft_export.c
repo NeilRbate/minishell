@@ -2,90 +2,72 @@
 
 static void	ft_export_no_args(void)
 {
-	char	**env;
-	int		i;
-	char	*key;
-	int		j;
+	t_env	*current;
 
-	i = 0;
-	env = g_data.minishell_env;
-	while (env[i])
+	current = g_data.minishell_env;
+	while (current)
 	{
-		j = 0;
-		while (env[i][j] != '=')
-			j++;
-		key = ft_substr(env[i], 0, j + 1);
-		printf("declare -x %s%c%s%c\n", key, '"', env[i] + j + 1, '"');
-		i++;
+		printf("declare -x %s=%c%s%c\n", current->key, '"', current->value, '"');
+		current = current->next;
 	}
 	g_data.status_code = 0;
 }
 
-int	ft_env_key_exist(char *key)
+static void	ft_export_error_message(char *keyval)
 {
-	char	**env;
-	int		i;
+	char	*tmp;
+	char	*tmpp;
 
-	env = g_data.minishell_env;
-	i = 0;
-	while (env[i])
-	{
-		if (!ft_strncmp(key, env[i], ft_strlen(key)))
-			return (1);
-		i++;
-	}
-	return (0);
+	tmp = ft_strjoin("minishell: export: `", keyval);
+	tmpp = ft_strjoin(tmp, "': not a valid identifier");
+	free(tmp);
+	ft_putendl_fd(tmpp, 2);
+	free(tmpp);
+	g_data.status_code = 1;
 }
 
-void	ft_check_n_add(char *key, char *value)
+static int	ft_export_valid_key(char *key, char	*keyval)
 {
-	char	*ckey;
 	int		i;
+	char	*str;
 
-	ckey = ft_substr(key, 0, ft_strlen(key) - 1);
+	str = key;
 	i = 0;
-	while (ckey[i])
+	while (str[i])
 	{
-		if (ft_isalnum(ckey[i]) == 0 && ckey[i] != '_')
+		if (!ft_isalnum(str[i]) && str[i] != '_')
 		{
+			ft_export_error_message(keyval);
 			g_data.status_code = 1;
-			ft_putendl_fd("---\nEXPORT FAIL\n---", 2);
-			free(ckey);
-			return ;
+			return (0);
 		}
 		i++;
 	}
-	if (ft_env_key_exist(key))
-	{
-		ft_del_env_element(key);
-		ft_add_env_element(ckey, value);
-	}
-	else
-	{
-		ft_add_env_element(ckey, value);
-	}
-	free(ckey);
-	g_data.status_code = 0;
+	return (1);
 }
 
-void	ft_export_var(char **var_lst)
+static void	ft_export_args(char **to_export)
 {
+	char	**list;
 	int		i;
-	int		j;
 	char	*key;
 	char	*value;
-	char	**lst;
+	int		j;
 
-	lst = var_lst;
-	i = 1;
-	while (lst[i])
+	i = 0;
+	list = to_export;
+	while (list[i])
 	{
 		j = 0;
-		while (lst[i][j] != '=')
+		while (list[i][j] && list[i][j] != '=')
 			j++;
-		key = ft_substr(lst[i], 0, j + 1);
-		value = ft_strdup(lst[i] + j + 1);
-		ft_check_n_add(key, value);
+		key = ft_substr(list[i], 0, j);
+		value = ft_strdup(list[i] + j + 1);
+		if (ft_export_valid_key(key, list[i]))
+		{
+			ft_env_add(key, value);
+			g_data.status_code = 0;
+		}
 		free(key);
 		free(value);
 		i++;
@@ -94,20 +76,11 @@ void	ft_export_var(char **var_lst)
 
 void	ft_export(t_cmd *command)
 {
-	pid_t	child;
-	char	**cmd;
+	char	**export;
 
-	child = fork();
-	if (child == 0)
-	{
-		cmd = command->cmd;
-		if (cmd[1])
-			ft_export_var(cmd);
-		else
-		{
-			ft_export_no_args();
-		}
-		exit(0);
-	}
-	waitpid(child, 0, 0);
+	export = command->cmd;
+	if (!export[1])
+		ft_export_no_args();
+	else
+		ft_export_args(export + 1);
 }
