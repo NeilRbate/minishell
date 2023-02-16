@@ -32,6 +32,45 @@ t_cmd	*temp_pars(char *str)
 	return (ret);
 }
 /* Fonction temporaire au dessus ||*/
+#include <stdio.h>
+t_cmd	*ft_cmdlist(t_id *id)
+{
+	t_id	*stock;
+	t_cmd	*ret;
+	char	**cmd;
+	int	i;
+
+	ret = NULL;
+	while (id != NULL)
+	{
+		i = 0;
+		while (id->type != 3 && id->next != NULL)
+		{
+			i++;
+			id = id->next;
+		}
+		cmd = malloc(sizeof(char) * i + 1);
+		if (!cmd)
+			return (ft_putendl_fd("error: malloc fail", 2), NULL);
+		cmd[i] = NULL;
+		if (id->type == 3)
+			stock = id->prev;
+		else
+			stock = id;
+		while (i > 0)
+		{
+			i--;
+			cmd[i] = ft_strdup(stock->data);
+			stock = stock->prev;
+		}
+		if (ret == NULL)
+			ret = ft_create_cmdlist(cmd, NULL);
+		else
+			ft_add_cmdelem(ret, cmd, NULL);
+		id = id->next;
+	}
+	return (ret);
+}
 
 t_id	*ft_clean_id(t_id *id)
 {
@@ -85,6 +124,11 @@ t_cmd	*ft_parsing(char *str)
 		return (NULL);
 	lex = ft_clean_id(lex);
 	cmd = temp_pars(str);
-	ft_print_lex(lex);
+//	ft_print_lex(lex);
+	cmd = ft_cmdlist(lex);
+	ft_print_cmdlist(cmd);
+
+	ft_del_idlist(lex);
+	ft_del_cmdlist(cmd);
 	return (cmd);
 }

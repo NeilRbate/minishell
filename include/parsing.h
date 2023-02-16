@@ -5,6 +5,8 @@
 # include <unistd.h>
 /* For malloc */
 # include <stdlib.h>
+# include <stdio.h>
+
 /* ID_TYPE
  *
  * 0  ->  CHAR
