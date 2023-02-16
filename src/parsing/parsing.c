@@ -1,40 +1,8 @@
 #include "../../include/parsing.h"
 
-t_cmd	*ft_split_args(char **args)
-{
-	t_cmd	*ret;
-	char	**split;
-	int		i;
-
-	i = 1;
-	ret = ft_create_cmdlist(ft_split(args[0], 32), NULL);
-	if (!ret)
-		return (NULL);
-	while (args[i])
-	{
-		split = ft_split(args[i], 32);
-		ft_add_cmdelem(ret, split, NULL);
-		i++;
-	}
-	return (ret);
-}
-
-t_cmd	*temp_pars(char *str)
-{
-	t_cmd	*ret;
-	char	**args;
-
-	if (ft_strchr(str, '|') == NULL)
-		return (ft_create_cmdlist(ft_split(str, 32), NULL));
-	args = ft_split(str, '|');
-	ret = ft_split_args(args);
-	ft_freesplit(args);
-	return (ret);
-}
-/* Fonction temporaire au dessus ||*/
-#include <stdio.h>
 t_cmd	*ft_cmdlist(t_id *id)
 {
+	//Cette fonction BUG, a FIX et c'est fini !!!
 	t_id	*stock;
 	t_cmd	*ret;
 	char	**cmd;
@@ -67,6 +35,8 @@ t_cmd	*ft_cmdlist(t_id *id)
 			ret = ft_create_cmdlist(cmd, NULL);
 		else
 			ft_add_cmdelem(ret, cmd, NULL);
+		if (id->next == NULL)
+			return (ret);
 		id = id->next;
 	}
 	return (ret);
@@ -121,14 +91,13 @@ t_cmd	*ft_parsing(char *str)
 	if (!lex)
 		return (NULL);
 	if (ft_syntax_analyse(lex) != 0)
-		return (NULL);
+		return (ft_del_idlist(lex), NULL);
 	lex = ft_clean_id(lex);
-	cmd = temp_pars(str);
-//	ft_print_lex(lex);
 	cmd = ft_cmdlist(lex);
-	ft_print_cmdlist(cmd);
-
+	if (!cmd)
+		return (ft_del_idlist(lex), NULL);
 	ft_del_idlist(lex);
-	ft_del_cmdlist(cmd);
+	ft_print_cmdlist(cmd);
+//	ft_del_cmdlist(cmd);
 	return (cmd);
 }
