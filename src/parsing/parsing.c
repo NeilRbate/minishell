@@ -31,9 +31,9 @@ t_cmd	*ft_cmdlist(t_id *id)
 			j++;
 		}
 		if (ret == NULL)
-			ret = ft_create_cmdlist(cmd, NULL);
+			ret = ft_create_cmdlist(cmd, 0);
 		else
-			ft_add_cmdelem(ret, cmd, NULL);
+			ft_add_cmdelem(ret, cmd, 0);
 		if (id->next == NULL)
 			return (ret);
 		else

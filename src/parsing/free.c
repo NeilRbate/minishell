@@ -23,8 +23,6 @@ void	ft_del_cmdlist(t_cmd *list)
 		stock = list->next;
 		if (list->cmd != NULL)
 			ft_freesplit(list->cmd);
-		if (list->type != NULL)
-			free(list->type);
 		free(list);
 		list = stock;
 	}

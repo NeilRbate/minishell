@@ -14,7 +14,7 @@ void	ft_print_cmdlist(t_cmd *list)
 			i++;
 		}
 		ft_putendl_fd("--Type--", 1);
-		ft_putendl_fd(list->type, 1);
+		ft_putnbr_fd(list->type, 1);
 		list = list->next;
 	}
 }
@@ -32,7 +32,7 @@ int	ft_cmdlist_size(t_cmd	*list)
 	return (i);
 }
 
-int	ft_add_cmdelem(t_cmd *list, char **cmd, char *type)
+int	ft_add_cmdelem(t_cmd *list, char **cmd, int type)
 {
 	t_cmd	*stock;
 
@@ -45,7 +45,7 @@ int	ft_add_cmdelem(t_cmd *list, char **cmd, char *type)
 	return (0);
 }
 
-t_cmd	*ft_create_cmdlist(char **cmd, char *type)
+t_cmd	*ft_create_cmdlist(char **cmd, int type)
 {
 	t_cmd	*list;
 
