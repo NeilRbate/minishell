@@ -2,34 +2,33 @@
 
 t_cmd	*ft_cmdlist(t_id *id)
 {
-	//Cette fonction BUG, a FIX et c'est fini !!!
-	t_id	*stock;
 	t_cmd	*ret;
+	t_id	*stock;
 	char	**cmd;
 	int	i;
+	int	j;
 
 	ret = NULL;
 	while (id != NULL)
 	{
-		i = 0;
-		while (id->type != 3 && id->next != NULL)
+		i = 1;
+		j = 0;
+		stock = id;
+		while (id->next != NULL && id->type != 3)
 		{
-			i++;
 			id = id->next;
+			i++;
 		}
-		cmd = malloc(sizeof(char) * i + 1);
+		cmd = malloc(sizeof(char *) * i + 1);
 		if (!cmd)
 			return (ft_putendl_fd("error: malloc fail", 2), NULL);
 		cmd[i] = NULL;
-		if (id->type == 3)
-			stock = id->prev;
-		else
-			stock = id;
-		while (i > 0)
+		while (j < i)
 		{
-			i--;
-			cmd[i] = ft_strdup(stock->data);
-			stock = stock->prev;
+			if (stock->type != 3)
+				cmd[j] = ft_strdup(stock->data);
+			stock = stock->next;
+			j++;
 		}
 		if (ret == NULL)
 			ret = ft_create_cmdlist(cmd, NULL);
@@ -37,7 +36,8 @@ t_cmd	*ft_cmdlist(t_id *id)
 			ft_add_cmdelem(ret, cmd, NULL);
 		if (id->next == NULL)
 			return (ret);
-		id = id->next;
+		else
+			id = stock;
 	}
 	return (ret);
 }
@@ -98,6 +98,6 @@ t_cmd	*ft_parsing(char *str)
 		return (ft_del_idlist(lex), NULL);
 	ft_del_idlist(lex);
 	ft_print_cmdlist(cmd);
-//	ft_del_cmdlist(cmd);
+	ft_del_cmdlist(cmd);
 	return (cmd);
 }
