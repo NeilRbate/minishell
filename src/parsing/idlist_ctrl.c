@@ -34,7 +34,7 @@ void	ft_catid(t_id *id, int type)
 	stock = id;
 	temp = id->data;
 	id = id->next;
-	while(id->type != type)
+	while (id->type != type)
 	{
 		if (id->type == 0)
 		{
@@ -46,7 +46,6 @@ void	ft_catid(t_id *id, int type)
 		}
 		else
 			id = id->next;
-
 	}
 	stock->data = temp;
 }
@@ -65,7 +64,7 @@ int	ft_quotectrl(t_id *id, int type)
 	{
 		if (id->type == 11 && type == 2 && id->next->type == 0)
 		{
-			ft_putendl_fd("INTERPRETER LE $$$",2);
+			ft_putendl_fd("INTERPRETER LE $$$", 2);
 			id->type = 0;
 			id = id->next;
 		}
@@ -81,9 +80,8 @@ int	ft_quotectrl(t_id *id, int type)
 				return (id->next->index);
 			return (id->index);
 		}
-
 	}
-		return (id->index);
+	return (id->index);
 }
 
 int	ft_idctrl(t_id *id)

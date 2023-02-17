@@ -33,9 +33,11 @@ typedef struct	s_cmd
 }				t_cmd;
 typedef struct	s_id
 {
-	int				type;
-	int				index;
-	char			*data;
+	int		type;
+	int		index;
+	int		infile;
+	int		outfile;
+	char		*data;
 	struct	s_id	*next;
 	struct	s_id	*prev;
 }				t_id;

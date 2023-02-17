@@ -32,11 +32,11 @@ int	ft_cmdlist_size(t_cmd	*list)
 	return (i);
 }
 
-int	ft_add_cmdelem(t_cmd *list, char **cmd, int type)
+int	ft_add_cmdelem(t_cmd *list, char **cmd, int infile, int outfile)
 {
 	t_cmd	*stock;
 
-	stock = ft_create_cmdlist(cmd, type);
+	stock = ft_create_cmdlist(cmd, infile, outfile);
 	if (!stock)
 		return (-1);
 	while (list->next != NULL)
@@ -45,7 +45,7 @@ int	ft_add_cmdelem(t_cmd *list, char **cmd, int type)
 	return (0);
 }
 
-t_cmd	*ft_create_cmdlist(char **cmd, int type)
+t_cmd	*ft_create_cmdlist(char **cmd, int type, int infile, int outfile)
 {
 	t_cmd	*list;
 
@@ -54,6 +54,8 @@ t_cmd	*ft_create_cmdlist(char **cmd, int type)
 		return (ft_putendl_fd("error: malloc fail", 2), NULL);
 	list->cmd = cmd;
 	list->type = type;
+	list->infile = infile;
+	list->outfile = outfile;
 	list->next = NULL;
 	return (list);
 }
