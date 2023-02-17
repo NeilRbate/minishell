@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 11:08:56 by efirmino          #+#    #+#             */
-/*   Updated: 2023/02/14 15:14:20 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/02/14 15:29:07 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ static void	ft_execute(void)
 		ft_do_basic_cmd(command);
 		ft_free_split(g_data.exec_env);
 	}
-	// else if (command->type == PIPE)
-	// 	ft_do_pipe_cmd(command);
+	else if (command->type == PIPE)
+		ft_do_pipe_cmd(command);
 }
 
 void	ft_new_command(void)
@@ -59,6 +59,7 @@ void	ft_new_command(void)
 		free(str);
 		ft_free_split(test->cmd);
 		free(test);
+		//
 		return ;
 	}
 }
