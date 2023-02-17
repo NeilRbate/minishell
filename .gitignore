@@ -4,4 +4,3 @@
 .vscode
 src/main.c
 libft/
-Makefile
