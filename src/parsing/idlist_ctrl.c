@@ -74,10 +74,12 @@ int	ft_quotectrl(t_id *id, int type)
 			id->type = 0;
 			id = id->next;
 		}
-		else if (id->type == type)
+		if (id->type == type)
 		{
 			ft_catid(stock, type);
-			return (id->next->index);
+			if (id->next != NULL)
+				return (id->next->index);
+			return (id->index);
 		}
 
 	}
