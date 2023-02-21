@@ -27,8 +27,8 @@ typedef struct	s_cmd
 {
 	char			**cmd;
 	int			type;
-	char			*infile;
-	char			*outfile;
+	char			infile;
+	char			outfile;
 	struct s_cmd	*next;
 }				t_cmd;
 typedef struct	s_id
@@ -42,8 +42,8 @@ typedef struct	s_id
 	struct	s_id	*prev;
 }				t_id;
 /* ---- t_cmd TOOLS ---- */
-t_cmd	*ft_create_cmdlist(char **cmd, int type);
-int		ft_add_cmdelem(t_cmd *list, char **cmd, int type);
+t_cmd	*ft_create_cmdlist(char **cmd, int type, int infile, int outfile);
+int		ft_add_cmdelem(t_cmd *list, char **cmd, int infile, int outfile);
 int		ft_cmdlist_size(t_cmd *list);
 void	ft_del_cmdlist(t_cmd *list);
 void	ft_print_cmdlist(t_cmd *list);

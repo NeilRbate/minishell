@@ -15,6 +15,7 @@ void	ft_print_cmdlist(t_cmd *list)
 		}
 		ft_putendl_fd("--Type--", 1);
 		ft_putnbr_fd(list->type, 1);
+		ft_putendl_fd("", 1);
 		list = list->next;
 	}
 }
@@ -36,7 +37,7 @@ int	ft_add_cmdelem(t_cmd *list, char **cmd, int infile, int outfile)
 {
 	t_cmd	*stock;
 
-	stock = ft_create_cmdlist(cmd, infile, outfile);
+	stock = ft_create_cmdlist(cmd, 0, infile, outfile);
 	if (!stock)
 		return (-1);
 	while (list->next != NULL)

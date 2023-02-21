@@ -32,9 +32,9 @@ FLAGS           =		-Wall -Wextra -Werror
 
 USER			=		$(shell whoami)
 
-HEADERS			=		-I/opt/homebrew/opt/readline/include -I include
+HEADERS			=		-I/Users/$(USER)/.brew/opt/readline/include -I include
 
-LIB_PATH		=		-L. libft/libft.a -lreadline -L/opt/homebrew/opt/readline/lib
+LIB_PATH		=		-L. libft/libft.a -lreadline -L/Users/$(USER)/.brew/opt/readline/lib
 
 NAME            =		minishell
 
