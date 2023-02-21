@@ -100,6 +100,6 @@ t_cmd	*ft_parsing(char *str)
 	if (!cmd)
 		return (ft_del_idlist(lex), NULL);
 	ft_del_idlist(lex);
-	// ft_print_cmdlist(cmd);
+	ft_isbuiltin(cmd);
 	return (cmd);
 }
