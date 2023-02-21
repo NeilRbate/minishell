@@ -18,7 +18,8 @@ SRCS_PARS		=			src/parsing/cmdlist_tools.c \
 							src/parsing/idlist_ctrl.c \
 							src/parsing/idlist_tools.c \
 							src/parsing/lexer.c \
-							src/parsing/parsing.c 
+							src/parsing/parsing.c \
+							src/parsing/is_bultin.c
 
 OBJS_EXEC       =		$(SRCS_EXEC:.c=.o) $(SRCS_PARS:.c=.o)
 

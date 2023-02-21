@@ -47,6 +47,7 @@ int		ft_add_cmdelem(t_cmd *list, char **cmd, int infile, int outfile);
 int		ft_cmdlist_size(t_cmd *list);
 void	ft_del_cmdlist(t_cmd *list);
 void	ft_print_cmdlist(t_cmd *list);
+void	ft_isbuiltin(t_cmd *id);
 /* ---- t_id TOOLS ---- */
 t_id	*ft_create_idlist(int type, int index, char *data);
 int		ft_add_idelem(t_id *list, int type, int index, char *data);
