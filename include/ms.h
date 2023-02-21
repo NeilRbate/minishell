@@ -10,19 +10,11 @@
 # include <signal.h>
 # include <termios.h>
 
+# include "parsing.h"
 # define PROMPT_MESS "minishell-1.0$ "
 
 # define BASIC 0
 # define BUILT_IN 1
-
-typedef struct s_cmd
-{
-	char			**cmd;
-	int				type;
-	int				infile;
-	int				outfile;
-	struct s_cmd	*next;
-}	t_cmd;
 
 typedef struct s_env
 {

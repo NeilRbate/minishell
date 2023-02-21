@@ -20,7 +20,7 @@ SRCS_PARS		=			src/parsing/cmdlist_tools.c \
 							src/parsing/lexer.c \
 							src/parsing/parsing.c 
 
-OBJS_EXEC       =		$(SRCS_EXEC:.c=.o)
+OBJS_EXEC       =		$(SRCS_EXEC:.c=.o) $(SRCS_PARS:.c=.o)
 
 RM              =		rm -f
 
