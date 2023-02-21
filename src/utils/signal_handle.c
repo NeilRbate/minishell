@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 11:08:56 by efirmino          #+#    #+#             */
-/*   Updated: 2023/02/14 15:29:07 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/02/21 10:01:10 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,12 @@ static void	ft_execute(void)
 		ft_do_basic_cmd(command);
 		ft_free_split(g_data.exec_env);
 	}
-	else if (command->type == PIPE)
-		ft_do_pipe_cmd(command);
+	// else if (command->type == PIPE)
+	// {
+	// 	ft_set_env_for_exec();
+	// 	ft_do_pipe_cmd(command);
+	// 	ft_free_split(g_data.exec_env);
+	// }
 }
 
 void	ft_new_command(void)
@@ -48,18 +52,10 @@ void	ft_new_command(void)
 	else
 	{
 		add_history(str);
-		/* ADD PARSING LINE FUNCTION HERE */
+		/* ADD PARSING LINE FUNCTION HERE */ 
 		/* THE RESULT MUST TO BE PUT IN g_data.cmds */
 		/* THE STR GIVEN MUST TO BE FREED */
-		t_cmd	*test = malloc(sizeof(t_cmd));
-		test->cmd = ft_split(str, ' ');
-		test->type = BASIC;
-		g_data.cmds = test;
-		ft_execute();
-		free(str);
-		ft_free_split(test->cmd);
-		free(test);
-		//
+		
 		return ;
 	}
 }

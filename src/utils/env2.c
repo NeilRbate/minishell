@@ -66,3 +66,21 @@ void	ft_set_env_for_exec(void)
 	new[i] = 0;
 	g_data.exec_env = new;
 }
+
+char	*ft_get_env_value(char *key)
+{
+	char	*value;
+	t_env	*current;
+
+	current = g_data.minishell_env;
+	while (current)
+	{
+		if (!ft_strncmp(current->key, key, ft_strlen(key) + 1))
+		{
+			value = ft_strdup(current->value);
+			return (value);
+		}
+		current = current->next;
+	}
+	return (NULL);
+}

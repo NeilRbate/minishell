@@ -39,14 +39,14 @@ void	ft_echo(t_cmd *cmdd)
 			i++;
 		while (cmd[i])
 		{
-			printf("%s", cmd[i]);
+			ft_putstr_fd(cmd[i], cmdd->outfile);
 			if (cmd[i + 1])
-				printf(" ");
+				ft_putstr_fd(" ", cmdd->outfile);
 			i++;
 		}
 		if (option == 0)
-			printf("\n");
+			ft_putchar_fd('\n', cmdd->outfile);
 		exit(0);
 	}
-	waitpid(child, 0, 0);
+	waitpid(child, g_data.status_code, 0);
 }

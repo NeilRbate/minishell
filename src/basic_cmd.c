@@ -42,12 +42,14 @@ void	ft_do_basic_cmd(t_cmd *cmd)
 			command = ft_strtrijoin(g_data.cmd_path[i], "/", cmd->cmd[0]);
 			if (access(command, F_OK) == 0)
 				if (execve(command, cmd->cmd, g_data.exec_env) == -1)
-					//cmd error
+					perror("minishell: ");
+					//error code
 			free(command);
 			i++;
 		}
 		exit(0);
-		//cmd error
+		perror("minishell: ");
+		//error code
 	}
-	waitpid(child, 0, 0);
+	waitpid(child, g_data.status_code, 0);
 }

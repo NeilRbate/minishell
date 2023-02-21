@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 07:44:12 by efirmino          #+#    #+#             */
-/*   Updated: 2023/02/14 13:09:24 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/02/21 09:36:56 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	ft_env_setup(char **envp)
 		i++;
 	}
 	ft_update_shlvl();
+	g_data.status_code = malloc(sizeof(int));
 }
 
 void	ft_env_add(char *key, char *value)
@@ -80,7 +81,10 @@ void	ft_env_add(char *key, char *value)
 	new = malloc(sizeof(t_env));
 	new->next = 0;
 	new->key = ft_strdup(key);
-	new->value = ft_strdup(value);
+	if (value)
+		new->value = ft_strdup(value);
+	else
+		new->value = 0;
 	if (ft_env_key_exist(key))
 	{
 		free(new->key);

@@ -1,6 +1,6 @@
 #include "../../include/ms.h"
 
-void	ft_pwd(void)
+void	ft_pwd(t_cmd *command)
 {
 	pid_t	child;
 	t_env	*current;
@@ -13,7 +13,7 @@ void	ft_pwd(void)
 		{
 			if (!ft_strncmp(current->key, "PWD", 4))
 			{
-				printf("%s\n", current->value);
+				ft_putendl_fd(current->value, command->outfile);
 			}
 			current = current->next;
 		}

@@ -8,10 +8,17 @@ SRCS_EXEC       =		src/main.c \
 							src/built_in/ft_export.c \
 							src/built_in/ft_pwd.c \
 							src/built_in/ft_unset.c \
-								src/utils/env.c \
-								src/utils/env2.c \
-								src/utils/free.c \
-								src/utils/signal_handle.c \
+									src/utils/env.c \
+									src/utils/env2.c \
+									src/utils/free.c \
+									src/utils/signal_handle.c \
+
+SRCS_PARS		=			src/parsing/cmdlist_tools.c \
+							src/parsing/free.c \
+							src/parsing/idlist_ctrl.c \
+							src/parsing/idlist_tools.c \
+							src/parsing/lexer.c \
+							src/parsing/parsing.c 
 
 OBJS_EXEC       =		$(SRCS_EXEC:.c=.o)
 

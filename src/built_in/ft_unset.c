@@ -10,7 +10,7 @@ static void	ft_export_error_message(char *key)
 	free(tmp);
 	ft_putendl_fd(tmpp, 2);
 	free(tmpp);
-	g_data.status_code = 1;
+	*g_data.status_code = 1;
 }
 
 static int	ft_unset_valid_key(char *key)
@@ -25,7 +25,7 @@ static int	ft_unset_valid_key(char *key)
 		if (!ft_isalnum(str[i]) && str[i] != '_')
 		{
 			ft_export_error_message(str);
-			g_data.status_code = 1;
+			*g_data.status_code = 1;
 			return (0);
 		}
 		i++;
@@ -45,7 +45,7 @@ static void	ft_unset_args(char **to_unset)
 		if (ft_unset_valid_key(list[i]) && ft_env_key_exist(list[i]))
 		{
 			ft_env_del(list[i]);
-			g_data.status_code = 0;
+			*g_data.status_code = 0;
 		}
 		i++;
 	}
