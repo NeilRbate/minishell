@@ -11,7 +11,7 @@
 # include <termios.h>
 
 # include "parsing.h"
-# define PROMPT_MESS "minishell-1.0$ "
+# define PROMPT_MESS "minishell-1.1$ "
 
 # define BASIC 0
 # define BUILT_IN 1
