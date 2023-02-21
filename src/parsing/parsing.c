@@ -17,9 +17,10 @@ t_cmd	*ft_cmdlist(t_id *id)
 		while (id->next != NULL && id->type != 3)
 		{
 			id = id->next;
-			i++;
+			if (id->type != 3)
+				i++;
 		}
-		cmd = malloc(sizeof(char *) * i + 1);
+		cmd = malloc(sizeof(cmd) * (i + 1));
 		if (!cmd)
 			return (ft_putendl_fd("error: malloc fail", 2), NULL);
 		cmd[i] = NULL;
@@ -38,6 +39,8 @@ t_cmd	*ft_cmdlist(t_id *id)
 			return (ret);
 		else
 			id = stock;
+		if (id->type == 3)
+			id = id->next;
 	}
 	return (ret);
 }
