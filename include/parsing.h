@@ -1,6 +1,7 @@
 #ifndef PARSING_H
 # define PARSING_H
 # include "../libft/libft.h"
+
 /* For write and other else */
 # include <unistd.h>
 /* For malloc */
@@ -48,8 +49,10 @@ int		ft_cmdlist_size(t_cmd *list);
 void	ft_del_cmdlist(t_cmd *list);
 void	ft_print_cmdlist(t_cmd *list);
 void	ft_isbuiltin(t_cmd *id);
+
 /* ---- t_id TOOLS ---- */
 t_id	*ft_create_idlist(int type, int index, char *data);
+void	ft_doll(t_id *id);
 int		ft_add_idelem(t_id *list, int type, int index, char *data);
 int		ft_idlist_size(t_id *list);
 int		ft_del_oneid(t_id *id);

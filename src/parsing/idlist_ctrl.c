@@ -64,9 +64,8 @@ int	ft_quotectrl(t_id *id, int type)
 	{
 		if (id->type == 11 && type == 2 && id->next->type == 0)
 		{
-			ft_putendl_fd("INTERPRETER LE $$$", 2);
-			id->type = 0;
 			id = id->next;
+			ft_doll(id);
 		}
 		else if (id->type != type)
 		{
