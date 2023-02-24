@@ -1,4 +1,5 @@
 *.o
+include/ms.h
 .DS_Store
 *.swp
 .vscode
