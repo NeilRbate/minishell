@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   idlist_tools.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/24 09:15:29 by jbarbate          #+#    #+#             */
+/*   Updated: 2023/02/24 09:15:53 by jbarbate         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/parsing.h"
 
 void	ft_print_lex(t_id *lex)
@@ -63,7 +75,7 @@ void	ft_del_idelem(t_id *id)
 	t_id	*next;
 	t_id	*prev;
 
-	if(ft_idlist_size(id) == 1)
+	if (ft_idlist_size(id) == 1)
 		ft_del_idlist(id);
 	else
 	{
