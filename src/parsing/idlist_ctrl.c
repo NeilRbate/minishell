@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:12:41 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/02/24 09:15:24 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/02/24 09:20:44 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,14 +130,14 @@ int	ft_idctrl(t_id *id)
 
 int	ft_syntax_analyse(t_id *lex)
 {
-	if (id->type == 3)
+	if (lex->type == 3)
 		return (ft_putendl_fd("error: invalid syntax 11", 2), -1);
-	if (id->type == 5 || id->type == 6)
-		while ((id->type == 5 || id->type == 6) && id->next != NULL)
-			id = id->next;
-	if (id->next == NULL && (id->type == 5 || id->type == 6))
+	if (lex->type == 5 || lex->type == 6)
+		while ((lex->type == 5 || lex->type == 6) && lex->next != NULL)
+			lex = lex->next;
+	if (lex->next == NULL && (lex->type == 5 || lex->type == 6))
 		return (ft_putendl_fd("error: invalid syntax 10", 2), -1);
-	if (id->type == 3)
+	if (lex->type == 3)
 		return (ft_putendl_fd("error: invalid syntax 3", 2), -1);
 	if (ft_idctrl(lex) != 0)
 		return (-1);
