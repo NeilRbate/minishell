@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:16:07 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/02/24 09:16:54 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/02/24 11:01:29 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ t_cmd	*ft_cmdlist(t_id *id)
 			j++;
 		}
 		if (ret == NULL)
-			ret = ft_create_cmdlist(cmd, 0, 0, 1);
+			ret = ft_create_cmdlist(cmd, 0, id->infile, id->outfile);
 		else
-			ft_add_cmdelem(ret, cmd, 0, 1);
+			ft_add_cmdelem(ret, cmd, id->infile, id->outfile);
 		if (id->next == NULL)
 			return (ret);
 		else
