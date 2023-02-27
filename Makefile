@@ -22,7 +22,8 @@ SRCS_PARS		=			src/parsing/cmdlist_tools.c \
 							src/parsing/is_bultin.c \
 							src/parsing/dollar.c \
 							src/parsing/redir.c \
-							src/parsing/file_gestion.c
+							src/parsing/file_gestion.c \
+							src/parsing/files_tools.c
 
 OBJS_EXEC       =		$(SRCS_EXEC:.c=.o) $(SRCS_PARS:.c=.o)
 

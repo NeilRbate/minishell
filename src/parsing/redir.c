@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:19:57 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/02/27 10:44:33 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/02/27 11:18:34 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	ft_lastredir(t_id *id, int type)
 	int	fd;
 
 	fd = ft_openredir (id->data, type);
+	id->type = 20;
 	if (fd < 0)
 		return (-1);
 	while (id->next != NULL && id->type != 3)
@@ -36,6 +37,7 @@ int	ft_lastredir(t_id *id, int type)
 				if (id->type == 0)
 				{
 					fd = ft_openredir(id->data, type);
+					id->type = 20;
 					if (id->next != NULL)
 						id = id->next;
 					ft_del_idelem(id->prev);
@@ -73,6 +75,7 @@ int	ft_redirctrl(t_id *id)
 	int		fd;
 
 	stock = id;
+	ft_print_lex(id);
 	while (id->next != NULL)
 	{
 		id = id->next;
