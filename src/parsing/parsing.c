@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:16:07 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/02/24 11:01:29 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/02/27 10:51:56 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,5 +113,6 @@ t_cmd	*ft_parsing(char *str)
 		return (ft_del_idlist(lex), NULL);
 	ft_del_idlist(lex);
 	ft_isbuiltin(cmd);
+	ft_print_cmdlist(cmd);
 	return (cmd);
 }

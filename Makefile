@@ -20,7 +20,9 @@ SRCS_PARS		=			src/parsing/cmdlist_tools.c \
 							src/parsing/lexer.c \
 							src/parsing/parsing.c \
 							src/parsing/is_bultin.c \
-							src/parsing/dollar.c
+							src/parsing/dollar.c \
+							src/parsing/redir.c \
+							src/parsing/file_gestion.c
 
 OBJS_EXEC       =		$(SRCS_EXEC:.c=.o) $(SRCS_PARS:.c=.o)
 
@@ -28,7 +30,7 @@ RM              =		rm -f
 
 CC              =		cc
 
-FLAGS           =		-Wall -Wextra -Werror
+FLAGS           =		 -Wall -Wextra -Werror
 
 USER			=		$(shell whoami)
 
