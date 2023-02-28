@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:19:57 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/02/28 09:41:42 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/02/28 14:39:30 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	ft_redir(t_id *id)
 	while (id->next != NULL && id->type != 0)
 	{
 		id = id->next;
-		if (id->type != 5 && id->type != 0 && (id->type >= 7 && id->type <= 10))
+		if (id->type != 5 && id->type != 0 && (id->type < 7 || id->type > 10))
 			return (ft_putendl_fd("error: invalid syntax", 2), -1);
 	}
 	fd = ft_lastredir(id, type);
@@ -84,14 +84,23 @@ int	ft_redirctrl(t_id *id)
 		id = id->next;
 		if (id->type == 0)
 			stock = id;
-		if (id->type >= 7 && id->type <= 10)
+		if (id->type == 10)
+		{
+			while (id->next != NULL && id->type != 0)
+				id = id->next;
+			if (id->type != 0)
+				return (-1);
+			ft_heredoc(id);
+		}
+
+		else if (id->type >= 7 && id->type < 10)
 		{
 			fd = ft_redir(id);
 			if (fd < 0)
 				return (-1);
 			if (id->type == 7 || id->type == 8)
 				stock->outfile = fd;
-			else if (id->type == 9 || id->type == 10)
+			else if (id->type == 9)
 				stock->infile = fd;
 		}
 	}

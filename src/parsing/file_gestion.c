@@ -6,13 +6,13 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:12:25 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/02/27 11:46:31 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/02/28 14:39:26 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/parsing.h"
 
-int	ft_heredoc(char *limiter)
+int	ft_heredoc(t_id *id)
 {
 	char	*str;
 	char	*line;
@@ -26,14 +26,17 @@ int	ft_heredoc(char *limiter)
 		line = get_next_line(0);
 		if (line == NULL)
 			break ;
-		if (ft_strnstr(line, limiter, ft_strlen(limiter))
-			&& ft_strlen(limiter) == (ft_strlen(line) - 1))
+		if (ft_strnstr(line, id->data, ft_strlen(id->data))
+			&& ft_strlen(id->data) == (ft_strlen(line) - 1))
 			break ;
 		str = ft_gstrjoin(str, line);
 		free(line);
 	}
 	close(0);
-	return (ft_writepipe(str));
+	free(id->data);
+	id->data = ft_strdup(str);
+	free(str);
+	return (0);
 }
 
 int	ft_openread(char *file)
@@ -74,7 +77,7 @@ int	ft_openwrited(char *file)
 	fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0666);
 	if (fd == -1)
 	{
-		ft_putstr_fd("pipex: ", 2);
+		ft_putstr_fd("minishell: ", 2);
 		perror(file);
 		return (-1);
 	}
@@ -95,7 +98,7 @@ int	ft_openwrite(char *file)
 	fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	if (fd == -1)
 	{
-		ft_putstr_fd("pipex: ", 2);
+		ft_putstr_fd("minishell: ", 2);
 		perror(file);
 		return (-1);
 	}
@@ -118,7 +121,7 @@ int	ft_openredir(char *file, int type, t_id *id)
 			if (id->type != 5 || id->type != 0)
 				return (ft_putendl_fd("error: invalid syntax", 2), -1);
 			if (id->type == 0)
-				return (ft_heredoc(id->data));
+				return (ft_heredoc(id));
 		}
 		return (-1);
 	}

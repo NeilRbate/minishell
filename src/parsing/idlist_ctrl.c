@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:12:41 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/02/27 10:51:43 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/02/28 13:59:35 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_pipectrl(t_id *id)
 			id = id->next;
 	}
 	if ((id->type >= 0 && id->type <= 2)
-		|| (id->type >= 5 && id->type <= 6) || id->type == 11)
+		|| (id->type >= 5 && id->type <= 6) || id->type >= 10)
 		return (0);
 	return (ft_putendl_fd("error: invalid syntax", 2), -1);
 }
