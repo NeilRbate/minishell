@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:19:57 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/02/27 14:13:58 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/02/28 09:41:42 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	ft_redir(t_id *id)
 	while (id->next != NULL && id->type != 0)
 	{
 		id = id->next;
-		if (id->type != 5 && id->type != 0)
+		if (id->type != 5 && id->type != 0 && (id->type >= 7 && id->type <= 10))
 			return (ft_putendl_fd("error: invalid syntax", 2), -1);
 	}
 	fd = ft_lastredir(id, type);
@@ -77,7 +77,6 @@ int	ft_redirctrl(t_id *id)
 
 	stock = id;
 	index = id->index;
-	ft_print_lex(id);
 	while (id->type != 0)
 		id = id->next;
 	while (id->next != NULL)
