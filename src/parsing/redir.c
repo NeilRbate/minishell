@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:19:57 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/02 09:44:28 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/02 10:15:51 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int	ft_redirctrl(t_id *id)
 		if (id->type == 0)
 			stock = id;
 		else if (id->type == 10)
-			fd = ft_heredoc(id);
+			fd = ft_heredoc(id, stock);
 		else if (id->type == 9)
 			fd = ft_infile(id, stock);
 		else if (id->type == 7 || id->type == 8)
@@ -127,6 +127,8 @@ int	ft_redirctrl(t_id *id)
 			else if (id->type == 9)
 				stock->infile = fd;
 		}
+		if (fd < 0)
+			return (-1);
 	}
 	return (0);
 }
