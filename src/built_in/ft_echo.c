@@ -29,24 +29,19 @@ void	ft_echo(t_cmd *cmdd)
 	pid_t	child;
 	int		option;
 
-	child = fork();
-	if (child == 0)
+	cmd = cmdd->cmd;
+	i = 1;
+	option = 0;
+	while (ft_is_option(cmd[i], &option))
+		i++;
+	while (cmd[i])
 	{
-		cmd = cmdd->cmd;
-		i = 1;
-		option = 0;
-		while (ft_is_option(cmd[i], &option))
-			i++;
-		while (cmd[i])
-		{
-			ft_putstr_fd(cmd[i], cmdd->outfile);
-			if (cmd[i + 1])
-				ft_putstr_fd(" ", cmdd->outfile);
-			i++;
-		}
-		if (option == 0)
-			ft_putchar_fd('\n', cmdd->outfile);
-		exit(0);
+		ft_putstr_fd(cmd[i], cmdd->outfile);
+		if (cmd[i + 1])
+			ft_putstr_fd(" ", cmdd->outfile);
+		i++;
 	}
-	waitpid(child, g_data.status_code, 0);
+	if (option == 0)
+		ft_putchar_fd('\n', cmdd->outfile);
+	g_data.status_code = 0;
 }

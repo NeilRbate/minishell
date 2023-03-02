@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/24 09:16:07 by jbarbate          #+#    #+#             */
+/*   Updated: 2023/02/28 09:14:06 by jbarbate         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/parsing.h"
 
 t_cmd	*ft_cmdlist(t_id *id)
@@ -5,8 +17,8 @@ t_cmd	*ft_cmdlist(t_id *id)
 	t_cmd	*ret;
 	t_id	*stock;
 	char	**cmd;
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	ret = NULL;
 	while (id != NULL)
@@ -32,9 +44,9 @@ t_cmd	*ft_cmdlist(t_id *id)
 			j++;
 		}
 		if (ret == NULL)
-			ret = ft_create_cmdlist(cmd, 0,  0, 1);
+			ret = ft_create_cmdlist(cmd, 0, id->infile, id->outfile);
 		else
-			ft_add_cmdelem(ret, cmd, 0, 1);
+			ft_add_cmdelem(ret, cmd, id->infile, id->outfile);
 		if (id->next == NULL)
 			return (ret);
 		else
