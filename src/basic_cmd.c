@@ -37,7 +37,9 @@ void	ft_do_basic_cmd(t_cmd *cmd)
 	child = fork();
 	if (child == 0)
 	{
-		while (g_data.cmd_path[i])
+		dup2(0, cmd->infile);
+		dup2(1, cmd->outfile);
+			while (g_data.cmd_path[i])
 		{
 			command = ft_strtrijoin(g_data.cmd_path[i], "/", cmd->cmd[0]);
 			if (access(command, F_OK) == 0)
@@ -47,6 +49,8 @@ void	ft_do_basic_cmd(t_cmd *cmd)
 			free(command);
 			i++;
 		}
+		close(cmd->infile);
+		close(cmd->outfile);
 		exit(0);
 		perror("minishell: ");
 		//error code
