@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:19:57 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/02/28 14:39:30 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/02 09:44:28 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,35 @@ int	ft_redir(t_id *id)
 	return (fd);
 }
 
+int	ft_infile(t_id *id, t_id *s)
+{
+	t_id	*stock;
+	int		fd;
+
+	stock = id;
+	while (id->next != NULL && id->type != 0 && id->type != 3)
+	{
+		id = id->next;
+		if (id->type == 0)
+		{
+			fd = ft_openread(id->data);
+			if (fd < 0)
+				return (-1);
+			else
+			{
+				while (stock->index != id->index)
+				{
+					stock = stock->next;
+					ft_del_idelem(stock->prev);
+				}
+				s->infile = fd;
+				return (fd);
+			}
+		}
+	}
+	return (ft_putendl_fd("error: invalid syntax", 2), -1);
+}
+
 int	ft_redirctrl(t_id *id)
 {
 	t_id	*stock;
@@ -84,16 +113,11 @@ int	ft_redirctrl(t_id *id)
 		id = id->next;
 		if (id->type == 0)
 			stock = id;
-		if (id->type == 10)
-		{
-			while (id->next != NULL && id->type != 0)
-				id = id->next;
-			if (id->type != 0)
-				return (-1);
-			ft_heredoc(id);
-		}
-
-		else if (id->type >= 7 && id->type < 10)
+		else if (id->type == 10)
+			fd = ft_heredoc(id);
+		else if (id->type == 9)
+			fd = ft_infile(id, stock);
+		else if (id->type == 7 || id->type == 8)
 		{
 			fd = ft_redir(id);
 			if (fd < 0)
