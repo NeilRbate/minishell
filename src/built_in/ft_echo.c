@@ -26,7 +26,6 @@ void	ft_echo(t_cmd *cmdd)
 {
 	char	**cmd;
 	int		i;
-	pid_t	child;
 	int		option;
 
 	cmd = cmdd->cmd;
