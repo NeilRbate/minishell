@@ -37,6 +37,10 @@ void	ft_do_basic_cmd(t_cmd *cmd)
 	child = fork();
 	if (child == 0)
 	{
+		dup2(0, cmd->infile);
+		dup2(1, cmd->outfile);
+		close(cmd->infile);
+		close(cmd->outfile);
 		while (g_data.cmd_path[i])
 		{
 			command = ft_strtrijoin(g_data.cmd_path[i], "/", cmd->cmd[0]);
