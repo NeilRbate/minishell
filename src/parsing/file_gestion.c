@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:12:25 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/03 09:24:28 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/03 10:29:25 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_heredoc(t_id *id, t_id *s)
 	{
 		line = readline(">");
 		if ((ft_strnstr(line, id->data, ft_strlen(id->data) + 1)
-			|| line == NULL) && line[0] != 0)
+				|| line == NULL) && line[0] != 0)
 			break ;
 		ft_putstr_fd(line, fd[1]);
 		free(line);

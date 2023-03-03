@@ -6,11 +6,22 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:16:07 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/02/28 09:14:06 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/03 14:27:49 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/parsing.h"
+
+t_id	*ft_stepid(t_id *id, int *i)
+{
+	while (id->next != NULL && id->type != 3)
+	{
+		id = id->next;
+		if (id->type != 3)
+			*i += 1;
+	}
+	return (id);
+}
 
 t_cmd	*ft_cmdlist(t_id *id)
 {
@@ -26,12 +37,7 @@ t_cmd	*ft_cmdlist(t_id *id)
 		i = 1;
 		j = 0;
 		stock = id;
-		while (id->next != NULL && id->type != 3)
-		{
-			id = id->next;
-			if (id->type != 3)
-				i++;
-		}
+		id = ft_stepid(id, &i);
 		cmd = malloc(sizeof(cmd) * (i + 1));
 		if (!cmd)
 			return (ft_putendl_fd("error: malloc fail", 2), NULL);

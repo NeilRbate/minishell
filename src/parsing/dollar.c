@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:10:29 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/02/24 09:35:52 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/03 13:11:30 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,20 @@ void	ft_convertdoll(t_id *id, t_env *env)
 	free(id->prev->data);
 	id->prev->data = ft_strdup("");
 	id->prev->type = 0;
+}
+
+t_id	*ft_dollctrl(t_id *id, int *i)
+{
+	id = id->next;
+	if (id->type == 0)
+	{
+		ft_doll(id);
+		ft_del_idelem(id->prev);
+	}		
+	else
+		id->prev->type = 0;
+	*i += 1;
+	return (id);
 }
 
 void	ft_doll(t_id *id)

@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:12:41 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/02/28 13:59:35 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/03 11:12:54 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,20 +70,15 @@ int	ft_quotectrl(t_id *id, int type)
 		return (ft_putendl_fd("error: invalid syntax 1", 2), -1);
 	if (id->next->type == type)
 		return (id->next->index);
-	id = id->next;
-	stock = id;
+	if (id->next != NULL)
+		stock = id->next;
 	while (id->next != NULL)
 	{
+		id = id->next;
 		if (id->type == 11 && type == 2 && id->next->type == 0)
-		{
-			id = id->next;
-			ft_doll(id);
-		}
+			ft_doll(id->next);
 		else if (id->type != type)
-		{
 			id->type = 0;
-			id = id->next;
-		}
 		if (id->type == type)
 		{
 			ft_catid(stock, type);
@@ -92,7 +87,7 @@ int	ft_quotectrl(t_id *id, int type)
 			return (id->index);
 		}
 	}
-	return (id->index);
+	return (ft_putendl_fd("error: invalid syntax", 2), -1);
 }
 
 int	ft_idctrl(t_id *id)
@@ -117,17 +112,7 @@ int	ft_idctrl(t_id *id)
 				return (0);
 		}
 		else if (id->type == 11)
-		{
-			id = id->next;
-			if (id->type == 0)
-			{
-				ft_doll(id);
-				ft_del_idelem(id->prev);
-			}
-			else
-				id->prev->type = 0;
-			i++;
-		}
+			id = ft_dollctrl(id, &i);
 		else
 			id = id->next;
 	}
