@@ -10,7 +10,7 @@ void	ft_do_built_in_cmd(t_cmd *command)
 	else if (!ft_strncmp(str, "env", 4))
 		ft_env(command);
 	else if (!ft_strncmp(str, "exit", 5))
-		ft_exit();
+		ft_exit(command);
 	else if (!ft_strncmp(str, "export", 4))
 		ft_export(command);
 	else if (!ft_strncmp(str, "unset", 4))

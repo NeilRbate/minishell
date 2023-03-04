@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 08:49:03 by efirmino          #+#    #+#             */
-/*   Updated: 2023/02/21 09:36:34 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/02 12:43:37 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,9 @@ static void	ft_export_args(char **to_export)
 	char	*value;
 	int		j;
 
-	i = 0;
+	i = -1;
 	list = to_export;
-	while (list[i])
+	while (list[++i])
 	{
 		j = 0;
 		while (list[i][j] && list[i][j] != '=')
@@ -94,7 +94,6 @@ static void	ft_export_args(char **to_export)
 		}
 		free(key);
 		free(value);
-		i++;
 	}
 }
 

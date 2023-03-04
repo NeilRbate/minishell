@@ -26,21 +26,27 @@ void	ft_echo(t_cmd *cmdd)
 {
 	char	**cmd;
 	int		i;
+	pid_t	child;
 	int		option;
 
-	cmd = cmdd->cmd;
-	i = 1;
-	option = 0;
-	while (ft_is_option(cmd[i], &option))
-		i++;
-	while (cmd[i])
+	child = fork();
+	if (child == 0)
 	{
-		ft_putstr_fd(cmd[i], cmdd->outfile);
-		if (cmd[i + 1])
-			ft_putstr_fd(" ", cmdd->outfile);
-		i++;
+		cmd = cmdd->cmd;
+		i = 1;
+		option = 0;
+		while (ft_is_option(cmd[i], &option))
+			i++;
+		while (cmd[i])
+		{
+			ft_putstr_fd(cmd[i], cmdd->outfile);
+			if (cmd[i + 1])
+				ft_putstr_fd(" ", cmdd->outfile);
+			i++;
+		}
+		if (option == 0)
+			ft_putchar_fd('\n', cmdd->outfile);
+		exit(0);
 	}
-	if (option == 0)
-		ft_putchar_fd('\n', cmdd->outfile);
-	g_data.status_code = 0;
+	waitpid(child, g_data.status_code, 0);
 }

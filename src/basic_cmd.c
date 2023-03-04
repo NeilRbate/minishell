@@ -1,6 +1,6 @@
 #include "../include/ms.h"
 
-static char	*ft_strtrijoin(char const *s1, char const *s2, char const *s3)
+char	*ft_strtrijoin(char const *s1, char const *s2, char const *s3)
 {
 	int		i;
 	int		j;
@@ -39,21 +39,19 @@ void	ft_do_basic_cmd(t_cmd *cmd)
 	{
 		dup2(0, cmd->infile);
 		dup2(1, cmd->outfile);
-		close(cmd->infile);
-		close(cmd->outfile);
 		while (g_data.cmd_path[i])
 		{
 			command = ft_strtrijoin(g_data.cmd_path[i], "/", cmd->cmd[0]);
 			if (access(command, F_OK) == 0)
 				if (execve(command, cmd->cmd, g_data.exec_env) == -1)
 					perror("minishell: ");
-					//error code
 			free(command);
 			i++;
 		}
+		close(cmd->infile);
+		close(cmd->outfile);
+		ft_error_msg(cmd->cmd[0]);
 		exit(0);
-		perror("minishell: ");
-		//error code
 	}
 	waitpid(child, g_data.status_code, 0);
 }

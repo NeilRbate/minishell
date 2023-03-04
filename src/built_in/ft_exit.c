@@ -1,13 +1,21 @@
 #include "../../include/ms.h"
 
-void	ft_exit(void)
+// static int	ft_check_args(char **strs)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (strs[1][i])
+// 	{
+// 		if (!ft_isdigit(strs[1][i]))
+// 		{
+// 			//
+// 		}
+// 	}
+// }
+
+void	ft_exit(t_cmd *command)
 {
-	if (g_data.status_code)
-		free(g_data.status_code);
-	if (g_data.minishell_env)
-		ft_free_t_env();
-	if (g_data.cmd_path)
-		ft_free_split(g_data.cmd_path);
-	system("leaks minishell");
+	(void)command;
 	exit(0);
 }

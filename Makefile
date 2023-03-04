@@ -1,6 +1,7 @@
 SRCS_EXEC       =		src/main.c \
 						src/basic_cmd.c \
 						src/built_in_cmd.c \
+						src/pipe_cmd.c \
 							src/built_in/ft_cd.c \
 							src/built_in/ft_echo.c \
 							src/built_in/ft_env.c \
@@ -12,6 +13,7 @@ SRCS_EXEC       =		src/main.c \
 									src/utils/env2.c \
 									src/utils/free.c \
 									src/utils/signal_handle.c \
+									src/utils/error_msg.c \
 
 SRCS_PARS		=			src/parsing/cmdlist_tools.c \
 							src/parsing/free.c \
