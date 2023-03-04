@@ -6,40 +6,38 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:12:25 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/02 10:44:16 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/04 08:55:33 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/parsing.h"
+#include "../../include/ms.h"
 
 int	ft_heredoc(t_id *id, t_id *s)
 {
-	char	*str;
 	char	*line;
+	int		fd[2];
 
 	s = id;
+	pipe(fd);
 	while (id->next != NULL && id->type != 0)
 		id = id->next;
 	if (id->type != 0)
-		return (ft_putendl_fd("error: invalid syntax", 2), -1);
-	str = malloc(1);
-	if (!str)
-		return (-1);
-	str[0] = '\0';
+		return (ft_puterror_fd("invalid syntax", 2), -1);
 	while (1)
 	{
-		line = get_next_line(0);
-		if (line == NULL)
+		line = readline(">");
+		if ((ft_strnstr(line, id->data, ft_strlen(id->data) + 1)
+				|| line == NULL) && line[0] != 0)
 			break ;
-		if (ft_strnstr(line, id->data, ft_strlen(id->data))
-			&& ft_strlen(id->data) == (ft_strlen(line) - 1))
-			break ;
-		str = ft_gstrjoin(str, line);
+		ft_putstr_fd(line, fd[1]);
 		free(line);
 	}
-	close(0);
 	id->type = 20;
-	ft_writepipe(s, str);
+	if (line)
+		free(line);
+	close(fd[1]);
+	s->infile = fd[0];
 	return (0);
 }
 
@@ -52,7 +50,7 @@ int	ft_openread(char *file)
 	if (fd != -1)
 	{
 		close(fd);
-		ft_putendl_fd("error: Try to open a directory", 2);
+		ft_puterror_fd("try to open a directory", 2);
 		return (-1);
 	}
 	fd = open(file, O_RDONLY);
@@ -75,7 +73,7 @@ int	ft_openwrited(char *file)
 	if (fd != -1)
 	{
 		close(fd);
-		ft_putendl_fd("error: Try to open a directory", 2);
+		ft_puterror_fd("try to open a directory", 2);
 		return (-1);
 	}
 	fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0666);
@@ -96,7 +94,7 @@ int	ft_openwrite(char *file)
 	if (fd != -1)
 	{
 		close(fd);
-		ft_putendl_fd("error: Try to open a directory", 2);
+		ft_puterror_fd("try to open a directory", 2);
 		return (-1);
 	}
 	fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0666);

@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:12:16 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/02/24 09:12:17 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/04 08:56:14 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_cmd	*ft_create_cmdlist(char **cmd, int type, int infile, int outfile)
 
 	list = malloc(sizeof(*list));
 	if (!list)
-		return (ft_putendl_fd("error: malloc fail", 2), NULL);
+		return (ft_puterror_fd("malloc fail", 2), NULL);
 	list->cmd = cmd;
 	list->type = type;
 	list->infile = infile;

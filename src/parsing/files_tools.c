@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 11:35:23 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/02 11:07:41 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/04 08:45:00 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,8 @@ char	*ft_gstrjoin(char *s1, char *s2)
 	return (free(s1), ret);
 }
 
-int	ft_writepipe(t_id *id, char	*str)
+void	ft_puterror_fd(char *str, int fd)
 {
-	int	fd[2];
-
-	if (pipe(fd) == -1)
-		return (free(str), 1);
-	write(fd[1], str, ft_strlen(str) + 1);
-	close(fd[1]);
-	id->infile = fd[0];
-	free(str);
-	return (0);
+	ft_putstr_fd("minishell: error: ", fd);
+	ft_putendl_fd(str, fd);
 }

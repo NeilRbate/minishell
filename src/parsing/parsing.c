@@ -6,25 +6,46 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:16:07 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/02/28 09:14:06 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/04 08:47:46 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/parsing.h"
 
+t_cmd	*ft_ret(t_cmd *ret, int i, t_id *id, t_id *stock)
+{
+	char	**cmd;
+	int		j;
+
+	j = 0;
+	cmd = malloc(sizeof(cmd) * (i + 1));
+	if (!cmd)
+		return (ft_puterror_fd("malloc fail", 2), NULL);
+	cmd[i] = NULL;
+	while (j < i)
+	{
+		if (stock->type != 3)
+			cmd[j] = ft_strdup(stock->data);
+		stock = stock->next;
+		j++;
+	}
+	if (ret == NULL)
+		ret = ft_create_cmdlist(cmd, 0, id->infile, id->outfile);
+	else
+		ft_add_cmdelem(ret, cmd, id->infile, id->outfile);
+	return (ret);
+}
+
 t_cmd	*ft_cmdlist(t_id *id)
 {
 	t_cmd	*ret;
 	t_id	*stock;
-	char	**cmd;
 	int		i;
-	int		j;
 
 	ret = NULL;
 	while (id != NULL)
 	{
 		i = 1;
-		j = 0;
 		stock = id;
 		while (id->next != NULL && id->type != 3)
 		{
@@ -32,29 +53,34 @@ t_cmd	*ft_cmdlist(t_id *id)
 			if (id->type != 3)
 				i++;
 		}
-		cmd = malloc(sizeof(cmd) * (i + 1));
-		if (!cmd)
-			return (ft_putendl_fd("error: malloc fail", 2), NULL);
-		cmd[i] = NULL;
-		while (j < i)
-		{
-			if (stock->type != 3)
-				cmd[j] = ft_strdup(stock->data);
-			stock = stock->next;
-			j++;
-		}
-		if (ret == NULL)
-			ret = ft_create_cmdlist(cmd, 0, id->infile, id->outfile);
-		else
-			ft_add_cmdelem(ret, cmd, id->infile, id->outfile);
+		ret = ft_ret(ret, i, id, stock);
 		if (id->next == NULL)
 			return (ret);
-		else
-			id = stock;
 		if (id->type == 3)
 			id = id->next;
 	}
 	return (ret);
+}
+
+t_id	*ft_clean(t_id *id)
+{
+	if (id->type == 0 || id->type == 3)
+		id = id->next;
+	else if (id->next != NULL)
+	{
+		id = id->next;
+		ft_del_idelem(id->prev);
+	}
+	else
+	{
+		if (id->type != 0)
+		{
+			id->prev->next = NULL;
+			ft_del_idelem(id);
+		}
+		id = NULL;
+	}
+	return (id);
 }
 
 t_id	*ft_clean_id(t_id *id)
@@ -63,35 +89,14 @@ t_id	*ft_clean_id(t_id *id)
 
 	while (id->type != 0 && id != NULL)
 	{
-		stock = id;
 		id = id->next;
-		ft_del_idelem(stock);
+		ft_del_idelem(id->prev);
 	}
 	stock = id;
 	if (stock == NULL || stock->next == NULL)
 		return (stock);
 	while (id != NULL)
-	{
-		if (id->type == 0 || id->type == 3)
-			id = id->next;
-		else
-		{
-			if (id->next != NULL)
-			{
-				id = id->next;
-				ft_del_idelem(id->prev);
-			}
-			else
-			{
-				if (id->type != 0)
-				{
-					id->prev->next = NULL;
-					ft_del_idelem(id);
-				}
-				id = NULL;
-			}
-		}
-	}
+		id = ft_clean(id);
 	return (stock);
 }
 
@@ -101,7 +106,7 @@ t_cmd	*ft_parsing(char *str)
 	t_cmd	*cmd;
 
 	if (str[0] == '\0')
-		return (ft_putendl_fd("error: invalid syntax", 2), NULL);
+		return (ft_puterror_fd("invalid syntax", 2), NULL);
 	lex = ft_lexical_analyse(str);
 	if (!lex)
 		return (NULL);

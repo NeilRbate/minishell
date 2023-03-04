@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:15:29 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/02/24 10:57:19 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/04 08:49:22 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_id	*ft_create_idlist(int type, int index, char *data)
 
 	list = malloc(sizeof(*list));
 	if (!list)
-		return (ft_putendl_fd("error: malloc fail", 2), NULL);
+		return (ft_puterror_fd("malloc fail", 2), NULL);
 	list->type = type;
 	list->index = index;
 	list->infile = 0;
