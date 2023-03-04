@@ -32,6 +32,7 @@ void	ft_echo(t_cmd *cmdd)
 	child = fork();
 	if (child == 0)
 	{
+		dup2(cmdd->outfile, 1);
 		cmd = cmdd->cmd;
 		i = 1;
 		option = 0;
@@ -39,13 +40,13 @@ void	ft_echo(t_cmd *cmdd)
 			i++;
 		while (cmd[i])
 		{
-			ft_putstr_fd(cmd[i], cmdd->outfile);
+			ft_putstr_fd(cmd[i], 1);
 			if (cmd[i + 1])
-				ft_putstr_fd(" ", cmdd->outfile);
+				ft_putstr_fd(" ", 1);
 			i++;
 		}
 		if (option == 0)
-			ft_putchar_fd('\n', cmdd->outfile);
+			ft_putchar_fd('\n', 1);
 		exit(0);
 	}
 	waitpid(child, g_data.status_code, 0);
