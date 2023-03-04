@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:21:24 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/04 08:45:26 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/04 10:20:44 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,23 @@
 /* For open etc */
 # include <fcntl.h>
 
-typedef struct	s_cmd
+typedef struct s_cmd
 {
 	char			**cmd;
-	int			type;
-	int			infile;
-	int			outfile;
+	int				type;
+	int				infile;
+	int				outfile;
 	struct s_cmd	*next;
 }				t_cmd;
-typedef struct	s_id
+typedef struct s_id
 {
-	int		type;
-	int		index;
-	int		infile;
-	int		outfile;
-	char		*data;
-	struct	s_id	*next;
-	struct	s_id	*prev;
+	int				type;
+	int				index;
+	int				infile;
+	int				outfile;
+	char			*data;
+	struct s_id		*next;
+	struct s_id		*prev;
 }				t_id;
 /* ---- t_cmd TOOLS ---- */
 t_cmd	*ft_create_cmdlist(char **cmd, int type, int infile, int outfile);
