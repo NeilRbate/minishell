@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:16:56 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/02/24 09:16:58 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/04 08:48:22 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	ft_cutredir(int type, t_id *lex, char *str, int k)
 
 	s = malloc(3);
 	if (!s)
-		return (ft_putendl_fd("error: malloc fail", 2), -1);
+		return (ft_puterror_fd("malloc fail", 2), -1);
 	s[2] = '\0';
 	ft_memmove(s, str, 2);
 	ft_add_idelem(lex, type, k, s);
@@ -85,7 +85,7 @@ char	*ft_createstr(char c)
 
 	s = malloc(2);
 	if (!s)
-		return (ft_putendl_fd("error: malloc fail", 2), NULL);
+		return (ft_puterror_fd("malloc fail", 2), NULL);
 	s[0] = c;
 	s[1] = '\0';
 	return (s);

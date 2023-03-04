@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:16:07 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/03 15:08:03 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/04 08:47:46 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_cmd	*ft_ret(t_cmd *ret, int i, t_id *id, t_id *stock)
 	j = 0;
 	cmd = malloc(sizeof(cmd) * (i + 1));
 	if (!cmd)
-		return (ft_putendl_fd("error: malloc fail", 2), NULL);
+		return (ft_puterror_fd("malloc fail", 2), NULL);
 	cmd[i] = NULL;
 	while (j < i)
 	{
@@ -106,7 +106,7 @@ t_cmd	*ft_parsing(char *str)
 	t_cmd	*cmd;
 
 	if (str[0] == '\0')
-		return (ft_putendl_fd("error: invalid syntax", 2), NULL);
+		return (ft_puterror_fd("invalid syntax", 2), NULL);
 	lex = ft_lexical_analyse(str);
 	if (!lex)
 		return (NULL);

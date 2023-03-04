@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:12:25 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/03 10:29:25 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/04 08:55:33 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_heredoc(t_id *id, t_id *s)
 	while (id->next != NULL && id->type != 0)
 		id = id->next;
 	if (id->type != 0)
-		return (ft_putendl_fd("error: invalid syntax", 2), -1);
+		return (ft_puterror_fd("invalid syntax", 2), -1);
 	while (1)
 	{
 		line = readline(">");
@@ -50,7 +50,7 @@ int	ft_openread(char *file)
 	if (fd != -1)
 	{
 		close(fd);
-		ft_putendl_fd("error: Try to open a directory", 2);
+		ft_puterror_fd("try to open a directory", 2);
 		return (-1);
 	}
 	fd = open(file, O_RDONLY);
@@ -73,7 +73,7 @@ int	ft_openwrited(char *file)
 	if (fd != -1)
 	{
 		close(fd);
-		ft_putendl_fd("error: Try to open a directory", 2);
+		ft_puterror_fd("try to open a directory", 2);
 		return (-1);
 	}
 	fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0666);
@@ -94,7 +94,7 @@ int	ft_openwrite(char *file)
 	if (fd != -1)
 	{
 		close(fd);
-		ft_putendl_fd("error: Try to open a directory", 2);
+		ft_puterror_fd("try to open a directory", 2);
 		return (-1);
 	}
 	fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0666);

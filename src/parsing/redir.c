@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:19:57 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/03 14:22:51 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/04 09:01:01 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_id	*ft_last(t_id *id, int *fd, int *type)
 		{
 			id = id->next;
 			if (id->type != 5 && id->type != 0)
-				return (ft_putendl_fd("error: invalid syntax", 2), NULL);
+				return (ft_puterror_fd("invalid syntax", 2), NULL);
 			if (id->type == 0)
 			{
 				*fd = ft_openredir(id->data, *type, id);
@@ -47,7 +47,7 @@ int	ft_lastredir(t_id *id, int type)
 
 	fd = ft_openredir(id->data, type, id);
 	if (fd < 0)
-		return (ft_putendl_fd("error: fail to open", 2), -1);
+		return (ft_puterror_fd("fail to open", 2), -1);
 	id->type = 20;
 	while (id->next != NULL && id->type != 3)
 	{	
@@ -67,11 +67,13 @@ int	ft_redir(t_id *id)
 	int		type;
 
 	type = id->type;
+	id = id->next;
 	while (id->next != NULL && id->type != 0)
 	{
-		id = id->next;
-		if (id->type != 5 && id->type != 0 && (id->type < 7 || id->type > 10))
-			return (ft_putendl_fd("error: invalid syntax", 2), -1);
+		if (id->type == 5 || id->type == 0)
+			id = id->next;
+		else
+			return (ft_puterror_fd("invalid syntax", 2), -1);
 	}
 	fd = ft_lastredir(id, type);
 	return (fd);
@@ -103,7 +105,7 @@ int	ft_infile(t_id *id, t_id *s)
 			}
 		}
 	}
-	return (ft_putendl_fd("error: invalid syntax", 2), -1);
+	return (ft_puterror_fd("invalid syntax", 2), -1);
 }
 
 int	ft_redirctrl(t_id *id)
