@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:12:16 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/04 08:56:14 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/04 11:15:28 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_print_cmdlist(t_cmd *list)
 		i = 0;
 		while (list->cmd[i])
 		{
-			ft_putendl_fd(list->cmd[i], 1);
+			ft_putstr_fd(list->cmd[i], 1);
 			i++;
 		}
 		ft_putendl_fd("--Type--", 1);

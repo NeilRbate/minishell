@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:19:57 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/04 09:57:21 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/04 10:51:43 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ int	ft_lastredir(t_id *id, int type)
 	while (id->next != NULL && id->type != 3)
 	{	
 		id = id->next;
-		id = ft_last(id, &fd, &type);
+		if (id->type == 7 || id->type == 8)
+			id = ft_last(id, &fd, &type);
 		if (!id)
 			return (-1);
 	}
@@ -126,10 +127,7 @@ int	ft_redirctrl(t_id *id)
 		else if (id->type == 9)
 			fd = ft_infile(id, stock);
 		else if (id->type == 7 || id->type == 8)
-		{
-			cmd->outfile = ft_redir(id);
-			return (0);
-		}
+			return (cmd->outfile = ft_redir(id), 0);
 		if (fd < 0)
 			return (ft_puterror_fd("invalid fd", 2), -1);
 	}

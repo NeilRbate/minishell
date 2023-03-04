@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:16:07 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/04 11:21:48 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/04 12:43:51 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 t_cmd	*ft_ret(t_cmd *ret, int i, t_id *id, t_id *stock)
 {
-	int		j;
 	char	**cmd;
+	int		j;
 
 	j = 0;
 	cmd = malloc(sizeof(cmd) * (i + 1));
@@ -29,7 +29,6 @@ t_cmd	*ft_ret(t_cmd *ret, int i, t_id *id, t_id *stock)
 		stock = stock->next;
 		j++;
 	}
-	printf("infile: %d\noutfile: %d\n", id->infile, id->outfile);
 	if (ret == NULL)
 		ret = ft_create_cmdlist(cmd, 0, id->infile, id->outfile);
 	else
@@ -51,6 +50,8 @@ t_cmd	*ft_cmdlist(t_id *id)
 		while (id->next != NULL && id->type != 3)
 		{
 			id = id->next;
+			id->infile = id->prev->infile;
+			id->outfile = id->prev->outfile;
 			if (id->type != 3)
 				i++;
 		}
@@ -114,7 +115,6 @@ t_cmd	*ft_parsing(char *str)
 	if (ft_syntax_analyse(lex) != 0)
 		return (ft_del_idlist(lex), NULL);
 	lex = ft_clean_id(lex);
-	// ft_print_lex(lex);
 	cmd = ft_cmdlist(lex);
 	if (!cmd)
 		return (ft_del_idlist(lex), NULL);
