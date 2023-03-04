@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/04 09:15:25 by efirmino          #+#    #+#             */
+/*   Updated: 2023/03/04 09:15:25 by efirmino         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/ms.h"
 
 static int	ft_is_option(char *str, int *option)
@@ -38,12 +50,11 @@ void	ft_echo(t_cmd *cmdd)
 		option = 0;
 		while (ft_is_option(cmd[i], &option))
 			i++;
-		while (cmd[i])
+		while (cmd[i++])
 		{
 			ft_putstr_fd(cmd[i], 1);
 			if (cmd[i + 1])
 				ft_putstr_fd(" ", 1);
-			i++;
 		}
 		if (option == 0)
 			ft_putchar_fd('\n', 1);
