@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:15:29 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/04 08:49:22 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/04 09:26:49 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ void	ft_print_lex(t_id *lex)
 		ft_putnbr_fd(lex->index, 1);
 		ft_putstr_fd(" string-> |>", 1);
 		ft_putstr_fd(lex->data, 1);
-		ft_putstr_fd("<|", 1);
+		ft_putstr_fd("<| infile ->", 1);
+		ft_putnbr_fd(lex->infile, 1);
+		ft_putstr_fd(" outfilefile ->", 1);
+		ft_putnbr_fd(lex->outfile, 1);
 		ft_putendl_fd("", 1);
 		lex = lex->next;
 	}
