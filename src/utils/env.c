@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 07:44:12 by efirmino          #+#    #+#             */
-/*   Updated: 2023/02/21 09:36:56 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/02 13:03:55 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,22 +100,24 @@ void	ft_env_del(char	*key)
 {
 	t_env	*current;
 	t_env	*to_del;
+	t_env	*prev;
 
 	current = g_data.minishell_env;
+	prev = 0;
 	while (current)
 	{
-		if (!(ft_strncmp(current->next->key, key, ft_strlen(key) + 1)))
+		if (!(ft_strncmp(current->key, key, ft_strlen(key) + 1)))
 		{
-			to_del = current->next;
-			if (to_del->next)
-				current->next = to_del->next;
+			to_del = current;
+			if (prev)
+				prev->next = to_del->next;
 			else
-				current->next = 0;
-			free(to_del->key);
-			free(to_del->value);
-			free(to_del);
-			return ;
+				g_data.minishell_env = to_del->next;
 		}
+		prev = current;
 		current = current->next;
 	}
+	free(to_del->key);
+	free(to_del->value);
+	free(to_del);
 }

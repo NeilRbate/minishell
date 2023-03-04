@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 11:08:56 by efirmino          #+#    #+#             */
-/*   Updated: 2023/02/21 10:53:16 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/04 08:34:54 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@ static void	ft_execute(void)
 	t_cmd	*command;
 
 	command = g_data.cmds;
+	if (command == NULL)
+		return ;
+	if (command->next)
+	{
+		ft_do_pipe_cmd(command);
+		return ;
+	}
 	if (command->type == BUILT_IN)
 		ft_do_built_in_cmd(command);
 	else if (command->type == BASIC)
@@ -35,25 +42,20 @@ void	ft_new_command(void)
 	str = readline(PROMPT_MESS);
 	if (str == NULL)
 	{
-		printf("exit\n");
-		ft_exit();
+		ft_putendl_fd("exit", 0);
+		exit(0);
 	}
 	else if (str[0] == 0)
 	{
 		free(str);
-		return ;
 	}
 	else
 	{
 		add_history(str);
-		/* ADD PARSING LINE FUNCTION HERE */ 
-		/* THE RESULT MUST TO BE PUT IN g_data.cmds */
-		/* THE STR GIVEN MUST TO BE FREED */
 		g_data.cmds = ft_parsing(str);
 		ft_execute();
 		free(str);
 		ft_del_cmdlist(g_data.cmds);
-		return ;
 	}
 }
 
