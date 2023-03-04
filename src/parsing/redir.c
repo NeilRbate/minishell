@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:19:57 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/04 09:01:01 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/04 09:57:21 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ t_id	*ft_last(t_id *id, int *fd, int *type)
 int	ft_lastredir(t_id *id, int type)
 {
 	int		fd;
-	t_id	*stock;
 
 	fd = ft_openredir(id->data, type, id);
 	if (fd < 0)
@@ -52,8 +51,6 @@ int	ft_lastredir(t_id *id, int type)
 	while (id->next != NULL && id->type != 3)
 	{	
 		id = id->next;
-		if (id->type == 0)
-			stock = id;
 		id = ft_last(id, &fd, &type);
 		if (!id)
 			return (-1);
@@ -111,11 +108,14 @@ int	ft_infile(t_id *id, t_id *s)
 int	ft_redirctrl(t_id *id)
 {
 	t_id	*stock;
+	t_id	*cmd;
 	int		fd;
 
 	stock = id;
+	fd = 1;
 	while (id->type != 0)
 		id = id->next;
+	cmd = id;
 	while (id->next != NULL)
 	{
 		id = id->next;
@@ -127,12 +127,11 @@ int	ft_redirctrl(t_id *id)
 			fd = ft_infile(id, stock);
 		else if (id->type == 7 || id->type == 8)
 		{
-			fd = ft_redir(id);
-			if (fd < 0)
-				return (-1);
+			cmd->outfile = ft_redir(id);
+			return (0);
 		}
 		if (fd < 0)
-			return (-1);
+			return (ft_puterror_fd("invalid fd", 2), -1);
 	}
 	return (0);
 }
