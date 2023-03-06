@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 08:43:21 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/06 08:49:51 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/06 10:01:25 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,9 @@ char	*ft_strndup(char *str, int size)
 		i = 0;
 		if (ft_strlen(str) < (size_t)size)
 			return (NULL);
+		printf("str->%s\nsize->%d\n", str, size);
 		ret = malloc(sizeof(char) * (size + 1));
-		while (i < size)
-		{
-			ret[i] = str[i];
-			i++;
-		}
-		ret[i] = '\0';
+		ft_memcpy(ret, str, size);
+		printf("ret->%s\n", ret);
 		return (ret);
 }

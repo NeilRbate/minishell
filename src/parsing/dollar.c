@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:10:29 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/06 09:13:02 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/06 10:18:43 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,12 @@ char	*ft_heredocdoll(char *str)
 		if (str[i] == '$')
 		{
 			j = i;
-			while (str[i] && ft_isalpha(str[i]) == 1)
+			i++;
+			if (i == 1)
+				
+			while (str[i] && str[i] >= 'A' && str[i] <= 'Z')
 				i++;
 			ret = ft_strndup(str+j, (i - j));
-			printf("test-> %s\n", ret);
 		}
 		i++;
 	}
