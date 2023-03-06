@@ -6,18 +6,14 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:21:24 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/06 09:11:53 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/06 15:42:09 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
 # include "../libft/libft.h"
-
-/* For write and other else */
-# include <unistd.h>
 /* For malloc & printf */
-# include <stdlib.h>
 # include <stdio.h>
 /* For open etc */
 # include <fcntl.h>

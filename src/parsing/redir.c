@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:19:57 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/06 09:27:18 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/06 16:16:00 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,9 +114,8 @@ int	ft_redirctrl(t_id *id)
 
 	stock = id;
 	fd = 1;
-	while (id->type != 0)
+	while (id->type && id->type != 0 && (id->type < 7 || id->type > 10))
 		id = id->next;
-	cmd = id;
 	while (id->next != NULL)
 	{
 		id = id->next;
