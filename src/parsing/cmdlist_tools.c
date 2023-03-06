@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmdlist_tools.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:12:16 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/04 11:15:28 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/06 13:51:51 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,19 @@ void	ft_print_cmdlist(t_cmd *list)
 {
 	int	i;
 
+	printf("- - - \n");
 	while (list != NULL)
 	{
-		ft_putendl_fd("---cmd---", 1);
 		i = 0;
 		while (list->cmd[i])
 		{
-			ft_putstr_fd(list->cmd[i], 1);
+			ft_putendl_fd(list->cmd[i], 1);
+			ft_putchar_fd(' ', 1);
 			i++;
 		}
-		ft_putendl_fd("--Type--", 1);
-		ft_putnbr_fd(list->type, 1);
-		ft_putendl_fd("", 1);
+		printf("infile: %d\noutfile: %d", list->infile, list->outfile);
 		list = list->next;
+		printf("\n - - - \n");
 	}
 }
 

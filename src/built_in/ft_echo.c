@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:15:25 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/04 16:04:33 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/06 13:34:39 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,5 @@ void	ft_echo(t_cmd *cmdd)
 		ft_putchar_fd('\n', cmdd->outfile);
 	if (cmdd->outfile != 1)
 		close(cmdd->outfile);
+	*g_data.status_code = 0;
 }

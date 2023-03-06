@@ -12,7 +12,7 @@ SRCS_EXEC       =		src/main.c \
 									src/utils/env.c \
 									src/utils/env2.c \
 									src/utils/free.c \
-									src/utils/signal_handle.c \
+									src/signal_handle.c \
 									src/utils/error_msg.c \
 
 SRCS_PARS		=			src/parsing/cmdlist_tools.c \
@@ -25,7 +25,8 @@ SRCS_PARS		=			src/parsing/cmdlist_tools.c \
 							src/parsing/files_tools.c \
 							src/parsing/dollar.c \
 							src/parsing/redir.c \
-							src/parsing/file_gestion.c
+							src/parsing/file_gestion.c \
+							src/parsing/customft.c
 
 OBJS_EXEC       =		$(SRCS_EXEC:.c=.o) $(SRCS_PARS:.c=.o)
 

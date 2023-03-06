@@ -6,11 +6,35 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:10:29 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/03 13:11:30 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/06 10:18:43 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/ms.h"
+
+char	*ft_heredocdoll(char *str)
+{
+	int		i;
+	int		j;
+	char	*ret;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '$')
+		{
+			j = i;
+			i++;
+			if (i == 1)
+				
+			while (str[i] && str[i] >= 'A' && str[i] <= 'Z')
+				i++;
+			ret = ft_strndup(str+j, (i - j));
+		}
+		i++;
+	}
+		return (str);
+}
 
 void	ft_convertdoll(t_id *id, t_env *env)
 {
