@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:12:25 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/06 09:52:43 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/06 11:43:42 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_heredoc(t_id *id, t_id *s)
 	while (1)
 	{
 		line = readline(">");
-		if ((ft_strnstr(line, id->data, ft_strlen(id->data) + 1)
+		if ((ft_strncmp(line, id->data, ft_strlen(line) + 1) == 0
 				|| line == NULL) && line[0] != 0)
 			break ;
 		line = ft_heredocdoll(line);
