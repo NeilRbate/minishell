@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:15:51 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/04 09:15:51 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/06 13:49:32 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,3 +76,23 @@ void	ft_free_split(char **tab);
 void	ft_free_t_env(void);
 
 #endif
+
+
+// void	ft_print_cmdlist(t_cmd *list)
+// {
+// 	int	i;
+
+// 	while (list != NULL)
+// 	{
+// 		i = 0;
+// 		while (list->cmd[i])
+// 		{
+// 			ft_putstr_fd(list->cmd[i], 1);
+// 			ft_putchar_fd(' ', 1);
+// 			i++;
+// 		}
+// 		printf("infile: %d\noutfile: %d", list->infile, list->outfile);
+// 		list = list->next;
+// 		printf("\n - - - \n");
+// 	}
+// }

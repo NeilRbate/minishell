@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:16:43 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/04 09:16:43 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/06 14:29:27 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,30 @@ char	*ft_strtrijoin(char const *s1, char const *s2, char const *s3)
 	return (str);
 }
 
+static void	ft_dup_in(int infile, int outfile)
+{
+	if (infile != 0)
+	{
+		dup2(infile, 0);
+	}
+	if (outfile != 1)
+	{
+		dup2(outfile, 1);
+	}
+}
+
+static void	ft_dup_out(int infile, int outfile)
+{
+	if (infile != 0)
+	{
+		close(infile);
+	}
+	if (outfile != 1)
+	{
+		close(outfile);
+	}
+}
+
 void	ft_do_basic_cmd(t_cmd *cmd)
 {
 	pid_t	child;
@@ -49,8 +73,7 @@ void	ft_do_basic_cmd(t_cmd *cmd)
 	child = fork();
 	if (child == 0)
 	{
-		dup2(0, cmd->infile);
-		dup2(1, cmd->outfile);
+		ft_dup_in(cmd->infile, cmd->outfile);
 		while (g_data.cmd_path[i])
 		{
 			command = ft_strtrijoin(g_data.cmd_path[i], "/", cmd->cmd[0]);
@@ -60,10 +83,9 @@ void	ft_do_basic_cmd(t_cmd *cmd)
 			free(command);
 			i++;
 		}
-		close(cmd->infile);
-		close(cmd->outfile);
 		ft_error_msg(cmd->cmd[0]);
 		exit(0);
 	}
+	ft_dup_out(cmd->infile, cmd->outfile);
 	waitpid(child, g_data.status_code, 0);
 }
