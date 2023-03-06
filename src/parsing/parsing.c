@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:16:07 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/04 11:36:59 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/04 12:43:54 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ t_cmd	*ft_ret(t_cmd *ret, int i, t_id *id, t_id *stock)
 		ret = ft_create_cmdlist(cmd, 0, id->infile, id->outfile);
 	else
 		ft_add_cmdelem(ret, cmd, id->infile, id->outfile);
-	ft_print_cmdlist(ret);
 	return (ret);
 }
 

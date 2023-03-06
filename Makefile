@@ -1,6 +1,7 @@
 SRCS_EXEC       =		src/main.c \
 						src/basic_cmd.c \
 						src/built_in_cmd.c \
+						src/pipe_cmd.c \
 							src/built_in/ft_cd.c \
 							src/built_in/ft_echo.c \
 							src/built_in/ft_env.c \
@@ -13,7 +14,6 @@ SRCS_EXEC       =		src/main.c \
 									src/utils/free.c \
 									src/utils/signal_handle.c \
 									src/utils/error_msg.c \
-									src/pipe_cmd.c \
 
 SRCS_PARS		=			src/parsing/cmdlist_tools.c \
 							src/parsing/free.c \
@@ -22,10 +22,11 @@ SRCS_PARS		=			src/parsing/cmdlist_tools.c \
 							src/parsing/lexer.c \
 							src/parsing/parsing.c \
 							src/parsing/is_bultin.c \
+							src/parsing/files_tools.c \
 							src/parsing/dollar.c \
 							src/parsing/redir.c \
 							src/parsing/file_gestion.c \
-							src/parsing/files_tools.c
+							src/parsing/customft.c
 
 OBJS_EXEC       =		$(SRCS_EXEC:.c=.o) $(SRCS_PARS:.c=.o)
 
@@ -33,7 +34,7 @@ RM              =		rm -f
 
 CC              =		cc
 
-FLAGS           =		 -Wall -Wextra -Werror
+FLAGS           =		-Wall -Wextra -Werror
 
 USER			=		$(shell whoami)
 

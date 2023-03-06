@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:12:25 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/04 08:55:33 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/06 09:19:03 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int	ft_heredoc(t_id *id, t_id *s)
 	char	*line;
 	int		fd[2];
 
-	s = id;
+	s = id->prev;
+	printf("s->data ->%s\n", s->data);
 	pipe(fd);
 	while (id->next != NULL && id->type != 0)
 		id = id->next;
@@ -30,6 +31,7 @@ int	ft_heredoc(t_id *id, t_id *s)
 		if ((ft_strnstr(line, id->data, ft_strlen(id->data) + 1)
 				|| line == NULL) && line[0] != 0)
 			break ;
+		//line = ft_heredocdoll(line);
 		ft_putstr_fd(line, fd[1]);
 		free(line);
 	}
