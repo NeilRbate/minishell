@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:15:51 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/06 13:49:32 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/06 16:59:53 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <termios.h>
 
 # include "parsing.h"
-# define PROMPT_MESS "minishell-1.1$ "
+# define PROMPT_MESS "minishell-1.2$ "
 
 # define BASIC 0
 # define BUILT_IN 1
@@ -77,6 +77,7 @@ void	ft_free_t_env(void);
 
 #endif
 
+// unset + cd = segfault mais env vide + cd fonctionne
 
 // void	ft_print_cmdlist(t_cmd *list)
 // {

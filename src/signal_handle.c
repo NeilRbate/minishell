@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 11:08:56 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/06 13:25:10 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/06 16:47:47 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,22 @@
 static void	ft_execute(void)
 {
 	t_cmd	*command;
+	pid_t	child;
 
 	command = g_data.cmds;
 	if (command == NULL)
 		return ;
-	// if (command->next)
-	// {
-	// 	ft_do_pipe_cmd(command);
-	// 	return ;
-	// }
+	if (command->next)
+	{
+		child = fork();
+		if (child == 0)
+		{
+			ft_do_pipe_cmd(command);
+			exit(0);
+		}
+		waitpid(child, g_data.status_code, 0);
+		return ;
+	}
 	if (command->type == BUILT_IN)
 		ft_do_built_in_cmd(command);
 	else if (command->type == BASIC)

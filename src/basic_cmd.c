@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:16:43 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/06 14:29:27 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/06 15:55:58 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,12 @@ static void	ft_dup_in(int infile, int outfile)
 	if (infile != 0)
 	{
 		dup2(infile, 0);
+		close(infile);
 	}
 	if (outfile != 1)
 	{
 		dup2(outfile, 1);
+		close(outfile);
 	}
 }
 
@@ -84,8 +86,9 @@ void	ft_do_basic_cmd(t_cmd *cmd)
 			i++;
 		}
 		ft_error_msg(cmd->cmd[0]);
-		exit(0);
+		exit(1);
 	}
-	ft_dup_out(cmd->infile, cmd->outfile);
+	else
+		ft_dup_out(cmd->infile, cmd->outfile);
 	waitpid(child, g_data.status_code, 0);
 }
