@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:12:25 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/06 13:28:35 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/07 10:42:52 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_heredoc(t_id *id, t_id *s)
 	while (id->next != NULL && id->type != 0)
 		id = id->next;
 	if (id->type != 0)
-		return (ft_puterror_fd("invalid syntax", 2), -1);
+		return (ft_puterror_fd("syntax error", 2), -1);
 	while (1)
 	{
 		line = readline(">");
@@ -45,7 +45,6 @@ int	ft_heredoc(t_id *id, t_id *s)
 int	ft_openread(char *file)
 {
 	int	fd;
-	int	empty_fd[2];
 
 	fd = open(file, O_DIRECTORY);
 	if (fd != -1)
@@ -59,9 +58,7 @@ int	ft_openread(char *file)
 	{
 		ft_putstr_fd("minishell: ", 2);
 		perror(file);
-		pipe(empty_fd);
-		close(empty_fd[1]);
-		return (empty_fd[0]);
+		return (-1);
 	}
 	return (fd);
 }

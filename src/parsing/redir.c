@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:19:57 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/06 16:16:00 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/07 11:05:17 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_id	*ft_last(t_id *id, int *fd, int *type)
 		{
 			id = id->next;
 			if (id->type != 5 && id->type != 0)
-				return (ft_puterror_fd("invalid syntax", 2), NULL);
+				return (ft_puterror_fd("syntax error", 2), NULL);
 			if (id->type == 0)
 			{
 				*fd = ft_openredir(id->data, *type, id);
@@ -71,39 +71,61 @@ int	ft_redir(t_id *id)
 		if (id->type == 5 || id->type == 0)
 			id = id->next;
 		else
-			return (ft_puterror_fd("invalid syntax", 2), -1);
+			return (ft_puterror_fd("syntax error", 2), -1);
 	}
 	fd = ft_lastredir(id, type);
 	return (fd);
 }
 
-int	ft_infile(t_id *id, t_id *s)
+t_id	*ft_infile(t_id *id, t_id *s)
 {
 	t_id	*stock;
 	int		fd;
 
 	stock = id;
-	while (id->next != NULL && id->type != 0 && id->type != 3)
+	if (id->next->type != 9 && id->next->type != 0)
+		return (ft_puterror_fd("syntax error", 2), NULL);
+	id = id->next;
+	if (id == 0 && id->next != NULL && id->next->type != 9)
 	{
-		id = id->next;
-		if (id->type == 0)
+		s->infile = ft_openread(id->data);
+		if (s->infile < 0)
+			return (NULL);
+		id->type = 20;
+		return (id);
+	}
+	else
+	{
+		while (id->next != NULL && id->type != 3)
 		{
-			fd = ft_openread(id->data);
-			if (fd < 0)
-				return (-1);
-			else
+			if(id->type == 9 && id->next != NULL && id->next->type != 0)
+				return (ft_puterror_fd("syntax error", 2), NULL);
+			if(id->type == 0 && id->next->type == 9)
 			{
-				while (stock->index != id->index)
+				fd = ft_openread(id->data);
+				if (fd < 0)
 				{
-					stock = stock->next;
-					ft_del_idelem(stock->prev);
+					id->type = 20;
+					while (id->next != NULL && id->type != 3)
+					{
+						id = id->next;
+						id->type = 20;
+					}
+					return (s->type = 20, id);
 				}
-				s->infile = fd;
-				return (fd);
+				close(fd);
+				id->type = 20;
 			}
+			else if (id->type == 0 && id->next->type != 9)
+			{
+				s->infile = ft_openread(id->data);
+				return (id);
+			}
+			else
+				id = id->next;
 		}
 	}
-	return (ft_puterror_fd("invalid syntax", 2), -1);
+	return (id);
 }
 
 int	ft_redirctrl(t_id *id)
@@ -112,23 +134,29 @@ int	ft_redirctrl(t_id *id)
 	t_id	*cmd;
 	int		fd;
 
-	stock = id;
 	fd = 1;
-	while (id->type && id->type != 0 && (id->type < 7 || id->type > 10))
-		id = id->next;
-	while (id->next != NULL)
+	cmd = id;
+	stock = NULL;
+	while (id)
 	{
-		id = id->next;
-		if (id->type == 0)
+		if (id->type == 3)
+			stock = NULL;
+		else if (id->type == 0)
 			stock = id;
 		else if (id->type == 10)
 			fd = ft_heredoc(id, stock);
 		else if (id->type == 9)
-			fd = ft_infile(id, stock);
+		{
+			if (stock != NULL)
+				id = ft_infile(id, stock);
+			else
+				id = ft_firstinfile(id);
+		}
 		else if (id->type == 7 || id->type == 8)
-			return (cmd->outfile = ft_redir(id), 0);
-		if (fd < 0)
-			return (ft_puterror_fd("invalid fd", 2), -1);
+			fd = ft_redir(id);
+		if (id == NULL)
+			return (-1);
+		id = id->next;
 	}
 	return (0);
 }

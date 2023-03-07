@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:21:24 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/06 15:42:09 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/07 09:06:08 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,14 @@ void	ft_isbuiltin(t_cmd *id);
 /* ---- t_id TOOLS ---- */
 t_id	*ft_create_idlist(int type, int index, char *data);
 t_id	*ft_dollctrl(t_id *id, int *i);
-void	ft_doll(t_id *id);
 int		ft_add_idelem(t_id *list, int type, int index, char *data);
 int		ft_idlist_size(t_id *list);
 int		ft_del_oneid(t_id *id);
 void	ft_del_idlist(t_id *list);
+void	ft_doll(t_id *id);
 void	ft_del_idelem(t_id *id);
 void	ft_print_lex(t_id *lex);
+void	ft_cleanidws(t_id *id);
 /* ---- parsing parts ---- */
 t_cmd	*ft_parsing(char *str);
 void	ft_puterror_fd(char *str, int fd);
@@ -68,4 +69,5 @@ char	*ft_heredocdoll(char *str);
 char	*ft_gstrjoin(char *s1, char *s2);
 char	*ft_strndup(char *str, int size);
 int		ft_openread(char *file);
+t_id	*ft_firstinfile(t_id *id);
 #endif
