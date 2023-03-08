@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:19:57 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/08 15:55:55 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/08 16:55:11 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	ft_redirctrl(t_id *id)
 		else if (id->type == 0)
 			stock = id;
 		else if (id->type == 10)
-			fd = ft_heredoc(id, stock);
+			id = ft_heredoc(id, stock);
 		else if (id->type == 9 && stock != NULL)
 			id = ft_infile(id, stock);
 		else if (id->type == 9)

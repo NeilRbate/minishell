@@ -6,31 +6,37 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:12:25 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/07 10:42:52 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/08 17:20:59 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/parsing.h"
 #include "../../include/ms.h"
 
-int	ft_heredoc(t_id *id, t_id *s)
+t_id	*ft_heredoc(t_id *id, t_id *s)
 {
 	char	*line;
-	int		fd[2];
+	int	fd[2];
 
-	s = id->prev;
-	pipe(fd);
-	while (id->next != NULL && id->type != 0)
+	if (s == NULL)
+	{
+		if (id->next != NULL)
+			id = id->next;
+		if (id->next != NULL)
+			s = id->next;
+		else
+			s = NULL;
+	}
+	else
 		id = id->next;
-	if (id->type != 0)
-		return (ft_puterror_fd("syntax error", 2), -1);
+	pipe(fd);
 	while (1)
 	{
 		line = readline(">");
-		if ((ft_strncmp(line, id->data, ft_strlen(line) + 1) == 0
-				|| line == NULL) && line[0] != 0)
+		if (line == NULL || ft_strncmp(line, id->data,
+			ft_strlen(line) + 1) == 0)
 			break ;
-		line = ft_heredocdoll(line);
+		//line = ft_heredocdoll(line);
 		ft_putendl_fd(line, fd[1]);
 		free(line);
 	}
@@ -38,8 +44,9 @@ int	ft_heredoc(t_id *id, t_id *s)
 	if (line)
 		free(line);
 	close(fd[1]);
-	s->infile = fd[0];
-	return (0);
+	if (s != NULL)
+		return (s->infile = fd[0], id);
+	return (id);
 }
 
 int	ft_openread(char *file)
