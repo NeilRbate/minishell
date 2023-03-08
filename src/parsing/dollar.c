@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:10:29 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/08 08:34:07 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/08 15:56:56 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 char	*ft_heredocdoll(char *str)
 {
-	int		i;
-	int		j;
-	char		*ret;
+	int	i;
+	int	j;
+	char	*ret;
 
 	i = 0;
 	while (str[i])

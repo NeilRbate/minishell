@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 07:17:39 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/08 15:27:48 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/08 16:04:18 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,18 @@ t_id	*ft_multiinfile(t_id *id)
 	{
 		if (id->next != NULL && id->type == 0 && id->next->type == 9)
 		{
+			id->type = 20;
 			fd = ft_openread(id->data);
 			if (fd < 0)
 				return (ft_endredir(id));
 			close(fd);
-			id->type = 20;
 		}
 		else if (id->next != NULL && id->type == 0 && id->next->type == 0)
 		{
+			id->type = 20;
 			id->next->infile = ft_openread(id->data);
 			if (id->next->infile < 0)
-				return(ft_endredir(id));
+				return (ft_endredir(id));
 			return (id);
 		}
 		id = id->next;
@@ -74,9 +75,9 @@ t_id	*ft_multiinfile2(t_id *id, t_id *s)
 
 	while (id->next != NULL && id->type != 3)
 	{
-		if(id->type == 9 && id->next != NULL && id->next->type != 0)
+		if (id->type == 9 && id->next != NULL && id->next->type != 0)
 			return (ft_puterror_fd("syntax error", 2), NULL);
-		if(id->type == 0 && id->next->type == 9)
+		if (id->type == 0 && id->next->type == 9)
 		{
 			fd = ft_openread(id->data);
 			if (fd < 0)

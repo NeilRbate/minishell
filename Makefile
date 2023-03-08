@@ -27,7 +27,8 @@ SRCS_PARS		=			src/parsing/cmdlist_tools.c \
 							src/parsing/redir.c \
 							src/parsing/file_gestion.c \
 							src/parsing/customft.c \
-							src/parsing/redir2.c
+							src/parsing/redir2.c \
+							src/parsing/syntaxerror.c
 
 OBJS_EXEC       =		$(SRCS_EXEC:.c=.o) $(SRCS_PARS:.c=.o)
 
@@ -39,9 +40,9 @@ FLAGS           =		-Wall -Wextra -Werror
 
 USER			=		$(shell whoami)
 
-HEADERS			=		-I/Users/$(USER)/.brew/opt/readline/include -I include
+HEADERS			=		-I/opt/homebrew/opt/readline/include -I include
 
-LIB_PATH		=		-L. libft/libft.a -lreadline -L/Users/$(USER)/.brew/opt/readline/lib
+LIB_PATH		=		-L. libft/libft.a -lreadline -L/opt/homebrew/opt/readline/lib
 
 NAME            =		minishell
 
