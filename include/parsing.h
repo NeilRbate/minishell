@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:21:24 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/07 09:06:08 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/08 15:06:41 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	ft_cleanidws(t_id *id);
 t_cmd	*ft_parsing(char *str);
 void	ft_puterror_fd(char *str, int fd);
 void	ft_freesplit(char **split);
+int	ft_stxctrl(t_id *id);
 /* ---- lexic parts ---- */
 t_id	*ft_lexical_analyse(char *str);
 int		ft_syntax_analyse(t_id *lex);
@@ -70,4 +71,6 @@ char	*ft_gstrjoin(char *s1, char *s2);
 char	*ft_strndup(char *str, int size);
 int		ft_openread(char *file);
 t_id	*ft_firstinfile(t_id *id);
+t_id	*ft_multiinfile2(t_id *id, t_id *s);
+t_id	*ft_endredir(t_id *id);
 #endif

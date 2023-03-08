@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:12:33 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/07 10:55:43 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/08 10:39:21 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void	ft_cleanidws(t_id *id)
 
 	while (id->next != NULL)
 	{
-		id = id->next;
 		if (id->type == 5)
 		{
 			if (id->next == NULL)
@@ -72,5 +71,7 @@ void	ft_cleanidws(t_id *id)
 				ft_del_idelem(stock);
 			}
 		}
+		else
+			id = id->next;
 	}
 }

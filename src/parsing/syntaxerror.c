@@ -1,26 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   customft.c                                         :+:      :+:    :+:   */
+/*   syntaxerror.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/06 08:43:21 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/08 08:42:03 by jbarbate         ###   ########.fr       */
+/*   Created: 2023/03/08 10:20:08 by jbarbate          #+#    #+#             */
+/*   Updated: 2023/03/08 10:29:58 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/parsing.h"
 
-char	*ft_strndup(char *str, int size)
+int	ft_stxctrl(t_id *id)
 {
-	char	*ret;
+	int	s;
 
-	if (ft_strlen(str) < (size_t)size)
-		return (NULL);
-	printf("str->%s\nsize->%d\n", str, size);
-	ret = malloc(sizeof(char) * (size + 1));
-	ft_memcpy(ret, str, size);
-	printf("ret->%s\n", ret);
-	return (ret);
+	s = 0;
+	while (id != NULL)
+	{
+		if (id->type == 0)
+			s++;
+		else if (id->type == 3 && s > 0)
+			s = 0;
+		else if ((id->next == NULL || id->type == 3) && s == 0)
+			return (ft_puterror_fd("syntax error", 2), -1);
+		id = id->next;
+	}
+	if (s > 0)
+		return (0);
+	return (ft_puterror_fd("syntax error", 2), -1);
 }

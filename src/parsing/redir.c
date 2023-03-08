@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:19:57 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/07 11:05:17 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/08 15:42:41 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,63 +79,27 @@ int	ft_redir(t_id *id)
 
 t_id	*ft_infile(t_id *id, t_id *s)
 {
-	t_id	*stock;
-	int		fd;
-
-	stock = id;
 	if (id->next->type != 9 && id->next->type != 0)
 		return (ft_puterror_fd("syntax error", 2), NULL);
 	id = id->next;
-	if (id == 0 && id->next != NULL && id->next->type != 9)
+	if (id->next != NULL && id->type == 0 && id->next->type != 9)
 	{
 		s->infile = ft_openread(id->data);
 		if (s->infile < 0)
-			return (NULL);
-		id->type = 20;
-		return (id);
+			return (ft_endredir(id));
+		return (id->type = 20, id);
 	}
 	else
-	{
-		while (id->next != NULL && id->type != 3)
-		{
-			if(id->type == 9 && id->next != NULL && id->next->type != 0)
-				return (ft_puterror_fd("syntax error", 2), NULL);
-			if(id->type == 0 && id->next->type == 9)
-			{
-				fd = ft_openread(id->data);
-				if (fd < 0)
-				{
-					id->type = 20;
-					while (id->next != NULL && id->type != 3)
-					{
-						id = id->next;
-						id->type = 20;
-					}
-					return (s->type = 20, id);
-				}
-				close(fd);
-				id->type = 20;
-			}
-			else if (id->type == 0 && id->next->type != 9)
-			{
-				s->infile = ft_openread(id->data);
-				return (id);
-			}
-			else
-				id = id->next;
-		}
-	}
+		id = ft_multiinfile2(id, s);
 	return (id);
 }
 
 int	ft_redirctrl(t_id *id)
 {
 	t_id	*stock;
-	t_id	*cmd;
 	int		fd;
 
 	fd = 1;
-	cmd = id;
 	stock = NULL;
 	while (id)
 	{
@@ -154,8 +118,10 @@ int	ft_redirctrl(t_id *id)
 		}
 		else if (id->type == 7 || id->type == 8)
 			fd = ft_redir(id);
-		if (id == NULL)
-			return (-1);
+		if (fd < 0)
+			return (0);
+		if (id->next == NULL)
+			return (0);
 		id = id->next;
 	}
 	return (0);
