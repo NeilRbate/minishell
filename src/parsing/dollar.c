@@ -6,11 +6,56 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:10:29 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/08 15:56:56 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/08 18:08:04 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/ms.h"
+
+char	*ft_cutheredocdoll(char *str, char *ret)
+{
+	t_env	*env;
+	char	**split;
+	int	i;
+
+	env = g_data.minishell_env;
+	split = ft_split(str, ret);
+	i = 0;
+	while (env != NULL)
+	{
+		if (ft_strncmp(ret + 1, env->key,
+			ft_strlen(env->key) + 1) == 0)
+		{
+			free(ret);
+			ret = ft_strdup(env->value);
+			break;
+		}
+		else
+			env = env->next;
+	}
+	if (env == NULL)
+	{
+		free(ret);
+		ret = ft_strdup("");
+	}
+	while (split[i] != NULL)
+	{
+		if (split[i][0] == '$')
+		{
+			free(split[i]);
+			split[i] = ret;
+			free(str);
+			str = '\0'
+			i = 0;
+			while (split[i] != NULL)
+			{
+				str = ft_strjoin();
+				//faire une fonction joinsplit !
+			}
+		}
+	}
+
+}
 
 char	*ft_heredocdoll(char *str)
 {
@@ -19,18 +64,22 @@ char	*ft_heredocdoll(char *str)
 	char	*ret;
 
 	i = 0;
+	ret = NULL;
 	while (str[i])
 	{
 		if (str[i] == '$')
 		{
 			j = i;
 			i++;
-			while (str[i] && str[i] >= 'A' && str[i] <= 'Z')
+			while (str[i] && ft_isalpha(str[i]) == 1)
 				i++;
 			ret = ft_strndup(str + j, (i - j));
+			str = ft_curheredocdoll(str, ret, i, j);
 		}
 		i++;
 	}
+	if (ret == NULL)
+		return (str);
 	return (ret);
 }
 
@@ -41,10 +90,8 @@ void	ft_convertdoll(t_id *id, t_env *env)
 	i = 0;
 	while (env != NULL)
 	{
-		if (ft_strncmp(id->data, env->key, ft_strlen(env->key)) == 0)
+		if (ft_strncmp(id->data, env->key, ft_strlen(env->key) + 1) == 0)
 		{
-			if (ft_strlen(env->key) != ft_strlen(id->data))
-				break ;
 			free(id->data);
 			id->data = ft_strdup(env->value);
 			i = 1;
