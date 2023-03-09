@@ -12,6 +12,7 @@ SRCS_EXEC       =		src/main.c \
 									src/utils/env.c \
 									src/utils/env2.c \
 									src/utils/free.c \
+									src/utils/pids.c \
 									src/signal_handle.c \
 									src/utils/error_msg.c \
 

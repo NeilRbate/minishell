@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:15:51 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/09 13:19:27 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/09 17:54:54 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@
 # define BASIC 0
 # define BUILT_IN 1
 
+typedef struct s_pid
+{
+	pid_t			pid;
+	struct s_pid	*next;
+}	t_pid;
+
 typedef struct s_env
 {
 	char			*key;
@@ -39,6 +45,7 @@ typedef struct s_big
 {
 	t_cmd			*cmds;
 	t_env			*minishell_env;
+	t_pid			*pids;
 	char			**exec_env;
 	char			**cmd_path;
 	int				*status_code;
@@ -71,7 +78,8 @@ void	ft_set_env_for_exec(void);
 char	*ft_get_env_value(char *key);
 char	*ft_strtrijoin(char const *s1, char const *s2, char const *s3);
 void	ft_error_msg(char *command);
-void	ft_set_underscore(void);
+t_pid	*ft_new_pid(void);
+void	ft_wait_all_pids(void);
 /* FREE - FREE - FREE - FREE - FREE - FREE - FREE - FREE - FREE - FREE - FREE */
 void	ft_free_split(char **tab);
 void	ft_free_t_env(void);
@@ -81,8 +89,6 @@ void	ft_free_t_env(void);
 /* unset + cd = segfault mais env vide + cd fonctionne
 env sans arg 
 export a = espace g  = segfault */
-
-
 
 // void	ft_print_cmdlist(t_cmd *list)
 // {
