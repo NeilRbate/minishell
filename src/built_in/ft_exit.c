@@ -6,15 +6,16 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:16:17 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/09 12:45:47 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/09 13:02:48 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/ms.h"
 
-static void	ft_contain_only_digits(char *str)
+static void	ft_contain_only_digits(char *str, int *exit_code)
 {
 	int	i;
+	int	res;
 
 	i = 0;
 	while (str[i])
@@ -26,13 +27,16 @@ static void	ft_contain_only_digits(char *str)
 		}
 		i++;
 	}
+	res = ft_atoi(str);
+	if (res >= 255)
+		res = res % 256;
+	*exit_code = res;
 }
 
 static void	ft_get_exit_code(char **strs, int *exit_code)
 {
-	(void)exit_code;
-	ft_contain_only_digits(strs[1]);
-	if (strs[2] && *exit_code == -1)
+	ft_contain_only_digits(strs[1], exit_code);
+	if (strs[2])
 	{
 		ft_putendl_fd("minishell: exit: too many arguments", 2);
 		*g_data.status_code = 1;
@@ -47,8 +51,5 @@ void	ft_exit(t_cmd *command)
 	exit_code = -1;
 	ft_get_exit_code(command->cmd, &exit_code);
 	if (exit_code != -1)
-	{
-		printf("exit code is : %d\n", exit_code);
 		exit(exit_code);
-	}
 }
