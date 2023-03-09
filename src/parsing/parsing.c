@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:16:07 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/06 14:56:46 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/08 16:05:16 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,12 +114,13 @@ t_cmd	*ft_parsing(char *str)
 		return (NULL);
 	if (ft_syntax_analyse(lex) != 0)
 		return (ft_del_idlist(lex), NULL);
+	if (ft_containchar(lex) == 0)
+		return (ft_del_idlist(lex), NULL);
 	lex = ft_clean_id(lex);
 	cmd = ft_cmdlist(lex);
 	if (!cmd)
 		return (ft_del_idlist(lex), NULL);
 	ft_del_idlist(lex);
 	ft_isbuiltin(cmd);
-	// ft_print_cmdlist(cmd);
 	return (cmd);
 }

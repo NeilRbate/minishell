@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:12:33 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/02/24 09:12:35 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/08 10:39:21 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,26 @@ void	ft_freesplit(char **split)
 	}
 	free(split[i]);
 	free(split);
+}
+
+void	ft_cleanidws(t_id *id)
+{
+	t_id	*stock;
+
+	while (id->next != NULL)
+	{
+		if (id->type == 5)
+		{
+			if (id->next == NULL)
+				break ;
+			else
+			{
+				stock = id;
+				id = id->next;
+				ft_del_idelem(stock);
+			}
+		}
+		else
+			id = id->next;
+	}
 }

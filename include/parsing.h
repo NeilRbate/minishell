@@ -3,21 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:21:24 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/06 09:11:53 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/09 10:12:09 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
 # include "../libft/libft.h"
-
-/* For write and other else */
-# include <unistd.h>
 /* For malloc & printf */
-# include <stdlib.h>
 # include <stdio.h>
 /* For open etc */
 # include <fcntl.h>
@@ -50,26 +46,33 @@ void	ft_isbuiltin(t_cmd *id);
 /* ---- t_id TOOLS ---- */
 t_id	*ft_create_idlist(int type, int index, char *data);
 t_id	*ft_dollctrl(t_id *id, int *i);
-void	ft_doll(t_id *id);
 int		ft_add_idelem(t_id *list, int type, int index, char *data);
 int		ft_idlist_size(t_id *list);
 int		ft_del_oneid(t_id *id);
+char	**ft_splitstr(char *str, char *charset);
+int		ft_containchar(t_id *id);
 void	ft_del_idlist(t_id *list);
+void	ft_doll(t_id *id);
 void	ft_del_idelem(t_id *id);
 void	ft_print_lex(t_id *lex);
+void	ft_cleanidws(t_id *id);
 /* ---- parsing parts ---- */
 t_cmd	*ft_parsing(char *str);
 void	ft_puterror_fd(char *str, int fd);
 void	ft_freesplit(char **split);
+int		ft_stxctrl(t_id *id);
 /* ---- lexic parts ---- */
 t_id	*ft_lexical_analyse(char *str);
 int		ft_syntax_analyse(t_id *lex);
 /* ---- redir parts ---- */
 int		ft_redirctrl(t_id *id);
 int		ft_openredir(char *file, int type, t_id *id);
-int		ft_heredoc(t_id *id, t_id *stock);
 char	*ft_heredocdoll(char *str);
 char	*ft_gstrjoin(char *s1, char *s2);
 char	*ft_strndup(char *str, int size);
 int		ft_openread(char *file);
+t_id	*ft_heredoc(t_id *id, t_id *stock);
+t_id	*ft_firstinfile(t_id *id);
+t_id	*ft_multiinfile2(t_id *id, t_id *s);
+t_id	*ft_endredir(t_id *id);
 #endif

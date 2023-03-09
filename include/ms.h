@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:15:51 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/06 16:59:53 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/09 11:09:09 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,18 @@ void	ft_set_env_for_exec(void);
 char	*ft_get_env_value(char *key);
 char	*ft_strtrijoin(char const *s1, char const *s2, char const *s3);
 void	ft_error_msg(char *command);
+void	ft_set_underscore(void);
 /* FREE - FREE - FREE - FREE - FREE - FREE - FREE - FREE - FREE - FREE - FREE */
 void	ft_free_split(char **tab);
 void	ft_free_t_env(void);
 
 #endif
 
-// unset + cd = segfault mais env vide + cd fonctionne
+/* unset + cd = segfault mais env vide + cd fonctionne
+env sans arg 
+export a = espace g  = segfault */
+
+
 
 // void	ft_print_cmdlist(t_cmd *list)
 // {

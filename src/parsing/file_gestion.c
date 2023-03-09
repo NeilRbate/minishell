@@ -6,46 +6,52 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:12:25 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/06 09:52:43 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/09 09:22:49 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/parsing.h"
 #include "../../include/ms.h"
 
-int	ft_heredoc(t_id *id, t_id *s)
+t_id	*ft_heredoc(t_id *id, t_id *s)
 {
 	char	*line;
 	int		fd[2];
 
-	s = id->prev;
-	pipe(fd);
-	while (id->next != NULL && id->type != 0)
+	if (s == NULL)
+	{
+		if (id->next != NULL)
+			id = id->next;
+		if (id->next != NULL)
+			s = id->next;
+		else
+			s = NULL;
+	}
+	else
 		id = id->next;
-	if (id->type != 0)
-		return (ft_puterror_fd("invalid syntax", 2), -1);
+	pipe(fd);
 	while (1)
 	{
 		line = readline(">");
-		if ((ft_strnstr(line, id->data, ft_strlen(id->data) + 1)
-				|| line == NULL) && line[0] != 0)
+		if (line == NULL || ft_strncmp(line, id->data,
+				ft_strlen(line) + 1) == 0)
 			break ;
 		line = ft_heredocdoll(line);
-		ft_putstr_fd(line, fd[1]);
+		ft_putendl_fd(line, fd[1]);
 		free(line);
 	}
 	id->type = 20;
 	if (line)
 		free(line);
 	close(fd[1]);
-	s->infile = fd[0];
-	return (0);
+	if (s != NULL)
+		return (s->infile = fd[0], id);
+	return (id);
 }
 
 int	ft_openread(char *file)
 {
 	int	fd;
-	int	empty_fd[2];
 
 	fd = open(file, O_DIRECTORY);
 	if (fd != -1)
@@ -59,9 +65,7 @@ int	ft_openread(char *file)
 	{
 		ft_putstr_fd("minishell: ", 2);
 		perror(file);
-		pipe(empty_fd);
-		close(empty_fd[1]);
-		return (empty_fd[0]);
+		return (-1);
 	}
 	return (fd);
 }

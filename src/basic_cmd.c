@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:16:43 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/06 15:55:58 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/09 11:36:07 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,26 +65,40 @@ static void	ft_dup_out(int infile, int outfile)
 	}
 }
 
+void	ft_try_exe(t_cmd *cmd)
+{
+	int		i;
+	char	*command;
+
+	i = 0;
+	ft_dup_in(cmd->infile, cmd->outfile);
+	if (access(cmd->cmd[0], F_OK) == 0)
+		if (execve(cmd->cmd[0], cmd->cmd, g_data.exec_env) == -1)
+			perror("minishell: ");
+	while (g_data.cmd_path[i])
+	{
+		command = ft_strtrijoin(g_data.cmd_path[i], "/", cmd->cmd[0]);
+		if (access(command, F_OK) == 0)
+			if (execve(command, cmd->cmd, g_data.exec_env) == -1)
+				perror("minishell: ");
+		free(command);
+		i++;
+	}
+}
+
 void	ft_do_basic_cmd(t_cmd *cmd)
 {
 	pid_t	child;
 	int		i;
-	char	*command;
 
 	i = 0;
 	child = fork();
 	if (child == 0)
 	{
-		ft_dup_in(cmd->infile, cmd->outfile);
-		while (g_data.cmd_path[i])
-		{
-			command = ft_strtrijoin(g_data.cmd_path[i], "/", cmd->cmd[0]);
-			if (access(command, F_OK) == 0)
-				if (execve(command, cmd->cmd, g_data.exec_env) == -1)
-					perror("minishell: ");
-			free(command);
-			i++;
-		}
+		if (!ft_strncmp(cmd->cmd[0], "/", 2))
+			execve(cmd->cmd[0], cmd->cmd, g_data.exec_env);
+		else
+			ft_try_exe(cmd);
 		ft_error_msg(cmd->cmd[0]);
 		exit(1);
 	}
