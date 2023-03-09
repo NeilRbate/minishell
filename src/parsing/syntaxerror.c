@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 10:20:08 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/08 10:29:58 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/09 14:21:19 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ int	ft_stxctrl(t_id *id)
 		else if (id->type == 3 && s > 0)
 			s = 0;
 		else if ((id->next == NULL || id->type == 3) && s == 0)
-			return (ft_puterror_fd("syntax error", 2), -1);
+			return (ft_puterror_fd("invalid syntax", 2), -1);
 		id = id->next;
 	}
 	if (s > 0)
 		return (0);
-	return (ft_puterror_fd("syntax error", 2), -1);
+	return (ft_puterror_fd("invalid syntax", 2), -1);
 }

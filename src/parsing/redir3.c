@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 09:20:11 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/09 12:58:15 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/09 14:18:50 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_id	*ft_multioutfile2(t_id *id, t_id *stock)
 	while (id->next != NULL && id->type != 3)
 	{
 		if(id->type >= 7 && id->type <= 8 && id->next != NULL && id->next->type != 0)
-			return (ft_puterror_fd("syntax error", 2), NULL);
+			return (ft_puterror_fd("invalid syntax", 2), id);
 		if (id->next->type == 0 && id->type >= 7 && id->type <= 8)
 		{
 			fd = ft_openredir(id->data, type);
@@ -49,8 +49,8 @@ t_id	*ft_lastoutfile(t_id *id, t_id *stock)
 	int	type;
 
 	type = id->type;
-	if (id->next->type != 0)
-		return (ft_puterror_fd("invalid syntax", 2), NULL);
+	if (id->next != NULL && id->next->type != 0)
+		return (ft_puterror_fd("invalid syntax", 2), stock->type = 20, id);
 	id = id->next;
 	if (id->type == 0 && (id->next == NULL || id->next->type == 3 ||
 			id->next->type != 7 || id->next->type != 8))
@@ -63,6 +63,6 @@ t_id	*ft_lastoutfile(t_id *id, t_id *stock)
 		return (id->type = 20, id);
 	}
 	else
-		id = ft_multioutfile2(id, stock);
+		return (ft_multioutfile2(id, stock));
 	return (id);
 }

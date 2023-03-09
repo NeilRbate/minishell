@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:12:41 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/09 12:40:01 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/09 14:37:46 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	ft_quotectrl(t_id *id, int type)
 	if (id->next == NULL)
 		return (ft_puterror_fd("invalid syntax 1", 2), -1);
 	if (id->next->type == type)
-		return (id->next->index);
+		return (ft_returnempty(id));
 	if (id->next != NULL)
 		stock = id->next;
 	while (id->next != NULL)
@@ -127,7 +127,7 @@ int	ft_syntax_analyse(t_id *lex)
 		while ((lex->type == 5 || lex->type == 6) && lex->next != NULL)
 			lex = lex->next;
 	if (lex->next == NULL && (lex->type == 5 || lex->type == 6))
-		return (ft_puterror_fd("invalid syntax 10", 2), -1);
+		return (-1);
 	if (lex->type == 3)
 		return (ft_puterror_fd("invalid syntax 3", 2), -1);
 	if (ft_idctrl(lex) != 0)

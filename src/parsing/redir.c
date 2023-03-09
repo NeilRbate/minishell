@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:19:57 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/09 11:56:41 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/09 15:05:27 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_id	*ft_redir(t_id *id, t_id *stock)
 t_id	*ft_infile(t_id *id, t_id *s)
 {
 	if (id->next->type != 9 && id->next->type != 0)
-		return (ft_puterror_fd("syntax error", 2), NULL);
+		return (ft_puterror_fd("invalid syntax", 2), id->type = 20, id);
 	id = id->next;
 	if (id->next != NULL && id->type == 0 && id->next->type != 9)
 	{
