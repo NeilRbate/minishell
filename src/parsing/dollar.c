@@ -6,29 +6,29 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:10:29 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/08 18:08:04 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/09 09:15:33 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/ms.h"
 
-char	*ft_cutheredocdoll(char *str, char *ret)
+char	*ft_cutheredocdoll(char *ret)
 {
 	t_env	*env;
-	char	**split;
-	int	i;
+	int		i;
 
 	env = g_data.minishell_env;
-	split = ft_split(str, ret);
 	i = 0;
+	if (ft_strncmp(ret, "$?", 2) == 0)
+		return (free(ret), ret = ft_itoa(*g_data.status_code), ret);
 	while (env != NULL)
 	{
 		if (ft_strncmp(ret + 1, env->key,
-			ft_strlen(env->key) + 1) == 0)
+				ft_strlen(env->key) + 1) == 0)
 		{
 			free(ret);
 			ret = ft_strdup(env->value);
-			break;
+			break ;
 		}
 		else
 			env = env->next;
@@ -38,29 +38,13 @@ char	*ft_cutheredocdoll(char *str, char *ret)
 		free(ret);
 		ret = ft_strdup("");
 	}
-	while (split[i] != NULL)
-	{
-		if (split[i][0] == '$')
-		{
-			free(split[i]);
-			split[i] = ret;
-			free(str);
-			str = '\0'
-			i = 0;
-			while (split[i] != NULL)
-			{
-				str = ft_strjoin();
-				//faire une fonction joinsplit !
-			}
-		}
-	}
-
+	return (ret);
 }
 
 char	*ft_heredocdoll(char *str)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	char	*ret;
 
 	i = 0;
@@ -71,15 +55,18 @@ char	*ft_heredocdoll(char *str)
 		{
 			j = i;
 			i++;
-			while (str[i] && ft_isalpha(str[i]) == 1)
+			while (str[i] && (ft_isalpha(str[i]) == 1 || str[i] == '?'))
 				i++;
 			ret = ft_strndup(str + j, (i - j));
-			str = ft_curheredocdoll(str, ret, i, j);
+			ret = ft_cutheredocdoll(ret);
+			break ;
 		}
 		i++;
 	}
 	if (ret == NULL)
 		return (str);
+	if (i == 0 && str[j + 1] == '\0')
+		return (free(str), ret);
 	return (ret);
 }
 

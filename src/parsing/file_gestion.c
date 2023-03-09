@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:12:25 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/08 17:48:48 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/09 08:47:34 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_id	*ft_heredoc(t_id *id, t_id *s)
 		if (line == NULL || ft_strncmp(line, id->data,
 			ft_strlen(line) + 1) == 0)
 			break ;
-		//line = ft_heredocdoll(line);
+		line = ft_heredocdoll(line);
 		ft_putendl_fd(line, fd[1]);
 		free(line);
 	}
