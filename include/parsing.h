@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:21:24 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/09 08:46:36 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/09 11:43:41 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ t_id	*ft_lexical_analyse(char *str);
 int		ft_syntax_analyse(t_id *lex);
 /* ---- redir parts ---- */
 int		ft_redirctrl(t_id *id);
-int		ft_openredir(char *file, int type, t_id *id);
+int		ft_openredir(char *file, int type);
 char	*ft_heredocdoll(char *str);
 char	*ft_gstrjoin(char *s1, char *s2);
 char	*ft_strndup(char *str, int size);
@@ -75,4 +75,6 @@ t_id	*ft_heredoc(t_id *id, t_id *stock);
 t_id	*ft_firstinfile(t_id *id);
 t_id	*ft_multiinfile2(t_id *id, t_id *s);
 t_id	*ft_endredir(t_id *id);
+t_id	*ft_multioutfile2(t_id * id, t_id *stock);
+t_id	*ft_lastoutfile(t_id * id, t_id *stock);
 #endif

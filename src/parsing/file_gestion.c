@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:12:25 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/09 09:22:49 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/09 11:10:43 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,14 +112,11 @@ int	ft_openwrite(char *file)
 	return (fd);
 }
 
-int	ft_openredir(char *file, int type, t_id *id)
+int	ft_openredir(char *file, int type)
 {
-	id = id->next;
-	if (type == 7)
-		return (ft_openwrite(file));
-	else if (type == 8)
+	if (type == 8)
 		return (ft_openwrited(file));
-	else if (type == 9)
-		return (ft_openread(file));
+	else if (type == 7)
+		return (ft_openwrite(file));
 	return (-1);
 }
