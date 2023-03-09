@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:16:17 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/09 13:02:48 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/09 13:22:26 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void	ft_get_exit_code(char **strs, int *exit_code)
 	{
 		ft_putendl_fd("minishell: exit: too many arguments", 2);
 		*g_data.status_code = 1;
+		*exit_code = -1;
 	}
 }
 
