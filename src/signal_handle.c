@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 11:08:56 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/06 16:47:47 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/09 11:06:26 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static void	ft_execute(void)
 	pid_t	child;
 
 	command = g_data.cmds;
+	ft_set_underscore();
 	if (command == NULL)
 		return ;
 	if (command->next)
@@ -70,9 +71,14 @@ void	ft_sig_handle(int sig)
 {
 	if (sig == SIGINT)
 	{
+		*g_data.status_code = 1;
 		printf("\n");
 		rl_replace_line("", 0);
 		rl_on_new_line();
+		rl_redisplay();
+	}
+	else if (sig == SIGQUIT)
+	{
 		rl_redisplay();
 	}
 }

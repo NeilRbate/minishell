@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:16:31 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/04 09:16:31 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/09 11:09:43 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ void	ft_env_replace(char *key, char *value)
 	{
 		if (!ft_strncmp(current->key, key, ft_strlen(key) + 1))
 		{
-			free(current->value);
+			if (current->value)
+				free(current->value);
 			current->value = ft_strdup(value);
 		}
 		current = current->next;

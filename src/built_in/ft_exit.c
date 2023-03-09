@@ -6,28 +6,49 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:16:17 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/04 09:16:17 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/09 12:45:47 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/ms.h"
 
-// static int	ft_check_args(char **strs)
-// {
-// 	int	i;
+static void	ft_contain_only_digits(char *str)
+{
+	int	i;
 
-// 	i = 0;
-// 	while (strs[1][i])
-// 	{
-// 		if (!ft_isdigit(strs[1][i]))
-// 		{
-// 			//
-// 		}
-// 	}
-// }
+	i = 0;
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]))
+		{
+			ft_putendl_fd("minishell: exit: ff: numeric argument required", 2);
+			exit(255);
+		}
+		i++;
+	}
+}
+
+static void	ft_get_exit_code(char **strs, int *exit_code)
+{
+	(void)exit_code;
+	ft_contain_only_digits(strs[1]);
+	if (strs[2] && *exit_code == -1)
+	{
+		ft_putendl_fd("minishell: exit: too many arguments", 2);
+		*g_data.status_code = 1;
+	}
+}
 
 void	ft_exit(t_cmd *command)
 {
-	(void)command;
-	exit(0);
+	int	exit_code;
+
+	ft_putendl_fd("exit", 1);
+	exit_code = -1;
+	ft_get_exit_code(command->cmd, &exit_code);
+	if (exit_code != -1)
+	{
+		printf("exit code is : %d\n", exit_code);
+		exit(exit_code);
+	}
 }

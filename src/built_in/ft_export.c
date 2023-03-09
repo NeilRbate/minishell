@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 08:49:03 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/02 12:43:37 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/09 11:21:11 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,24 @@ static void	ft_export_no_args(t_cmd *command)
 	current = g_data.minishell_env;
 	while (current)
 	{
-		ft_putstr_fd("declare -x ", command->outfile);
-		ft_putstr_fd(current->key, command->outfile);
-		if (current->value)
+		if (!ft_strncmp(current->key, "_", 2))
 		{
-			ft_putstr_fd("=", command->outfile);
-			ft_putchar_fd('"', command->outfile);
-			ft_putstr_fd(current->value, command->outfile);
-			ft_putchar_fd('"', command->outfile);
+			current = current->next;
 		}
-		ft_putchar_fd('\n', command->outfile);
-		current = current->next;
+		else
+		{
+			ft_putstr_fd("declare -x ", command->outfile);
+			ft_putstr_fd(current->key, command->outfile);
+			if (current->value)
+			{
+				ft_putstr_fd("=", command->outfile);
+				ft_putchar_fd('"', command->outfile);
+				ft_putstr_fd(current->value, command->outfile);
+				ft_putchar_fd('"', command->outfile);
+			}
+			ft_putchar_fd('\n', command->outfile);
+			current = current->next;
+		}
 	}
 	*g_data.status_code = 0;
 }
