@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:12:41 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/08 10:43:19 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/09 12:40:01 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ int	ft_idctrl(t_id *id)
 
 int	ft_syntax_analyse(t_id *lex)
 {
-	if (lex->type == 3 || lex->type == 11)
+	if (lex->type == 3)
 		return (ft_puterror_fd("invalid syntax 11", 2), -1);
 	if (lex->type == 5 || lex->type == 6)
 		while ((lex->type == 5 || lex->type == 6) && lex->next != NULL)
