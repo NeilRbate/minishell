@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:10:29 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/09 09:15:33 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/09 12:41:05 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ t_id	*ft_dollctrl(t_id *id, int *i)
 	if (id->type == 0)
 	{
 		ft_doll(id);
-		ft_del_idelem(id->prev);
+		id->prev->type = 20;
 	}		
 	else
 		id->prev->type = 0;

@@ -6,75 +6,65 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:19:57 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/09 09:23:59 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/09 11:56:41 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/parsing.h"
 
-t_id	*ft_last(t_id *id, int *fd, int *type)
+t_id	*ft_multioutfile(t_id *id, int type)
 {
-	if (id->type >= 7 && id->type < 10)
+	int	fd;
+
+	while (id->next != NULL && id->type != 3)
 	{
-		close(*fd);
-		*type = id->type;
-		*fd = -1;
-		while (id->next != NULL && id->type != 0 && id->type != 3)
+		if (id->type == 0 && id->next->type >= 7 && id->next->type <= 8)
 		{
-			id = id->next;
-			if (id->type != 5 && id->type != 0)
-				return (ft_puterror_fd("syntax error", 2), NULL);
-			if (id->type == 0)
-			{
-				*fd = ft_openredir(id->data, *type, id);
-				id->type = 20;
-				if (id->next != NULL)
-				{
-					id = id->next;
-					ft_del_idelem(id->prev);
-				}
-				break ;
-			}
+			id->type = 20;
+			fd = ft_openredir(id->data, type);
+			if (id < 0)
+				return (ft_endredir(id));
+			type = id->next->type;
+			close (fd);
 		}
+		else if (id->type == 0 && id->next->type == 0)
+		{
+			id->type = 20;
+			id->next->outfile = ft_openredir(id->data, type);
+			if (id->next->outfile < 0)
+				return (ft_endredir(id));
+			return (id);
+		}
+		id = id->next;
 	}
 	return (id);
 }
 
-int	ft_lastredir(t_id *id, int type)
+t_id	*ft_firstoutfile(t_id *id, int type)
 {
-	int		fd;
+	t_id	*stock;
 
-	fd = ft_openredir(id->data, type, id);
-	if (fd < 0)
-		return (ft_puterror_fd("fail to open", 2), -1);
-	id->type = 20;
-	while (id->next != NULL && id->type != 3)
-	{	
-		id = id->next;
-		if (id->type == 7 || id->type == 8)
-			id = ft_last(id, &fd, &type);
-		if (!id)
-			return (-1);
+	stock = id;
+	id = id->next;
+	if (id->type == 0 && id->next != NULL && id->next->type == 0)
+	{
+		id->next->outfile = ft_openredir(id->data, type); 
+		if (id->next->infile > 0)
+			return (ft_endredir(id));
+		id->type = 20;
+		stock->type = 20;
 	}
-	return (fd);
+	else
+		return (ft_multioutfile(id, type));
+	return (id);
 }
 
-int	ft_redir(t_id *id)
+t_id	*ft_redir(t_id *id, t_id *stock)
 {
-	int		fd;
-	int		type;
-
-	type = id->type;
-	id = id->next;
-	while (id->next != NULL && id->type != 0)
-	{
-		if (id->type == 5 || id->type == 0)
-			id = id->next;
-		else
-			return (ft_puterror_fd("syntax error", 2), -1);
-	}
-	fd = ft_lastredir(id, type);
-	return (fd);
+	if (stock == NULL)
+		return (ft_firstoutfile(id, id->type));
+	else
+		return (ft_lastoutfile(id, stock));
 }
 
 t_id	*ft_infile(t_id *id, t_id *s)
@@ -114,7 +104,7 @@ int	ft_redirctrl(t_id *id)
 		else if (id->type == 9)
 			id = ft_firstinfile(id);
 		else if (id->type == 7 || id->type == 8)
-			fd = ft_redir(id);
+			id = ft_redir(id, stock);
 		if (fd < 0)
 			return (0);
 		if (id->next == NULL)

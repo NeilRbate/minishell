@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:21:24 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/09 10:12:09 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/09 11:43:41 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int		ft_add_idelem(t_id *list, int type, int index, char *data);
 int		ft_idlist_size(t_id *list);
 int		ft_del_oneid(t_id *id);
 char	**ft_splitstr(char *str, char *charset);
-int		ft_containchar(t_id *id);
+int	ft_containchar(t_id *id);
 void	ft_del_idlist(t_id *list);
 void	ft_doll(t_id *id);
 void	ft_del_idelem(t_id *id);
@@ -60,13 +60,13 @@ void	ft_cleanidws(t_id *id);
 t_cmd	*ft_parsing(char *str);
 void	ft_puterror_fd(char *str, int fd);
 void	ft_freesplit(char **split);
-int		ft_stxctrl(t_id *id);
+int	ft_stxctrl(t_id *id);
 /* ---- lexic parts ---- */
 t_id	*ft_lexical_analyse(char *str);
 int		ft_syntax_analyse(t_id *lex);
 /* ---- redir parts ---- */
 int		ft_redirctrl(t_id *id);
-int		ft_openredir(char *file, int type, t_id *id);
+int		ft_openredir(char *file, int type);
 char	*ft_heredocdoll(char *str);
 char	*ft_gstrjoin(char *s1, char *s2);
 char	*ft_strndup(char *str, int size);
@@ -75,4 +75,6 @@ t_id	*ft_heredoc(t_id *id, t_id *stock);
 t_id	*ft_firstinfile(t_id *id);
 t_id	*ft_multiinfile2(t_id *id, t_id *s);
 t_id	*ft_endredir(t_id *id);
+t_id	*ft_multioutfile2(t_id * id, t_id *stock);
+t_id	*ft_lastoutfile(t_id * id, t_id *stock);
 #endif
