@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:16:43 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/09 11:36:07 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/12 12:54:23 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,12 +88,11 @@ void	ft_try_exe(t_cmd *cmd)
 
 void	ft_do_basic_cmd(t_cmd *cmd)
 {
-	pid_t	child;
-	int		i;
+	t_pid	*pid;
 
-	i = 0;
-	child = fork();
-	if (child == 0)
+	pid = ft_new_pid();
+	pid->pid = fork();
+	if (pid->pid == 0)
 	{
 		if (!ft_strncmp(cmd->cmd[0], "/", 2))
 			execve(cmd->cmd[0], cmd->cmd, g_data.exec_env);
@@ -104,5 +103,4 @@ void	ft_do_basic_cmd(t_cmd *cmd)
 	}
 	else
 		ft_dup_out(cmd->infile, cmd->outfile);
-	waitpid(child, g_data.status_code, 0);
 }

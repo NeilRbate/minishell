@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:12:41 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/09 14:37:46 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/12 13:26:57 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int	ft_idctrl(t_id *id)
 			if (id->next == NULL)
 				return (0);
 		}
-		else if (id->type == 11)
+		else if (id->type == 11 && id->next != NULL)
 			id = ft_dollctrl(id, &i);
 		else
 			id = id->next;

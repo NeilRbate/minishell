@@ -12,6 +12,7 @@ SRCS_EXEC       =		src/main.c \
 									src/utils/env.c \
 									src/utils/env2.c \
 									src/utils/free.c \
+									src/utils/pids.c \
 									src/signal_handle.c \
 									src/utils/error_msg.c \
 
@@ -41,9 +42,9 @@ FLAGS           =		-Wall -Wextra -Werror
 
 USER			=		$(shell whoami)
 
-HEADERS			=		-I/Users/$(USER)/.brew/opt/readline/include -I include
+HEADERS			=		-I/opt/homebrew/opt/readline/include -I include
 
-LIB_PATH		=		-L. libft/libft.a -lreadline -L/Users/$(USER)/.brew/opt/readline/lib
+LIB_PATH		=		-L. libft/libft.a -lreadline -L/opt/homebrew/opt/readline/lib
 
 NAME            =		minishell
 

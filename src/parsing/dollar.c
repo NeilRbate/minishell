@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:10:29 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/09 12:41:05 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/12 13:26:24 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 char	*ft_cutheredocdoll(char *ret)
 {
 	t_env	*env;
-	int		i;
 
 	env = g_data.minishell_env;
-	i = 0;
 	if (ft_strncmp(ret, "$?", 2) == 0)
 		return (free(ret), ret = ft_itoa(*g_data.status_code), ret);
 	while (env != NULL)
