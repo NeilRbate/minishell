@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:12:25 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/09 11:10:43 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/12 16:27:24 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ int	ft_openread(char *file)
 	if (fd != -1)
 	{
 		close(fd);
-		ft_puterror_fd("try to open a directory", 2);
+		ft_putendl_fd("minishell: stdin: Is a directory", 2);
+		*g_data.status_code = 1;
 		return (-1);
 	}
 	fd = open(file, O_RDONLY);
@@ -65,6 +66,7 @@ int	ft_openread(char *file)
 	{
 		ft_putstr_fd("minishell: ", 2);
 		perror(file);
+		*g_data.status_code = 1;
 		return (-1);
 	}
 	return (fd);
@@ -78,7 +80,10 @@ int	ft_openwrited(char *file)
 	if (fd != -1)
 	{
 		close(fd);
-		ft_puterror_fd("try to open a directory", 2);
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(file, 2);
+		ft_putendl_fd(": Is a directory", 2);
+		*g_data.status_code = 1;
 		return (-1);
 	}
 	fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0666);
@@ -99,7 +104,10 @@ int	ft_openwrite(char *file)
 	if (fd != -1)
 	{
 		close(fd);
-		ft_puterror_fd("try to open a directory", 2);
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(file, 2);
+		ft_putendl_fd(": Is a directory", 2);
+		*g_data.status_code = 1;
 		return (-1);
 	}
 	fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0666);
