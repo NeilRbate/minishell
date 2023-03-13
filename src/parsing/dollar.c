@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:10:29 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/12 13:26:24 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/13 12:58:44 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void	ft_convertdoll(t_id *id, t_env *env)
 	if (i == 0)
 	{
 		free(id->data);
+		id->type = 20;
 		id->data = ft_strdup("");
 	}
 	free(id->prev->data);
