@@ -30,7 +30,8 @@ SRCS_PARS		=			src/parsing/cmdlist_tools.c \
 							src/parsing/customft.c \
 							src/parsing/redir2.c \
 							src/parsing/syntaxerror.c \
-							src/parsing/redir3.c
+							src/parsing/redir3.c \
+							src/parsing/file_gestion2.c
 
 OBJS_EXEC       =		$(SRCS_EXEC:.c=.o) $(SRCS_PARS:.c=.o)
 

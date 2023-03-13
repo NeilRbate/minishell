@@ -6,15 +6,27 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 09:20:11 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/12 17:10:03 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/13 12:19:54 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/ms.h"
 
-t_id	*ft_multioutfile2(t_id *id, t_id *stock)
+t_id	*ft_multioutfile3(t_id *id, t_id *stock, int *type)
 {
 	int	fd;
+
+	fd = ft_openredir(id->data, *type);
+	if (fd < 0)
+		return (stock->type = 20, ft_endredir(id));
+	close (fd);
+	*type = id->type;
+	id->type = 20;
+	return (id);
+}
+
+t_id	*ft_multioutfile2(t_id *id, t_id *stock)
+{
 	int	type;
 
 	type = id->type;
@@ -25,14 +37,7 @@ t_id	*ft_multioutfile2(t_id *id, t_id *stock)
 			return (*g_data.status_code = 258,
 				ft_puterror_fd("invalid syntax", 2), id);
 		if (id->next->type == 0 && id->type >= 7 && id->type <= 8)
-		{
-			fd = ft_openredir(id->data, type);
-			if (fd < 0)
-				return (stock->type = 20, ft_endredir(id));
-			close (fd);
-			type = id->type;
-			id->type = 20;
-		}
+			id = ft_multioutfile3(id, stock, &type);
 		else if (id->type == 0 && id->next->type == 0)
 		{
 			id->type = 20;

@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:12:41 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/12 16:40:51 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/13 12:05:16 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	ft_quotectrl(t_id *id, int type)
 
 	if (id->next == NULL)
 		return (*g_data.status_code = 258,
-			ft_puterror_fd("invalid syntax 1", 2), -1);
+			ft_puterror_fd("invalid syntax", 2), -1);
 	if (id->next->type == type)
 		return (ft_returnempty(id));
 	if (id->next != NULL)
@@ -101,9 +101,9 @@ int	ft_idctrl(t_id *id)
 	while (id != NULL)
 	{
 		if (id->type == 3 && id->next != NULL && id->next->type == 3)
-			return (ft_puterror_fd("invalid syntax 4", 2), -1);
+			return (ft_puterror_fd("invalid syntax", 2), -1);
 		if (id->type == 3 && id->next == NULL)
-			return (ft_puterror_fd("invalid syntax 5", 2), -1);
+			return (ft_puterror_fd("invalid syntax", 2), -1);
 		if (id->type == 1 || id->type == 2)
 		{
 			i = ft_quotectrl(id, id->type);
@@ -126,7 +126,7 @@ int	ft_syntax_analyse(t_id *lex)
 {
 	if (lex->type == 3)
 		return (*g_data.status_code = 258,
-			ft_puterror_fd("invalid syntax 11", 2), -1);
+			ft_puterror_fd("invalid syntax", 2), -1);
 	if (lex->type == 5 || lex->type == 6)
 		while ((lex->type == 5 || lex->type == 6) && lex->next != NULL)
 			lex = lex->next;
@@ -134,7 +134,7 @@ int	ft_syntax_analyse(t_id *lex)
 		return (-1);
 	if (lex->type == 3)
 		return (*g_data.status_code = 258,
-			ft_puterror_fd("invalid syntax 3", 2), -1);
+			ft_puterror_fd("invalid syntax", 2), -1);
 	if (ft_idctrl(lex) != 0)
 		return (*g_data.status_code = 258, -1);
 	if (ft_pipectrl(lex) != 0)

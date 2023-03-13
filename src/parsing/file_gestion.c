@@ -6,17 +6,15 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:12:25 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/12 16:27:24 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/13 12:13:49 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/parsing.h"
 #include "../../include/ms.h"
 
 t_id	*ft_heredoc(t_id *id, t_id *s)
 {
-	char	*line;
-	int		fd[2];
+	int		fd;
 
 	if (s == NULL)
 	{
@@ -29,23 +27,12 @@ t_id	*ft_heredoc(t_id *id, t_id *s)
 	}
 	else
 		id = id->next;
-	pipe(fd);
-	while (1)
-	{
-		line = readline(">");
-		if (line == NULL || ft_strncmp(line, id->data,
-				ft_strlen(line) + 1) == 0)
-			break ;
-		line = ft_heredocdoll(line);
-		ft_putendl_fd(line, fd[1]);
-		free(line);
-	}
+	fd = ft_heredocstr(id);
+	if (fd < 0)
+		return (NULL);
 	id->type = 20;
-	if (line)
-		free(line);
-	close(fd[1]);
 	if (s != NULL)
-		return (s->infile = fd[0], id);
+		return (s->infile = fd, id);
 	return (id);
 }
 
