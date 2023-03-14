@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 08:43:21 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/13 12:40:37 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/14 11:05:01 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,18 @@ int	ft_returnempty(t_id *id)
 	id->data = stock;
 	id->type = 0;
 	return (id->index);
+}
+
+t_id	*ft_joindoll(t_id *id)
+{
+	char	*stock;
+
+	if (id->next->type != 0)
+		return (id->next);
+	stock = id->data;
+	id->data = ft_strjoin(stock, id->next->data);
+	id->type = 0;
+	id->next->type = 20;
+	free(stock);
+	return (id->next);
 }

@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:10:29 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/13 12:58:44 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/14 11:05:09 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,20 @@ void	ft_convertdoll(t_id *id, t_env *env)
 
 t_id	*ft_dollctrl(t_id *id, int *i)
 {
+	t_id	*stock;
+
+	stock = id;
+	while (id->prev != NULL)
+	{
+		id = id->prev;
+		if (id->type == 10)
+			return (ft_joindoll(stock));
+		else if (id->type != 5)
+		{
+			id = stock;
+			break ;
+		}
+	}
 	id = id->next;
 	if (id->type == 0)
 	{
