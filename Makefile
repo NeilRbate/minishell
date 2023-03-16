@@ -47,7 +47,7 @@ RM              =		rm -f
 
 CC              =		cc
 
-FLAGS           =		-Wall -Wextra -Werror
+FLAGS           =		-Wall -Wextra -Werror -g
 
 USER			=		$(shell whoami)
 
