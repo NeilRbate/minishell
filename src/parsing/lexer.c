@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:16:56 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/04 08:48:22 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/13 12:27:17 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ int	ft_cuttype(int type, t_id *lex, char *str, int k)
 		}
 		i--;
 		s = malloc(sizeof(char) * j + 1);
+		if (!s)
+			return (ft_puterror_fd("malloc fail", 2), -1);
 		s[j] = '\0';
 		ft_memmove(s, str, j);
 	}

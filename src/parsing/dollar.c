@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:10:29 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/09 12:41:05 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/14 11:05:09 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 char	*ft_cutheredocdoll(char *ret)
 {
 	t_env	*env;
-	int		i;
 
 	env = g_data.minishell_env;
-	i = 0;
 	if (ft_strncmp(ret, "$?", 2) == 0)
 		return (free(ret), ret = ft_itoa(*g_data.status_code), ret);
 	while (env != NULL)
@@ -90,6 +88,7 @@ void	ft_convertdoll(t_id *id, t_env *env)
 	if (i == 0)
 	{
 		free(id->data);
+		id->type = 20;
 		id->data = ft_strdup("");
 	}
 	free(id->prev->data);
@@ -99,6 +98,20 @@ void	ft_convertdoll(t_id *id, t_env *env)
 
 t_id	*ft_dollctrl(t_id *id, int *i)
 {
+	t_id	*stock;
+
+	stock = id;
+	while (id->prev != NULL)
+	{
+		id = id->prev;
+		if (id->type == 10)
+			return (ft_joindoll(stock));
+		else if (id->type != 5)
+		{
+			id = stock;
+			break ;
+		}
+	}
 	id = id->next;
 	if (id->type == 0)
 	{

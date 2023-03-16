@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:21:24 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/09 11:43:41 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/14 11:03:57 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	ft_isbuiltin(t_cmd *id);
 /* ---- t_id TOOLS ---- */
 t_id	*ft_create_idlist(int type, int index, char *data);
 t_id	*ft_dollctrl(t_id *id, int *i);
+t_id	*ft_joindoll(t_id *id);
 int		ft_add_idelem(t_id *list, int type, int index, char *data);
 int		ft_idlist_size(t_id *list);
 int		ft_del_oneid(t_id *id);
@@ -60,7 +61,8 @@ void	ft_cleanidws(t_id *id);
 t_cmd	*ft_parsing(char *str);
 void	ft_puterror_fd(char *str, int fd);
 void	ft_freesplit(char **split);
-int	ft_stxctrl(t_id *id);
+int		ft_stxctrl(t_id *id);
+int		ft_returnempty(t_id *id);
 /* ---- lexic parts ---- */
 t_id	*ft_lexical_analyse(char *str);
 int		ft_syntax_analyse(t_id *lex);
@@ -70,6 +72,7 @@ int		ft_openredir(char *file, int type);
 char	*ft_heredocdoll(char *str);
 char	*ft_gstrjoin(char *s1, char *s2);
 char	*ft_strndup(char *str, int size);
+int	ft_heredocstr(t_id *id);
 int		ft_openread(char *file);
 t_id	*ft_heredoc(t_id *id, t_id *stock);
 t_id	*ft_firstinfile(t_id *id);

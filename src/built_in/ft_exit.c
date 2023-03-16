@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:16:17 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/09 13:22:26 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/16 10:29:32 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	ft_exit(t_cmd *command)
 	int	exit_code;
 
 	ft_putendl_fd("exit", 1);
+	if (!command->cmd[1])
+		exit (1);
 	exit_code = -1;
 	ft_get_exit_code(command->cmd, &exit_code);
 	if (exit_code != -1)

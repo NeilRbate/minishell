@@ -6,11 +6,11 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:19:57 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/09 11:56:41 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/12 17:03:44 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/parsing.h"
+#include "../../include/ms.h"
 
 t_id	*ft_multioutfile(t_id *id, int type)
 {
@@ -22,7 +22,7 @@ t_id	*ft_multioutfile(t_id *id, int type)
 		{
 			id->type = 20;
 			fd = ft_openredir(id->data, type);
-			if (id < 0)
+			if (fd < 0)
 				return (ft_endredir(id));
 			type = id->next->type;
 			close (fd);
@@ -48,7 +48,7 @@ t_id	*ft_firstoutfile(t_id *id, int type)
 	id = id->next;
 	if (id->type == 0 && id->next != NULL && id->next->type == 0)
 	{
-		id->next->outfile = ft_openredir(id->data, type); 
+		id->next->outfile = ft_openredir(id->data, type);
 		if (id->next->infile > 0)
 			return (ft_endredir(id));
 		id->type = 20;
@@ -70,7 +70,10 @@ t_id	*ft_redir(t_id *id, t_id *stock)
 t_id	*ft_infile(t_id *id, t_id *s)
 {
 	if (id->next->type != 9 && id->next->type != 0)
-		return (ft_puterror_fd("syntax error", 2), NULL);
+	{
+		*g_data.status_code = 258;
+		return (ft_puterror_fd("invalid syntax", 2), id->type = 20, id);
+	}
 	id = id->next;
 	if (id->next != NULL && id->type == 0 && id->next->type != 9)
 	{
@@ -87,9 +90,7 @@ t_id	*ft_infile(t_id *id, t_id *s)
 int	ft_redirctrl(t_id *id)
 {
 	t_id	*stock;
-	int		fd;
 
-	fd = 1;
 	stock = NULL;
 	while (id)
 	{
@@ -105,8 +106,6 @@ int	ft_redirctrl(t_id *id)
 			id = ft_firstinfile(id);
 		else if (id->type == 7 || id->type == 8)
 			id = ft_redir(id, stock);
-		if (fd < 0)
-			return (0);
 		if (id->next == NULL)
 			return (0);
 		id = id->next;
