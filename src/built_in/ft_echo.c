@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:15:25 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/06 13:34:39 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/16 09:58:57 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,15 @@ static int	ft_is_option(char *str, int *option)
 	i = 0;
 	if (str[i] != '-')
 		return (0);
-	else
+	i++;
+	while (str[i])
 	{
+		if (str[i] != 'n')
+			return (0);
 		i++;
-		while (str[i])
-		{
-			if (str[i] != 'n')
-				return (0);
-			else
-				*option += 1;
-			i++;
-		}
-		return (1);
 	}
+	*option = 1;
+	return (1);
 }
 
 void	ft_echo(t_cmd *cmdd)
@@ -43,6 +39,12 @@ void	ft_echo(t_cmd *cmdd)
 	cmd = cmdd->cmd;
 	i = 1;
 	option = 0;
+		*g_data.status_code = 0;
+	if (!cmdd->cmd[1])
+	{
+		ft_putendl_fd("", cmdd->outfile);
+		return ;
+	}
 	while (ft_is_option(cmd[i], &option))
 		i++;
 	while (cmd[i])
@@ -55,5 +57,4 @@ void	ft_echo(t_cmd *cmdd)
 		ft_putchar_fd('\n', cmdd->outfile);
 	if (cmdd->outfile != 1)
 		close(cmdd->outfile);
-	*g_data.status_code = 0;
 }
