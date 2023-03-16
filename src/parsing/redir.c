@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:19:57 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/12 17:03:44 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/16 10:40:33 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,11 @@ t_id	*ft_infile(t_id *id, t_id *s)
 		return (ft_puterror_fd("invalid syntax", 2), id->type = 20, id);
 	}
 	id = id->next;
-	if (id->next != NULL && id->type == 0 && id->next->type != 9)
+	if ((id->next == NULL || id->next->type != 9) && id->type == 0)
 	{
 		s->infile = ft_openread(id->data);
 		if (s->infile < 0)
-			return (ft_endredir(id));
+			return (s->type = 20, ft_endredir(id));
 		return (id->type = 20, id);
 	}
 	else
