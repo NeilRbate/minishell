@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:10:29 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/14 11:05:09 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/16 15:05:37 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ char	*ft_cutheredocdoll(char *ret)
 		if (ft_strncmp(ret + 1, env->key,
 				ft_strlen(env->key) + 1) == 0)
 		{
-			free(ret);
+			if (ret != NULL)
+				free(ret);
 			ret = ft_strdup(env->value);
 			break ;
 		}
@@ -39,6 +40,31 @@ char	*ft_cutheredocdoll(char *ret)
 	return (ret);
 }
 
+char	*ft_retd(int i, int j, char *str)
+{
+	char	*ret;
+	char	*stock;
+	char	*doll;
+
+	ret = NULL;
+	doll = NULL;
+	if (str[i] == '?')
+		i++;
+	else
+	{
+		while (str[i] && ft_isalnum(str[i]) == 1)
+			i++;
+	}
+	stock = ft_strndup(str + j, (i - j));
+	doll = ft_strdup(stock);
+	ret = ft_cutheredocdoll(stock);
+	if ((size_t)(i - j) != ft_strlen(str))
+		ret = ft_splitdoll(str, doll, ret);
+	else
+		free(doll);
+	return (ret);
+}
+
 char	*ft_heredocdoll(char *str)
 {
 	int		i;
@@ -49,14 +75,11 @@ char	*ft_heredocdoll(char *str)
 	ret = NULL;
 	while (str[i])
 	{
-		if (str[i] == '$')
+		if (str[i] == '$' && (ft_isalnum(str[i + 1]) == 1 || str[i + 1] == '?'))
 		{
 			j = i;
 			i++;
-			while (str[i] && (ft_isalpha(str[i]) == 1 || str[i] == '?'))
-				i++;
-			ret = ft_strndup(str + j, (i - j));
-			ret = ft_cutheredocdoll(ret);
+			ret = ft_retd(i, j, str);
 			break ;
 		}
 		i++;
@@ -65,7 +88,7 @@ char	*ft_heredocdoll(char *str)
 		return (str);
 	if (i == 0 && str[j + 1] == '\0')
 		return (free(str), ret);
-	return (ret);
+	return (free(str), ret);
 }
 
 void	ft_convertdoll(t_id *id, t_env *env)
