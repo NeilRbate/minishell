@@ -1,3 +1,10 @@
+GREEN = "\033[1;32m"
+RED = "\033[1;31m"
+YELLOW = "\033[1;33m"
+BLUE = "\033[1;34m"
+WHITE = "\033[1;37m"
+RESET = "\033[0m"
+
 SRCS_EXEC       =		src/main.c \
 						src/basic_cmd.c \
 						src/built_in_cmd.c \
@@ -50,12 +57,13 @@ LIB_PATH		=		-L. libft/libft.a -lreadline -L/Users/$(USER)/.brew/opt/readline/li
 NAME            =		minishell
 
 .c.o:
+				@printf $(GREEN)"\r\033[KCreating object files 👉 "$(YELLOW)"<$<> "$(RESET)
 				@$(CC) $(FLAGS) $(HEADERS) -c $< -o $(<:.c=.o)
 
 $(NAME):        $(OBJS_EXEC)
 				@make -C libft
 				@$(CC) $(FLAGS) $(OBJS_EXEC) $(HEADERS) $(LIB_PATH) -o $(NAME)
-				@echo "Makefile : minishell created"
+				@printf $(GREEN)"\r\033[K✅ SUCCESS: "$(WHITE)$(NAME)$(GREEN)" has been created\n"$(RESET)
 
 
 all:            $(NAME)
@@ -63,11 +71,11 @@ all:            $(NAME)
 clean:			
 				@make clean -C libft
 				@$(RM) $(OBJS_EXEC)
-				@echo "Makefile : minishell objects removed"
+				@printf $(RED)"\r\033[K➜ ["$(NAME)"] "$(WHITE)"clean"$(RED)" has been done\n"$(RESET)
 
 fclean:         clean
 				@make fclean -C libft
 				@$(RM) $(NAME)
-				@echo "Makefile : minishell removed"
+				@printf $(RED)"\r\033[K➜ ["$(NAME)"] "$(WHITE)"fclean"$(RED)" has been done\n"$(RESET)
 
 re:             fclean all
