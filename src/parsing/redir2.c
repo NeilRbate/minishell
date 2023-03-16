@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 07:17:39 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/16 10:34:14 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/16 14:08:00 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ t_id	*ft_multiinfile(t_id *id)
 {
 	int	fd;
 
-	printf("coucou\n");
 	while (id->next != NULL && id->type != 3)
 	{
 		if (id->next != NULL && id->type == 0 && id->next->type == 9)

@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 08:48:38 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/09 18:04:35 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/16 10:33:44 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ static void	ft_exec_pipe(t_cmd *cmd)
 		ft_do_built_in_cmd(cmd);
 	else if (cmd->type == BASIC)
 		ft_do_basic_cmd(cmd);
-	close(cmd->infile);
-	close(cmd->outfile);
+	// close(cmd->infile);
+	// close(cmd->outfile);
 }
 
 void	ft_do_pipe_cmd(t_cmd *cmd)

@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:15:25 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/16 09:58:57 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/16 10:18:28 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ft_echo(t_cmd *cmdd)
 	cmd = cmdd->cmd;
 	i = 1;
 	option = 0;
-		*g_data.status_code = 0;
+	*g_data.status_code = 0;
 	if (!cmdd->cmd[1])
 	{
 		ft_putendl_fd("", cmdd->outfile);
