@@ -6,13 +6,13 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:31:56 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/09 17:43:15 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/16 13:32:11 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ms.h"
 
-static void	echo_ctl(int n)
+void	echo_ctl(int n)
 {
 	struct termios	term;
 
@@ -58,13 +58,12 @@ int	main(int argc, char **argv, char **envp)
 		return (0);
 	}
 	(void)argv;
-	echo_ctl(0);
 	ft_init_global();
 	ft_env_setup(envp);
 	ft_path_setup();
-	signal(SIGINT, ft_sig_handle);
-	signal(SIGQUIT, ft_sig_handle);
 	while (1)
+	{
 		ft_new_command();
+	}
 	return (0);
 }

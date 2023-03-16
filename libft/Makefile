@@ -6,9 +6,16 @@
 #    By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/03 17:43:00 by efirmino          #+#    #+#              #
-#    Updated: 2023/02/06 21:43:02 by efirmino         ###   ########.fr        #
+#    Updated: 2023/03/16 11:15:08 by efirmino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+GREEN = "\033[1;32m"
+RED = "\033[1;31m"
+YELLOW = "\033[1;33m"
+BLUE = "\033[1;34m"
+WHITE = "\033[1;37m"
+RESET = "\033[0m"
 
 LIBFT_SRC		=	libft/ft_atoi.c libft/ft_bzero.c libft/ft_calloc.c \
 					libft/ft_isalnum.c libft/ft_isalpha.c \
@@ -44,21 +51,24 @@ RM				=	rm -f
 
 NAME			=	libft.a
 
+PROJECT			=	libft
+
 .c.o:
+		@printf $(GREEN)"\r\033[KCreating object files 👉 "$(YELLOW)"<$<> "$(RESET)
 		@$(CC) $(FLAGS) -c $< -o $(<:.c=.o)
 
 $(NAME):	$(OBJS)
 		@ar rc $(NAME) $(OBJS)
-		@echo "Makefile : libft created"
+		@printf $(GREEN)"\r\033[K✅ SUCCESS: "$(WHITE)$(NAME)$(GREEN)" has been created\n"$(RESET)
 
 all:	$(NAME)
 
 clean:
 		@$(RM) $(OBJS)
-		@echo "Makefile : libft objects have been erased"
+		@printf $(RED)"\r\033[K➜ ["$(PROJECT)"] "$(WHITE)"clean"$(RED)" has been done\n"$(RESET)
 
 fclean:	clean
 		@$(RM) $(NAME)
-		@echo "Makefile : libft have been erased"
+		@printf $(RED)"\r\033[K➜ ["$(PROJECT)"] "$(WHITE)"fclean"$(RED)" has been done\n"$(RESET)
 
 re:	fclean all

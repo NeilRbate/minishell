@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:16:43 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/09 17:51:38 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/16 13:39:04 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,9 @@ void	ft_do_basic_cmd(t_cmd *cmd)
 
 	i = 0;
 	pid = ft_new_pid();
+	echo_ctl(1);
+	signal(SIGINT, ft_sig_handle_nothing);
+	signal(SIGQUIT, ft_sig_handle_nothing);
 	pid->pid = fork();
 	if (pid->pid == 0)
 	{

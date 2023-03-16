@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 11:08:56 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/09 17:52:36 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/16 13:42:17 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ void	ft_new_command(void)
 {
 	char	*str;
 
+	echo_ctl(0);
+	signal(SIGINT, ft_sig_handle);
+	signal(SIGQUIT, ft_sig_handle);
 	str = 0;
 	str = readline(PROMPT_MESS);
 	if (str == NULL)
@@ -73,5 +76,18 @@ void	ft_sig_handle(int sig)
 	else if (sig == SIGQUIT)
 	{
 		rl_redisplay();
+	}
+}
+
+void	ft_sig_handle_nothing(int sig)
+{
+	if (sig == SIGINT)
+	{
+		ft_putendl_fd("", 1);
+		return ;
+	}
+	else if (sig == SIGQUIT)
+	{
+		ft_putendl_fd("Quit: 3", 1);
 	}
 }
