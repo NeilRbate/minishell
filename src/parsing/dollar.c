@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:10:29 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/16 15:05:37 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/17 07:21:48 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,31 +37,6 @@ char	*ft_cutheredocdoll(char *ret)
 		free(ret);
 		ret = ft_strdup("");
 	}
-	return (ret);
-}
-
-char	*ft_retd(int i, int j, char *str)
-{
-	char	*ret;
-	char	*stock;
-	char	*doll;
-
-	ret = NULL;
-	doll = NULL;
-	if (str[i] == '?')
-		i++;
-	else
-	{
-		while (str[i] && ft_isalnum(str[i]) == 1)
-			i++;
-	}
-	stock = ft_strndup(str + j, (i - j));
-	doll = ft_strdup(stock);
-	ret = ft_cutheredocdoll(stock);
-	if ((size_t)(i - j) != ft_strlen(str))
-		ret = ft_splitdoll(str, doll, ret);
-	else
-		free(doll);
 	return (ret);
 }
 

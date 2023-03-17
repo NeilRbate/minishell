@@ -6,11 +6,36 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 10:47:47 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/16 15:10:11 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/17 07:25:58 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/parsing.h"
+
+char	*ft_retd(int i, int j, char *str)
+{
+	char	*ret;
+	char	*stock;
+	char	*doll;
+
+	ret = NULL;
+	doll = NULL;
+	if (str[i] == '?')
+		i++;
+	else
+	{
+		while (str[i] && ft_isalnum(str[i]) == 1)
+			i++;
+	}
+	stock = ft_strndup(str + j, (i - j));
+	doll = ft_strdup(stock);
+	ret = ft_cutheredocdoll(stock);
+	if ((size_t)(i - j) != ft_strlen(str))
+		ret = ft_splitdoll(str, doll, ret);
+	else
+		free(doll);
+	return (ret);
+}
 
 int	is_charset(char c, char *charset)
 {
