@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:15:51 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/16 13:13:17 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/16 15:31:30 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ char	*ft_strtrijoin(char const *s1, char const *s2, char const *s3);
 void	ft_error_msg(char *command);
 t_pid	*ft_new_pid(void);
 void	ft_wait_all_pids(void);
+void	ft_free_global(void);
 /* FREE - FREE - FREE - FREE - FREE - FREE - FREE - FREE - FREE - FREE - FREE */
 void	ft_free_split(char **tab);
 void	ft_free_t_env(void);

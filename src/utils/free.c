@@ -6,11 +6,12 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:16:37 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/04 09:16:37 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/16 15:31:11 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/ms.h"
+#include "../../include/parsing.h"
 
 void	ft_free_split(char **tab)
 {
@@ -44,4 +45,16 @@ void	ft_free_t_env(void)
 		current = tmp;
 	}
 	g_data.minishell_env = 0;
+}
+
+void	ft_free_global(void)
+{
+	if (g_data.cmd_path)
+		ft_freesplit(g_data.cmd_path);
+	if (g_data.cmds)
+		ft_del_cmdlist(g_data.cmds);
+	if (g_data.minishell_env)
+		ft_free_t_env();
+	if (g_data.status_code)
+		free(g_data.status_code);
 }
