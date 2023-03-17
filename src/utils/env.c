@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 07:44:12 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/02 13:03:55 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/16 15:43:03 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static void	ft_update_shlvl(void)
 	t_env	*current;
 	int		current_lvl;
 
+	current_lvl = 0;
 	current = g_data.minishell_env;
 	while (current)
 	{
@@ -42,6 +43,7 @@ static void	ft_update_shlvl(void)
 			current_lvl = ft_atoi(current->value);
 			current_lvl += 1;
 			free(current->value);
+			current->value = 0;
 			current->value = ft_itoa(current_lvl);
 			return ;
 		}
