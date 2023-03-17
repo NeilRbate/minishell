@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:12:16 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/07 11:38:14 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/17 07:20:57 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ void	ft_print_cmdlist(t_cmd *list)
 		i = 0;
 		while (list->cmd[i])
 		{
-			ft_putstr_fd(list->cmd[i], 1);
+			printf("cmd[%d]->[%s]\n", i, list->cmd[i]);
 			i++;
 		}
-		printf("\ntype ->%d\ninfile->%d\noutfile->%d\n",
+		printf("type ->%d\ninfile->%d\noutfile->%d\n",
 			list->type, list->infile, list->outfile);
 		ft_putendl_fd("------", 1);
 		list = list->next;

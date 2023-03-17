@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 17:47:11 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/16 11:50:58 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/17 11:16:29 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	ft_wait_all_pids(void)
 {
 	t_pid	*current;
 	t_pid	*next;
+	t_pipe	*pipe;
 
 	current = g_data.pids;
 	while (current)
@@ -44,4 +45,12 @@ void	ft_wait_all_pids(void)
 		current = next;
 	}
 	g_data.pids = 0;
+	
+	pipe = g_data.pipes;
+	while (pipe)
+	{
+		close(pipe->rdwr[0]);
+		close(pipe->rdwr[1]);
+		pipe = pipe->next;
+	}
 }
