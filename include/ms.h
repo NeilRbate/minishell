@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:15:51 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/16 15:31:30 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/17 09:50:01 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,12 @@ typedef struct s_pid
 	struct s_pid	*next;
 }	t_pid;
 
+typedef struct s_pipe
+{
+	int				rdwr[2];
+	struct s_pipe	*next;
+}	t_pipe;
+
 typedef struct s_env
 {
 	char			*key;
@@ -46,6 +52,7 @@ typedef struct s_big
 	t_cmd			*cmds;
 	t_env			*minishell_env;
 	t_pid			*pids;
+	t_pipe			*pipes;
 	char			**exec_env;
 	char			**cmd_path;
 	int				*status_code;

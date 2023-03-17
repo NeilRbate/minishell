@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:16:43 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/16 13:39:04 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/17 10:32:11 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,39 +39,12 @@ char	*ft_strtrijoin(char const *s1, char const *s2, char const *s3)
 	return (str);
 }
 
-static void	ft_dup_in(int infile, int outfile)
-{
-	if (infile != 0)
-	{
-		dup2(infile, 0);
-		close(infile);
-	}
-	if (outfile != 1)
-	{
-		dup2(outfile, 1);
-		close(outfile);
-	}
-}
-
-static void	ft_dup_out(int infile, int outfile)
-{
-	if (infile != 0)
-	{
-		close(infile);
-	}
-	if (outfile != 1)
-	{
-		close(outfile);
-	}
-}
-
 void	ft_try_exe(t_cmd *cmd)
 {
 	int		i;
 	char	*command;
 
 	i = 0;
-	ft_dup_in(cmd->infile, cmd->outfile);
 	if (access(cmd->cmd[0], F_OK) == 0)
 		if (execve(cmd->cmd[0], cmd->cmd, g_data.exec_env) == -1)
 			perror("minishell: ");
@@ -99,6 +72,8 @@ void	ft_do_basic_cmd(t_cmd *cmd)
 	pid->pid = fork();
 	if (pid->pid == 0)
 	{
+		dup2(cmd->infile, 0);
+		dup2(cmd->outfile, 1);
 		if (!ft_strncmp(cmd->cmd[0], "/", 2))
 			execve(cmd->cmd[0], cmd->cmd, g_data.exec_env);
 		else
@@ -107,5 +82,10 @@ void	ft_do_basic_cmd(t_cmd *cmd)
 		exit(1);
 	}
 	else
-		ft_dup_out(cmd->infile, cmd->outfile);
+	{
+		if (cmd->infile != 0)
+			close(cmd->infile);
+		if (cmd->outfile != 1)
+			close(cmd->outfile);
+	}
 }
