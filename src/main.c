@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:31:56 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/17 09:50:54 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/17 14:19:03 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ void	echo_ctl(int n)
 static void	ft_init_global(void)
 {
 	g_data.cmd_path = 0;
-	g_data.pids = 0;
-	g_data.pipes = 0;
 	g_data.cmds = 0;
 	g_data.minishell_env = 0;
 	g_data.exec_env = 0;

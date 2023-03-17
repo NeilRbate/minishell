@@ -6,92 +6,76 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 08:48:38 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/17 12:49:39 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/17 16:05:24 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ms.h"
 
-static void	ft_new_pipe(void)
+static void	ft_do_first_pipe(t_cmd *cmd)
 {
-	t_pipe	*current;
-	t_pipe	*new;
-
-	new = malloc(sizeof(t_pipe));
-	pipe(new->rdwr);
-	new->next = 0;
-	if (g_data.pipes == 0)
-		g_data.pipes = new;
-	else
+	pipe(cmd->pipe);
+	cmd->pid = fork();
+	if (cmd->pid == 0)
 	{
-		current = g_data.pipes;
-		while (current->next)
-			current = current->next;
-		current->next = new;
-	}
-}
-
-void	ft_exec_pipe(t_cmd *cmd)
-{
-	t_pid	*pid;
-	int		i;
-
-	i = 0;
-	pid = ft_new_pid();
-	echo_ctl(1);
-	signal(SIGINT, ft_sig_handle_nothing);
-	signal(SIGQUIT, ft_sig_handle_nothing);
-	pid->pid = fork();
-	if (pid->pid == 0)
-	{
+		close(cmd->pipe[0]);
 		dup2(cmd->infile, 0);
-		dup2(cmd->outfile, 1);
-		if (!ft_strncmp(cmd->cmd[0], "/", 2))
+		if (cmd->outfile == 1 && cmd->next)
+			dup2(cmd->pipe[1], 1);
+		else
+			dup2(cmd->outfile, 1);
+		if (cmd->type == BUILT_IN)
+		{
+			ft_do_built_in_cmd(cmd);
+			exit(0);
+		}
+		else if (!ft_strncmp(cmd->cmd[0], "/", 2))
 			execve(cmd->cmd[0], cmd->cmd, g_data.exec_env);
 		else
 			ft_try_exe(cmd);
 		ft_error_msg(cmd->cmd[0]);
 		exit(1);
 	}
+	else
+	{
+		close(cmd->pipe[1]);
+		if (cmd->next && cmd->next->infile == 0)
+			cmd->next->infile = dup(cmd->pipe[0]);
+		close(cmd->pipe[0]);
+	}
 }
 
-static void	ft_exec_cmd(t_cmd *cmd)
+static void	ft_wait_all_pids(t_cmd *mds)
 {
-	if (cmd->type == BUILT_IN)
-		ft_do_built_in_cmd(cmd);
-	else if (cmd->type == BASIC)
-		ft_exec_pipe(cmd);
+	t_cmd	*current;
+
+	current = mds;
+	while (current)
+	{
+		waitpid(current->pid, g_data.status_code, 0);
+		current = current->next;
+	}
+
 }
 
 void	ft_do_pipe_cmd(t_cmd *cmd)
 {
-	t_pipe	*current_pipe;
-	t_cmd	*current;
+	t_cmd	*current_cmd;
 
-	ft_new_pipe();
-	current_pipe = g_data.pipes;
-	current = cmd;
-	// close(current_pipe->rdwr[0]);
-	current->outfile = current_pipe->rdwr[1];
-	ft_exec_cmd(current);
-	while (current)
+	current_cmd = cmd;
+	echo_ctl(1);
+	signal(SIGINT, ft_sig_handle_nothing);
+	signal(SIGQUIT, ft_sig_handle_nothing);
+	while (current_cmd)
 	{
-		if (current->next)
-		{
-			ft_new_pipe();
-			current->infile = current_pipe->rdwr[0];
-			current_pipe = current_pipe->next;
-			current->outfile = current_pipe->rdwr[1];
-			ft_exec_cmd(current);
-			// close(current_pipe->rdwr[0]);
-			close(current_pipe->rdwr[1]);
-		}
-		else
-		{
-			current->infile = current_pipe->rdwr[0];
-			ft_exec_cmd(current);
-		}
-		current = current->next;
+		ft_do_first_pipe(current_cmd);
+		if (current_cmd->outfile != 1)
+			close(current_cmd->outfile);
+		if (current_cmd->next == 0)
+			break ;
+		current_cmd = current_cmd->next;
 	}
-	close(current_pipe->rdwr[1]);
+	if (current_cmd->infile != 0)
+		close(current_cmd->infile);
+	ft_wait_all_pids(g_data.cmds);
 }

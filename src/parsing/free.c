@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:12:33 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/13 12:57:03 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/17 15:59:02 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	ft_del_cmdlist(t_cmd *list)
 		free(list);
 		list = stock;
 	}
+	list = 0;
 }
 
 void	ft_freesplit(char **split)

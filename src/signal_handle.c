@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 11:08:56 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/16 13:42:17 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/17 14:25:15 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	ft_new_command(void)
 		ft_execute();
 		free(str);
 		ft_del_cmdlist(g_data.cmds);
-		ft_wait_all_pids();
 	}
 }
 

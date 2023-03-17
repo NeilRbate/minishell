@@ -6,11 +6,18 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:16:43 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/17 10:32:11 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/17 16:19:02 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ms.h"
+
+static void	ft_set_signals(void)
+{
+	echo_ctl(1);
+	signal(SIGINT, ft_sig_handle_nothing);
+	signal(SIGQUIT, ft_sig_handle_nothing);
+}
 
 char	*ft_strtrijoin(char const *s1, char const *s2, char const *s3)
 {
@@ -61,16 +68,12 @@ void	ft_try_exe(t_cmd *cmd)
 
 void	ft_do_basic_cmd(t_cmd *cmd)
 {
-	t_pid	*pid;
 	int		i;
 
 	i = 0;
-	pid = ft_new_pid();
-	echo_ctl(1);
-	signal(SIGINT, ft_sig_handle_nothing);
-	signal(SIGQUIT, ft_sig_handle_nothing);
-	pid->pid = fork();
-	if (pid->pid == 0)
+	ft_set_signals();
+	cmd->pid = fork();
+	if (cmd->pid == 0)
 	{
 		dup2(cmd->infile, 0);
 		dup2(cmd->outfile, 1);
@@ -87,5 +90,6 @@ void	ft_do_basic_cmd(t_cmd *cmd)
 			close(cmd->infile);
 		if (cmd->outfile != 1)
 			close(cmd->outfile);
+		waitpid(cmd->pid, 0, 0);
 	}
 }

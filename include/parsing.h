@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:21:24 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/17 07:25:50 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/17 14:16:09 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ typedef struct s_cmd
 	int				type;
 	int				infile;
 	int				outfile;
+	pid_t			pid;
+	int				pipe[2];
 	struct s_cmd	*next;
 }				t_cmd;
 typedef struct s_id
