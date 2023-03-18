@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 07:57:05 by efirmino          #+#    #+#             */
-/*   Updated: 2022/11/15 15:18:57 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/18 11:11:51 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,7 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 /* BONUS - BONUS - BONUS - BONUS - BONUS - BONUS - BONUS - BONUS - BONUS */
+
+char	*ft_strtrijoin(char const *s1, char const *s2, char const *s3);
 
 #endif

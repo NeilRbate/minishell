@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:15:51 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/17 16:19:12 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/18 12:20:18 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ void	echo_ctl(int n);
 void	ft_do_basic_cmd(t_cmd *cmd);
 void	ft_do_built_in_cmd(t_cmd *cmd);
 void	ft_do_pipe_cmd(t_cmd *cmd);
-void	ft_try_exe(t_cmd *cmd);
+char	*ft_check_access(char *to_test);
+void	ft_check_slash(char *str);
 /* BUILT-IN - BUILT-IN - BUILT-IN - BUILT-IN - BUILT-IN - BUILT-IN - BUILT-IN */
 void	ft_echo(t_cmd *cmdd);
 void	ft_env(t_cmd *command);

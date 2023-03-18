@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 08:48:38 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/17 16:05:24 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/18 12:17:54 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 
 static void	ft_do_first_pipe(t_cmd *cmd)
 {
+	char	*access_cmd;
+
 	pipe(cmd->pipe);
+	access_cmd = ft_check_access(cmd->cmd[0]);
 	cmd->pid = fork();
 	if (cmd->pid == 0)
 	{
@@ -24,17 +27,15 @@ static void	ft_do_first_pipe(t_cmd *cmd)
 			dup2(cmd->pipe[1], 1);
 		else
 			dup2(cmd->outfile, 1);
+		ft_check_slash(cmd->cmd[0]);
 		if (cmd->type == BUILT_IN)
 		{
 			ft_do_built_in_cmd(cmd);
 			exit(0);
 		}
-		else if (!ft_strncmp(cmd->cmd[0], "/", 2))
-			execve(cmd->cmd[0], cmd->cmd, g_data.exec_env);
-		else
-			ft_try_exe(cmd);
-		ft_error_msg(cmd->cmd[0]);
-		exit(1);
+		else if (access_cmd)
+			execve(access_cmd, cmd->cmd, g_data.exec_env);
+		exit(127);
 	}
 	else
 	{
@@ -55,7 +56,6 @@ static void	ft_wait_all_pids(t_cmd *mds)
 		waitpid(current->pid, g_data.status_code, 0);
 		current = current->next;
 	}
-
 }
 
 void	ft_do_pipe_cmd(t_cmd *cmd)
