@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:10:29 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/17 07:21:48 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/20 13:14:25 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ char	*ft_cutheredocdoll(char *ret)
 		{
 			if (ret != NULL)
 				free(ret);
-			ret = ft_strdup(env->value);
+			//if (env->value == NULL)
+			//	ret = ft_strdup("");
+			//else
+				ret = ft_strdup(env->value);
 			break ;
 		}
 		else

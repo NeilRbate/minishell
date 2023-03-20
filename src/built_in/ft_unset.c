@@ -6,22 +6,18 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:16:25 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/04 09:16:25 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/20 11:55:10 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/ms.h"
 
-static void	ft_export_error_message(char *key)
+void	ft_unset_error_message(char *keyval)
 {
-	char	*tmp;
-	char	*tmpp;
 
-	tmp = ft_strjoin("minishell: unset: `", key);
-	tmpp = ft_strjoin(tmp, "': not a valid identifier");
-	free(tmp);
-	ft_putendl_fd(tmpp, 2);
-	free(tmpp);
+	ft_putstr_fd("minishell: unset: `", 2);
+	ft_putstr_fd(keyval, 2);
+	ft_putendl_fd("': not a valid identifier", 2);
 	*g_data.status_code = 1;
 }
 
@@ -36,7 +32,7 @@ static int	ft_unset_valid_key(char *key)
 	{
 		if (!ft_isalnum(str[i]) && str[i] != '_')
 		{
-			ft_export_error_message(str);
+			ft_unset_error_message(str);
 			*g_data.status_code = 1;
 			return (0);
 		}
