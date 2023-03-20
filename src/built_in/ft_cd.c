@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:16:09 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/18 14:15:19 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/20 10:26:45 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,11 @@ void	ft_go_home(void)
 	{
 		home = ft_get_env_value("HOME");
 		current_pwd = getcwd(0, 100);
-		ft_env_add("ODLPWD", current_pwd);
-		free(current_pwd);
+		ft_env_add("OLDPWD", current_pwd);
+		chdir("../");
 		*g_data.status_code = 0;
+		free(current_pwd);
+		free(home);
 	}
 	else
 	{
