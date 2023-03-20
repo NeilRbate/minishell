@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_gestion.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:12:25 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/13 12:13:49 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/20 14:06:29 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ t_id	*ft_heredoc(t_id *id, t_id *s)
 {
 	int		fd;
 
+	ft_set_signals_heredoc();
 	if (s == NULL)
 	{
 		if (id->next != NULL)
@@ -28,6 +29,8 @@ t_id	*ft_heredoc(t_id *id, t_id *s)
 	else
 		id = id->next;
 	fd = ft_heredocstr(id);
+	signal(SIGINT, ft_sig_handle);
+	signal(SIGQUIT, ft_sig_handle);
 	if (fd < 0)
 		return (NULL);
 	id->type = 20;

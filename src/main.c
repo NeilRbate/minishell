@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:31:56 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/17 14:19:03 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/20 14:47:59 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static void	ft_init_global(void)
 	g_data.minishell_env = 0;
 	g_data.exec_env = 0;
 	g_data.status_code = 0;
+	g_data.heredoc = 0;
 }
 
 static void	ft_path_setup(void)

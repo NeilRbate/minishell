@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 08:48:38 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/18 12:17:54 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/20 13:31:15 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ static void	ft_do_first_pipe(t_cmd *cmd)
 	else
 	{
 		close(cmd->pipe[1]);
+		if (cmd->infile != 0)
+			close(cmd->infile);
 		if (cmd->next && cmd->next->infile == 0)
 			cmd->next->infile = dup(cmd->pipe[0]);
 		close(cmd->pipe[0]);

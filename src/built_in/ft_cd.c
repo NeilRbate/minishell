@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:16:09 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/20 10:49:16 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/20 13:53:09 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,23 +39,26 @@ static void	ft_go_to(char *str)
 {
 	char	*current_pwd;
 
-	if (open(str, O_DIRECTORY) != -1)
+	if (access(str, F_OK) == 0)
 	{
-		current_pwd = getcwd(0, 1000);
-		ft_env_add("OLDPWD", current_pwd);
-		free(current_pwd);
-		chdir(str);
-		current_pwd = getcwd(0, 1000);
-		ft_env_add("PWD", current_pwd);
-		free(current_pwd);
-	}
-	else
-	{
+		if (open(str, O_DIRECTORY) != -1)
+		{
+			current_pwd = getcwd(0, 1000);
+			ft_env_add("OLDPWD", current_pwd);
+			free(current_pwd);
+			chdir(str);
+			current_pwd = getcwd(0, 1000);
+			ft_env_add("PWD", current_pwd);
+			return (free(current_pwd));
+		}
 		ft_putstr_fd("minishell: cd: ", 2);
 		ft_putstr_fd(str, 2);
 		ft_putendl_fd(": Not a directory", 2);
 		*g_data.status_code = 1;
+		return ;
 	}
+	perror("minishel: ");
+	*g_data.status_code = 1;
 }
 
 void	ft_cd(t_cmd *cmd)

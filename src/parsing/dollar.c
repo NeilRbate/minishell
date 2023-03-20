@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:10:29 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/20 13:14:25 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/20 13:21:47 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ char	*ft_cutheredocdoll(char *ret)
 		{
 			if (ret != NULL)
 				free(ret);
-			//if (env->value == NULL)
-			//	ret = ft_strdup("");
-			//else
+			printf("%p\n", env);
+			if (env->value == NULL)
+				ret = ft_strdup("");
+			else
 				ret = ft_strdup(env->value);
 			break ;
 		}
-		else
-			env = env->next;
+		env = env->next;
 	}
 	if (env == NULL)
 	{
@@ -79,7 +79,10 @@ void	ft_convertdoll(t_id *id, t_env *env)
 		if (ft_strncmp(id->data, env->key, ft_strlen(env->key) + 1) == 0)
 		{
 			free(id->data);
-			id->data = ft_strdup(env->value);
+			if (env->value)
+				id->data = ft_strdup(env->value);
+			else
+				id->data = ft_strdup("");
 			i = 1;
 			break ;
 		}
