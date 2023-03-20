@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 08:45:54 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/20 11:52:53 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/20 15:03:30 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	ft_error_msg(char *command)
 
 void	ft_export_error_message(char *keyval)
 {
-
 	ft_putstr_fd("minishell: export: `", 2);
 	ft_putstr_fd(keyval, 2);
 	ft_putendl_fd("': not a valid identifier", 2);

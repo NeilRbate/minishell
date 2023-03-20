@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:16:25 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/20 11:55:10 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/20 15:04:11 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	ft_unset_error_message(char *keyval)
 {
-
 	ft_putstr_fd("minishell: unset: `", 2);
 	ft_putstr_fd(keyval, 2);
 	ft_putendl_fd("': not a valid identifier", 2);
