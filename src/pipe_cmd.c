@@ -6,11 +6,21 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 08:48:38 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/20 13:31:15 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/20 15:09:01 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ms.h"
+
+static void	ft_close_all_n_dup(t_cmd *cmd)
+{
+	close(cmd->pipe[1]);
+	if (cmd->infile != 0)
+		close(cmd->infile);
+	if (cmd->next && cmd->next->infile == 0)
+		cmd->next->infile = dup(cmd->pipe[0]);
+	close(cmd->pipe[0]);
+}
 
 static void	ft_do_first_pipe(t_cmd *cmd)
 {
@@ -38,14 +48,7 @@ static void	ft_do_first_pipe(t_cmd *cmd)
 		exit(127);
 	}
 	else
-	{
-		close(cmd->pipe[1]);
-		if (cmd->infile != 0)
-			close(cmd->infile);
-		if (cmd->next && cmd->next->infile == 0)
-			cmd->next->infile = dup(cmd->pipe[0]);
-		close(cmd->pipe[0]);
-	}
+		ft_close_all_n_dup(cmd);
 }
 
 static void	ft_wait_all_pids(t_cmd *mds)
