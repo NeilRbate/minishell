@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 12:06:12 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/20 16:02:39 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/20 16:06:53 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	ft_heredocstr(t_id *id)
 	tid = fork();
 	if (tid == 0)
 	{
+		close(fd[0]);
 		while (1)
 		{
 			line = readline(">");
@@ -59,6 +60,9 @@ int	ft_heredocstr(t_id *id)
 		exit(0);
 	}
 	else
+	{
 		close(fd[1]);
+		waitpid(tid, NULL, 0);
+	}
 	return (fd[0]);
 }

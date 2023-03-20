@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:10:29 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/20 13:21:47 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/20 16:07:54 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ char	*ft_cutheredocdoll(char *ret)
 		{
 			if (ret != NULL)
 				free(ret);
-			printf("%p\n", env);
 			if (env->value == NULL)
 				ret = ft_strdup("");
 			else
