@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:12:41 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/13 12:35:08 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/21 15:43:21 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ int	ft_syntax_analyse(t_id *lex)
 	if (ft_stxctrl(lex) != 0)
 		return (-1);
 	ft_cleanidws(lex);
+	ft_exportquote(lex);
 	if (ft_redirctrl(lex) != 0)
 		return (-1);
 	return (0);
