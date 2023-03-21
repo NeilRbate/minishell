@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 08:45:54 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/20 15:03:30 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/21 08:25:42 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,16 @@ void	ft_export_error_message(char *keyval)
 	ft_putstr_fd(keyval, 2);
 	ft_putendl_fd("': not a valid identifier", 2);
 	*g_data.status_code = 1;
+}
+
+void	ft_sig_handle_doubleshell(int sig)
+{
+	if (sig == SIGINT)
+	{
+		return ;
+	}
+	else if (sig == SIGQUIT)
+	{
+		return ;
+	}
 }
