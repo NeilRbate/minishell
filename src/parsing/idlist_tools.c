@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:15:29 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/13 12:02:46 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/21 08:42:13 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	ft_print_lex(t_id *lex)
 {
 	while (lex != NULL)
 	{
+		printf("lex->prev->%p\nlex->%p\nlex->next->%p\n", lex->prev, lex, lex->next);
 		ft_putstr_fd("type -> ", 1);
 		ft_putnbr_fd(lex->type, 1);
 		ft_putstr_fd(" index ->", 1);
@@ -88,6 +89,7 @@ void	ft_del_idelem(t_id *id)
 		free(id->data);
 		free(id);
 		id = id->prev;
+		id->next = NULL;
 	}
 	else if (id->next == NULL && id->prev == NULL)
 	{

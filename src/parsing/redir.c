@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:19:57 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/17 07:51:33 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/21 07:47:16 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	ft_redirctrl(t_id *id)
 			id = ft_firstinfile(id);
 		else if (id->type == 7 || id->type == 8)
 			id = ft_redir(id, stock);
-		if (id->next == NULL)
+		else if (id->next == NULL)
 			return (0);
 		id = id->next;
 	}

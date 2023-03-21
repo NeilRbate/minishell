@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:15:25 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/17 13:05:43 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/21 08:07:23 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	ft_echo(t_cmd *cmdd)
 			ft_putstr_fd(" ", cmdd->outfile);
 	}
 	if (option == 0)
-		ft_putchar_fd('\n', cmdd->outfile);
+		ft_putendl_fd("", cmdd->outfile);
 	if (cmdd->outfile != 1)
 		close(cmdd->outfile);
 }

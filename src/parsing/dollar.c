@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:10:29 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/20 16:07:54 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/21 07:41:17 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ char	*ft_cutheredocdoll(char *ret)
 				free(ret);
 			if (env->value == NULL)
 				ret = ft_strdup("");
-			else
-				ret = ft_strdup(env->value);
+			ret = ft_strdup(env->value);
 			break ;
 		}
 		env = env->next;
@@ -68,11 +67,8 @@ char	*ft_heredocdoll(char *str)
 	return (free(str), ret);
 }
 
-void	ft_convertdoll(t_id *id, t_env *env)
+void	ft_convertdoll(t_id *id, t_env *env, int i)
 {
-	int		i;
-
-	i = 0;
 	while (env != NULL)
 	{
 		if (ft_strncmp(id->data, env->key, ft_strlen(env->key) + 1) == 0)
@@ -85,8 +81,7 @@ void	ft_convertdoll(t_id *id, t_env *env)
 			i = 1;
 			break ;
 		}
-		else
-			env = env->next;
+		env = env->next;
 	}
 	if (i == 0)
 	{
@@ -141,5 +136,5 @@ void	ft_doll(t_id *id)
 		id->prev->type = 0;
 	}
 	else
-		ft_convertdoll(id, env);
+		ft_convertdoll(id, env, 0);
 }
