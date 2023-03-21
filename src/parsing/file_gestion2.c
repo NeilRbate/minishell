@@ -6,31 +6,11 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 12:06:12 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/20 14:48:16 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/21 12:58:41 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/ms.h"
-
-void	ft_sig_handle_heredoc(int sig)
-{
-	if (sig == SIGINT)
-	{
-		g_data.heredoc = 1;
-		*g_data.status_code = 1;
-		return ;
-	}
-	else if (sig == SIGQUIT)
-	{
-		return ;
-	}
-}
-
-void	ft_set_signals_heredoc(void)
-{
-	signal(SIGINT, ft_sig_handle_heredoc);
-	signal(SIGQUIT, ft_sig_handle_heredoc);
-}
 
 int	ft_heredocstr(t_id *id)
 {
