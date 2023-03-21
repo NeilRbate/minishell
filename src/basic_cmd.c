@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:16:43 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/21 11:45:57 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/21 12:05:31 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,7 @@ char	*ft_check_access(char *to_test)
 			i++;
 		}
 	}
-	else
-		ft_error_msg(to_test);
+	ft_error_msg(to_test);
 	return (0);
 }
 

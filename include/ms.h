@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:15:51 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/21 10:56:37 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/21 12:03:37 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	ft_sig_handle(int signal);
 void	ft_sig_handle_nothing(int sig);
 void	ft_new_command(void);
 void	echo_ctl(int n);
-void	ft_set_signals_heredoc(void);
 void	ft_sig_handle_doubleshell(int sig);
 /* COMMAND EXECUTION - COMMAND EXECUTION - COMMAND EXECUTION */
 void	ft_do_basic_cmd(t_cmd *cmd);
