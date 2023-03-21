@@ -4,3 +4,4 @@
 .vscode
 minishell
 valgrindtest
+libft/libft.a
