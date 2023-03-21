@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:16:07 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/17 12:53:20 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/21 13:09:54 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_cmd	*ft_ret(t_cmd *ret, int i, t_id *id, t_id *stock)
 	int		j;
 
 	j = 0;
-	cmd = malloc(sizeof(cmd) * (i + 1));
+	cmd = malloc(sizeof(char *) * (i + 1));
 	if (!cmd)
 		return (ft_puterror_fd("malloc fail", 2), NULL);
 	cmd[i] = NULL;
@@ -26,7 +26,10 @@ t_cmd	*ft_ret(t_cmd *ret, int i, t_id *id, t_id *stock)
 	{
 		if (stock->type != 3)
 			cmd[j] = ft_strdup(stock->data);
-		stock = stock->next;
+		if (stock->next != NULL)
+			stock = stock->next;
+		else
+			break ;
 		j++;
 	}
 	if (ret == NULL)

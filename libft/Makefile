@@ -6,7 +6,7 @@
 #    By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/03 17:43:00 by efirmino          #+#    #+#              #
-#    Updated: 2023/03/16 11:15:08 by efirmino         ###   ########.fr        #
+#    Updated: 2023/03/18 11:12:17 by efirmino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ LIBFT_SRC		=	libft/ft_atoi.c libft/ft_bzero.c libft/ft_calloc.c \
 					libft/ft_strlen.c libft/ft_strmapi.c libft/ft_strncmp.c \
 					libft/ft_strnstr.c libft/ft_strrchr.c \
 					libft/ft_strtrim.c libft/ft_substr.c libft/ft_tolower.c \
-					libft/ft_toupper.c libft/ft_split.c
+					libft/ft_toupper.c libft/ft_split.c libft/ft_strtrijoin.c
 
 GNL_SRC			=	get_next_line/get_next_line.c \
 					get_next_line/get_next_line_utils.c 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:21:24 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/17 07:25:50 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/21 07:41:54 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ typedef struct s_cmd
 	int				type;
 	int				infile;
 	int				outfile;
+	pid_t			pid;
+	int				pipe[2];
 	struct s_cmd	*next;
 }				t_cmd;
 typedef struct s_id
@@ -51,7 +53,7 @@ int		ft_add_idelem(t_id *list, int type, int index, char *data);
 int		ft_idlist_size(t_id *list);
 int		ft_del_oneid(t_id *id);
 char	**ft_splitstr(char *str, char *charset);
-int	ft_containchar(t_id *id);
+int		ft_containchar(t_id *id);
 void	ft_del_idlist(t_id *list);
 void	ft_doll(t_id *id);
 void	ft_del_idelem(t_id *id);
@@ -81,6 +83,6 @@ t_id	*ft_heredoc(t_id *id, t_id *stock);
 t_id	*ft_firstinfile(t_id *id);
 t_id	*ft_multiinfile2(t_id *id, t_id *s);
 t_id	*ft_endredir(t_id *id);
-t_id	*ft_multioutfile2(t_id * id, t_id *stock);
-t_id	*ft_lastoutfile(t_id * id, t_id *stock);
+t_id	*ft_multioutfile2(t_id *id, t_id *stock);
+t_id	*ft_lastoutfile(t_id *id, t_id *stock);
 #endif

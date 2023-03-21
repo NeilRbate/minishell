@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 08:49:03 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/09 11:21:11 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/20 11:53:26 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,34 +41,40 @@ static void	ft_export_no_args(t_cmd *command)
 	*g_data.status_code = 0;
 }
 
-static void	ft_export_error_message(char *keyval)
+static int	ft_export_get_keyval(char *keyval, char **key, char **value)
 {
-	char	*tmp;
-	char	*tmpp;
+	int	i;
+	int	j;
 
-	tmp = ft_strjoin("minishell: export: `", keyval);
-	tmpp = ft_strjoin(tmp, "': not a valid identifier");
-	free(tmp);
-	ft_putendl_fd(tmpp, 2);
-	free(tmpp);
-	*g_data.status_code = 1;
+	i = 0;
+	j = 0;
+	while (keyval[i])
+	{
+		if (keyval[i] == '=')
+		{
+			*key = ft_substr(keyval, 0, i);
+			if (keyval[i + 1] == '\0')
+				*value = 0;
+			else
+				*value = ft_strdup(keyval + i + 1);
+			return (1);
+		}
+		i++;
+	}
+	*key = ft_strdup(keyval);
+	*value = 0;
+	return (1);
 }
 
-static int	ft_export_valid_key(char *key, char	*keyval)
+static int	ft_export_key_is_valid(char *str)
 {
-	int		i;
-	char	*str;
+	int	i;
 
-	str = key;
 	i = 0;
 	while (str[i])
 	{
-		if (!ft_isalnum(str[i]) && str[i] != '_')
-		{
-			ft_export_error_message(keyval);
-			*g_data.status_code = 1;
+		if (!ft_isalnum(str[i]) && str[i] != '_' && str[i] != '=')
 			return (0);
-		}
 		i++;
 	}
 	return (1);
@@ -80,27 +86,26 @@ static void	ft_export_args(char **to_export)
 	int		i;
 	char	*key;
 	char	*value;
-	int		j;
 
-	i = -1;
+	i = 0;
 	list = to_export;
-	while (list[++i])
+	while (list[i])
 	{
-		j = 0;
-		while (list[i][j] && list[i][j] != '=')
-			j++;
-		key = ft_substr(list[i], 0, j);
-		if (list[i][j + 1])
-			value = ft_strdup(list[i] + j + 1);
-		else
-			value = 0;
-		if (ft_export_valid_key(key, list[i]))
+		if (ft_export_get_keyval(list[i], &key, &value))
 		{
-			ft_env_add(key, value);
-			*g_data.status_code = 0;
+			if (ft_export_key_is_valid(key))
+			{
+				ft_env_add(key, value);
+				*g_data.status_code = 0;
+			}
+			else
+			{
+				ft_export_error_message(key);
+			}
+			free(key);
+			free(value);
 		}
-		free(key);
-		free(value);
+		i++;
 	}
 }
 

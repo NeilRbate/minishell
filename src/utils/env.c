@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 07:44:12 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/16 15:43:03 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/20 11:36:49 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	ft_env_add(char *key, char *value)
 	new = malloc(sizeof(t_env));
 	new->next = 0;
 	new->key = ft_strdup(key);
-	if (value)
+	if (value != 0)
 		new->value = ft_strdup(value);
 	else
 		new->value = 0;

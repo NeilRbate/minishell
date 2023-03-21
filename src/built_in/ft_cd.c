@@ -6,65 +6,68 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:16:09 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/04 09:16:09 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/20 13:53:09 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/ms.h"
 
-static void	ft_cd_error_msg(char *str)
-{
-	char	*tmp;
-
-	tmp = ft_strdup("minishell: cd: ");
-	ft_putstr_fd(tmp, 2);
-	perror(str);
-	free(tmp);
-}
-
-static void	ft_go_to(char *to_go, char *old_pwd)
-{
-	char	*new_pwd;
-
-	if (access(to_go, F_OK) == -1)
-	{
-		ft_cd_error_msg(to_go);
-		*g_data.status_code = 1;
-		return ;
-	}
-	chdir(to_go);
-	new_pwd = getcwd(0, 100);
-	ft_env_add("OLDPWD", old_pwd);
-	ft_env_add("PWD", new_pwd);
-	free(new_pwd);
-	*g_data.status_code = 0;
-}
-
-static void	ft_go_home(char *old_pwd)
+static void	ft_go_home(void)
 {
 	char	*home;
+	char	*current_pwd;
 
-	if (ft_env_key_exist("HOME") == 0)
+	if (ft_env_key_exist("HOME"))
+	{
+		home = ft_get_env_value("HOME");
+		current_pwd = getcwd(0, 1000);
+		ft_env_add("OLDPWD", current_pwd);
+		free(current_pwd);
+		chdir(home);
+		ft_env_add("PWD", home);
+		free(home);
+		*g_data.status_code = 0;
+	}
+	else
 	{
 		ft_putendl_fd("minishell: cd: HOME not set", 2);
 		*g_data.status_code = 1;
+	}
+}
+
+static void	ft_go_to(char *str)
+{
+	char	*current_pwd;
+
+	if (access(str, F_OK) == 0)
+	{
+		if (open(str, O_DIRECTORY) != -1)
+		{
+			current_pwd = getcwd(0, 1000);
+			ft_env_add("OLDPWD", current_pwd);
+			free(current_pwd);
+			chdir(str);
+			current_pwd = getcwd(0, 1000);
+			ft_env_add("PWD", current_pwd);
+			return (free(current_pwd));
+		}
+		ft_putstr_fd("minishell: cd: ", 2);
+		ft_putstr_fd(str, 2);
+		ft_putendl_fd(": Not a directory", 2);
+		*g_data.status_code = 1;
 		return ;
 	}
-	home = ft_get_env_value("HOME");
-	ft_go_to(home, old_pwd);
-	free(home);
+	perror("minishel: ");
+	*g_data.status_code = 1;
 }
 
 void	ft_cd(t_cmd *cmd)
 {
-	char	*old_pwd;
 	char	*to_go;
 
 	to_go = cmd->cmd[1];
-	old_pwd = ft_get_env_value("PWD");
-	if (to_go == 0)
-		ft_go_home(old_pwd);
+	if (!to_go)
+		ft_go_home();
 	else
-		ft_go_to(to_go, old_pwd);
-	free(old_pwd);
-}	
+		ft_go_to(to_go);
+}
