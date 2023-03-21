@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:16:37 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/21 11:58:31 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/21 13:39:53 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,6 @@ void	ft_free_cmd(t_cmd *cmd)
 			close(current->infile);
 		if (current->outfile != 1)
 			close(current->outfile);
-		close(current->pipe[0]);
-		close(current->pipe[1]);
 		free(current);
 		current = next;
 	}
