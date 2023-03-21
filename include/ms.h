@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:15:51 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/21 10:23:40 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/21 10:56:37 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ char	*ft_get_env_value(char *key);
 char	*ft_strtrijoin(char const *s1, char const *s2, char const *s3);
 void	ft_error_msg(char *command);
 void	ft_free_global(void);
+void	ft_free_cmd(t_cmd *cmd);
 void	ft_export_error_message(char *keyval);
 /* FREE - FREE - FREE - FREE - FREE - FREE - FREE - FREE - FREE - FREE - FREE */
 void	ft_free_split(char **tab);

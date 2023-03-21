@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:16:43 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/21 08:29:06 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/21 11:45:57 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,23 @@ char	*ft_check_access(char *to_test)
 	try = 0;
 	if (access(to_test, F_OK) == 0)
 		return (ft_strdup(to_test));
-	while (g_data.cmd_path[i])
+	else if (g_data.cmd_path)
 	{
-		try = ft_strtrijoin(g_data.cmd_path[i], "/", to_test);
-		if (access(try, F_OK) == 0)
+		while (g_data.cmd_path[i])
 		{
-			*g_data.status_code = 0;
-			return (try);
+			try = ft_strtrijoin(g_data.cmd_path[i], "/", to_test);
+			if (access(try, F_OK) == 0)
+			{
+				*g_data.status_code = 0;
+				return (try);
+			}
+			free(try);
+			try = 0;
+			i++;
 		}
-		free(try);
-		try = 0;
-		i++;
 	}
-	ft_error_msg(to_test);
+	else
+		ft_error_msg(to_test);
 	return (0);
 }
 
@@ -55,7 +59,7 @@ void	ft_check_slash(char *str)
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(str, 2);
 		ft_putendl_fd(": is a directory", 2);
-		*g_data.status_code = 126;
+		exit(126);
 	}
 }
 
@@ -78,16 +82,14 @@ void	ft_do_basic_cmd(t_cmd *cmd)
 		dup2(cmd->outfile, 1);
 		ft_check_slash(cmd->cmd[0]);
 		if (access_cmd)
-			if (execve(access_cmd, cmd->cmd, g_data.exec_env) == -1)
-				perror("minishell: ");
+			execve(access_cmd, cmd->cmd, g_data.exec_env);
+		close(cmd->infile);
 		exit(127);
 	}
 	else
 	{
 		ft_double_minishell();
 		free(access_cmd);
-		if (cmd->infile != 0)
-			close(cmd->infile);
 		if (cmd->outfile != 1)
 			close(cmd->outfile);
 		waitpid(cmd->pid, g_data.status_code, 0);

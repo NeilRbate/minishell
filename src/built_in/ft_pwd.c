@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:16:22 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/20 15:04:06 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/21 11:54:19 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,11 @@
 
 void	ft_pwd(t_cmd *command)
 {
-	t_env	*current;
+	char	*str;
 
-	current = g_data.minishell_env;
-	while (current)
-	{
-		if (!ft_strncmp(current->key, "PWD", 4))
-		{
-			ft_putendl_fd(current->value, command->outfile);
-		}
-		current = current->next;
-	}
+	str = getcwd(0, 1000);
+	ft_putendl_fd(str, command->outfile);
+	ft_env_add("PWD", str);
+	free(str);
 	*g_data.status_code = 0;
 }
