@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:19:57 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/21 07:47:16 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/21 15:58:24 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ t_id	*ft_firstoutfile(t_id *id, int type)
 		id->next->outfile = ft_openredir(id->data, type);
 		if (id->next->infile > 0)
 			return (ft_endredir(id));
+		if (id->prev->infile != 0)
+			id->next->infile = id->prev->infile;
 		id->type = 20;
 		stock->type = 20;
 	}
@@ -80,6 +82,8 @@ t_id	*ft_infile(t_id *id, t_id *s)
 		s->infile = ft_openread(id->data);
 		if (s->infile < 0)
 			return (s->type = 20, ft_endredir(id));
+		if (s->outfile != 0)
+			id->outfile = s->outfile;
 		return (id->type = 20, id);
 	}
 	else
