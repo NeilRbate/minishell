@@ -6,11 +6,20 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:12:33 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/21 13:04:20 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/22 12:20:48 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/parsing.h"
+
+t_id	*ft_freeempty(t_id *id)
+{
+	id->prev->data = ft_gstrjoin(id->prev->data, id->next->data);
+	id = id->prev;
+	ft_del_idelem(id->next->next);
+	ft_del_idelem(id->next);
+	return (id);
+}
 
 void	ft_del_idlist(t_id *list)
 {

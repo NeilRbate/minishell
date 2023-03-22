@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:16:37 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/17 14:26:17 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/21 13:39:53 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,34 @@ void	ft_free_t_env(void)
 	while (current)
 	{
 		tmp = current->next;
-		free(current->key);
-		free(current->value);
+		if (current->key)
+			free(current->key);
+		if (current->value)
+			free(current->value);
 		free(current);
 		current = tmp;
 	}
 	g_data.minishell_env = 0;
+}
+
+void	ft_free_cmd(t_cmd *cmd)
+{
+	t_cmd	*current;
+	t_cmd	*next;
+
+	current = cmd;
+	while (current)
+	{
+		next = current->next;
+		if (current->cmd)
+			ft_free_split(current->cmd);
+		if (current->infile != 0)
+			close(current->infile);
+		if (current->outfile != 1)
+			close(current->outfile);
+		free(current);
+		current = next;
+	}
 }
 
 void	ft_free_global(void)
