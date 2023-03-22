@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 12:06:12 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/21 07:30:05 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/22 08:19:12 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*ft_readpipe(int src, char *line)
 		if (!stock)
 			break ;
 		if (line)
-			line = ft_gstrjoin(stock, line);
+			line = ft_gstrjoin(line, stock);
 		else
 			line = ft_strjoin("", stock);
 	}

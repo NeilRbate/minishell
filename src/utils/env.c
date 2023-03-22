@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 07:44:12 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/20 11:36:49 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/21 11:55:47 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static void	ft_update_shlvl(void)
 		}
 		current = current->next;
 	}
+	ft_env_add("SHLVL", "1");
 }
 
 void	ft_env_setup(char **envp)

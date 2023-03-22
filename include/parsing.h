@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:21:24 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/21 15:35:45 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/22 09:49:12 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ void	ft_print_lex(t_id *lex);
 void	ft_cleanidws(t_id *id);
 /* ---- parsing parts ---- */
 t_cmd	*ft_parsing(char *str);
-void	ft_puterror_fd(char *str, int fd);
 void	ft_freesplit(char **split);
 void	ft_exportquote(t_id *id);
 int		ft_stxctrl(t_id *id);
@@ -70,7 +69,7 @@ int		ft_returnempty(t_id *id);
 t_id	*ft_lexical_analyse(char *str);
 int		ft_syntax_analyse(t_id *lex);
 /* ---- redir parts ---- */
-int		ft_redirctrl(t_id *id);
+int		ft_redirctrl(t_id *id, t_id *stock);
 int		ft_openredir(char *file, int type);
 char	*ft_retd(int i, int j, char *str);
 char	*ft_cutheredocdoll(char *stock);
@@ -86,4 +85,10 @@ t_id	*ft_multiinfile2(t_id *id, t_id *s);
 t_id	*ft_endredir(t_id *id);
 t_id	*ft_multioutfile2(t_id *id, t_id *stock);
 t_id	*ft_lastoutfile(t_id *id, t_id *stock);
+/* ---- print error ---- */
+void	ft_puterror_fd(char *str, int fd);
+void	ft_putnlerror_fd(void);
+void	ft_putperror_fd(void);
+void	ft_putpperror_fd(void);
+void	ft_putserror_fd(void);
 #endif

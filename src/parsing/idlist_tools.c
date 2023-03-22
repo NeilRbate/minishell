@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:15:29 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/21 15:57:52 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/22 07:37:20 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,7 @@ void	ft_del_idelem(t_id *id)
 		id->next = NULL;
 	}
 	else if (id->next == NULL && id->prev == NULL)
-	{
-		free(id->data);
-		free(id);
-	}
+		ft_del_idlist(id);
 	else
 	{
 		next = id->next;

@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 09:20:11 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/13 12:19:54 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/22 08:51:58 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ t_id	*ft_multioutfile2(t_id *id, t_id *stock)
 	{
 		if (id->type >= 7 && id->type <= 8
 			&& id->next != NULL && id->next->type != 0)
-			return (*g_data.status_code = 258,
-				ft_puterror_fd("invalid syntax", 2), id);
+			return (ft_putnlerror_fd(), id);
 		if (id->next->type == 0 && id->type >= 7 && id->type <= 8)
 			id = ft_multioutfile3(id, stock, &type);
 		else if (id->type == 0 && id->next->type == 0)
@@ -57,8 +56,7 @@ t_id	*ft_lastoutfile(t_id *id, t_id *stock)
 
 	type = id->type;
 	if (id->next != NULL && id->next->type != 0)
-		return (*g_data.status_code = 258,
-			ft_puterror_fd("invalid syntax", 2), stock->type = 20, id);
+		return (ft_putnlerror_fd(), stock->type = 20, id);
 	id = id->next;
 	if (id->type == 0 && (id->next == NULL || id->next->type == 3
 			|| id->next->type != 7 || id->next->type != 8))
