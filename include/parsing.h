@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:21:24 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/22 09:49:12 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/22 12:20:12 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	ft_isbuiltin(t_cmd *id);
 t_id	*ft_create_idlist(int type, int index, char *data);
 t_id	*ft_dollctrl(t_id *id, int *i);
 t_id	*ft_joindoll(t_id *id);
+t_id	*ft_freeempty(t_id *id);
 int		ft_add_idelem(t_id *list, int type, int index, char *data);
 int		ft_idlist_size(t_id *list);
 int		ft_del_oneid(t_id *id);
