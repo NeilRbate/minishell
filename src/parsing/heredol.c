@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 10:47:47 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/22 08:16:06 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/24 11:08:45 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,9 +111,7 @@ char	*ft_splitdoll(char *str, char *doll, char *doll_i)
 	char	**split;
 	char	*ret;
 	char	*stock;
-	int		i;
 
-	i = 0;
 	split = ft_splitstr(str, doll);
 	if (!split)
 		return (NULL);
