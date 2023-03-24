@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:10:29 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/22 08:08:18 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/24 15:56:49 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,8 @@ char	*ft_heredocdoll(char *str)
 	}
 	if (ret == NULL)
 		return (str);
-	if (i == 0 && str[j + 1] == '\0')
-		return (free(str), ret);
-	return (free(str), ret);
+	free(str);
+	return (ret);
 }
 
 void	ft_convertdoll(t_id *id, t_env *env, int i)

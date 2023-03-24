@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 08:43:21 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/14 11:05:01 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/24 16:09:21 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@ char	*ft_strndup(char *str, int size)
 
 	if (ft_strlen(str) < (size_t)size)
 		return (NULL);
-	ret = malloc(sizeof(char) * (size + 1));
-	ft_memcpy(ret, str, size);
+	ret = malloc(sizeof(char) * (size + 10));
+	ft_memmove(ret, str, size);
+	ret[size] = '\0';
 	return (ret);
 }
 
