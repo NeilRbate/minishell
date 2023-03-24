@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:16:25 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/20 15:04:11 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/24 16:20:14 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ static int	ft_unset_valid_key(char *key)
 
 	str = key;
 	i = 0;
+	if (ft_isdigit(str[0]))
+	{
+		ft_unset_error_message(str);
+		*g_data.status_code = 1;
+	}
 	while (str[i])
 	{
 		if (!ft_isalnum(str[i]) && str[i] != '_')
