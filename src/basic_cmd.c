@@ -6,17 +6,21 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:16:43 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/20 13:57:16 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/21 12:05:31 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ms.h"
 
-static void	ft_set_signals(void)
+static void	ft_set_signals(t_cmd *cmd)
 {
-	echo_ctl(1);
-	signal(SIGINT, ft_sig_handle_nothing);
-	signal(SIGQUIT, ft_sig_handle_nothing);
+	if (!ft_strncmp(cmd->cmd[0], "cat", 3) || (\
+	!ft_strncmp(cmd->cmd[0], "grep", 5) && cmd->cmd[1] == 0))
+	{
+		echo_ctl(1);
+		signal(SIGINT, ft_sig_handle_nothing);
+		signal(SIGQUIT, ft_sig_handle_nothing);
+	}
 }
 
 char	*ft_check_access(char *to_test)
@@ -28,17 +32,20 @@ char	*ft_check_access(char *to_test)
 	try = 0;
 	if (access(to_test, F_OK) == 0)
 		return (ft_strdup(to_test));
-	while (g_data.cmd_path[i])
+	else if (g_data.cmd_path)
 	{
-		try = ft_strtrijoin(g_data.cmd_path[i], "/", to_test);
-		if (access(try, F_OK) == 0)
+		while (g_data.cmd_path[i])
 		{
-			*g_data.status_code = 0;
-			return (try);
+			try = ft_strtrijoin(g_data.cmd_path[i], "/", to_test);
+			if (access(try, F_OK) == 0)
+			{
+				*g_data.status_code = 0;
+				return (try);
+			}
+			free(try);
+			try = 0;
+			i++;
 		}
-		free(try);
-		try = 0;
-		i++;
 	}
 	ft_error_msg(to_test);
 	return (0);
@@ -51,15 +58,21 @@ void	ft_check_slash(char *str)
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(str, 2);
 		ft_putendl_fd(": is a directory", 2);
-		*g_data.status_code = 126;
+		exit(126);
 	}
+}
+
+static void	ft_double_minishell(void)
+{
+	signal(SIGINT, ft_sig_handle_doubleshell);
+	signal(SIGQUIT, ft_sig_handle_doubleshell);
 }
 
 void	ft_do_basic_cmd(t_cmd *cmd)
 {
 	char	*access_cmd;
 
-	ft_set_signals();
+	ft_set_signals(cmd);
 	access_cmd = ft_check_access(cmd->cmd[0]);
 	cmd->pid = fork();
 	if (cmd->pid == 0)
@@ -69,15 +82,15 @@ void	ft_do_basic_cmd(t_cmd *cmd)
 		ft_check_slash(cmd->cmd[0]);
 		if (access_cmd)
 			execve(access_cmd, cmd->cmd, g_data.exec_env);
+		close(cmd->infile);
 		exit(127);
 	}
 	else
 	{
+		ft_double_minishell();
 		free(access_cmd);
-		if (cmd->infile != 0)
-			close(cmd->infile);
 		if (cmd->outfile != 1)
 			close(cmd->outfile);
-		waitpid(cmd->pid, 0, 0);
+		waitpid(cmd->pid, g_data.status_code, 0);
 	}
 }

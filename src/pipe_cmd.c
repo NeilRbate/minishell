@@ -6,11 +6,38 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 08:48:38 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/20 15:09:01 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/21 11:47:49 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ms.h"
+
+static char	*ft_check_access_pipe(char *to_test)
+{
+	int		i;
+	char	*try;
+
+	i = 0;
+	try = 0;
+	if (access(to_test, F_OK) == 0)
+		return (ft_strdup(to_test));
+	else if (g_data.cmd_path)
+	{
+		while (g_data.cmd_path[i])
+		{
+			try = ft_strtrijoin(g_data.cmd_path[i], "/", to_test);
+			if (access(try, F_OK) == 0)
+			{
+				*g_data.status_code = 0;
+				return (try);
+			}
+			free(try);
+			try = 0;
+			i++;
+		}
+	}
+	return (0);
+}
 
 static void	ft_close_all_n_dup(t_cmd *cmd)
 {
@@ -27,7 +54,7 @@ static void	ft_do_first_pipe(t_cmd *cmd)
 	char	*access_cmd;
 
 	pipe(cmd->pipe);
-	access_cmd = ft_check_access(cmd->cmd[0]);
+	access_cmd = ft_check_access_pipe(cmd->cmd[0]);
 	cmd->pid = fork();
 	if (cmd->pid == 0)
 	{
@@ -45,6 +72,7 @@ static void	ft_do_first_pipe(t_cmd *cmd)
 		}
 		else if (access_cmd)
 			execve(access_cmd, cmd->cmd, g_data.exec_env);
+		ft_error_msg(cmd->cmd[0]);
 		exit(127);
 	}
 	else
