@@ -6,23 +6,21 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 11:08:56 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/27 15:23:09 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/27 16:42:38 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ms.h"
 
-void	ft_update(void)
+static void	ft_update(void)
 {
-	char	*path;
-
 	if (*g_data.status_code > 255 && *g_data.status_code != 258)
 		*g_data.status_code = (*g_data.status_code / 256);
-	ft_free_split(g_data.cmd_path);
-	path = ft_get_env_value("PATH");
-	g_data.cmd_path = ft_split(path, ':');
-	if (path)
-		free(path);
+	if (g_data.cmd_path != 0)
+	{
+		ft_free_split(g_data.cmd_path);
+		ft_path_setup();
+	}
 }
 
 static void	ft_execute(void)

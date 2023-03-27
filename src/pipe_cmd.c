@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 08:48:38 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/21 11:47:49 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/27 16:47:21 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,12 @@ static void	ft_close_all_n_dup(t_cmd *cmd)
 	close(cmd->pipe[0]);
 }
 
+static void	ft_clodup(t_cmd *cmd)
+{
+	close(cmd->pipe[0]);
+	dup2(cmd->infile, 0);
+}
+
 static void	ft_do_first_pipe(t_cmd *cmd)
 {
 	char	*access_cmd;
@@ -58,8 +64,7 @@ static void	ft_do_first_pipe(t_cmd *cmd)
 	cmd->pid = fork();
 	if (cmd->pid == 0)
 	{
-		close(cmd->pipe[0]);
-		dup2(cmd->infile, 0);
+		ft_clodup(cmd);
 		if (cmd->outfile == 1 && cmd->next)
 			dup2(cmd->pipe[1], 1);
 		else
@@ -77,18 +82,6 @@ static void	ft_do_first_pipe(t_cmd *cmd)
 	}
 	else
 		ft_close_all_n_dup(cmd);
-}
-
-static void	ft_wait_all_pids(t_cmd *mds)
-{
-	t_cmd	*current;
-
-	current = mds;
-	while (current)
-	{
-		waitpid(current->pid, g_data.status_code, 0);
-		current = current->next;
-	}
 }
 
 void	ft_do_pipe_cmd(t_cmd *cmd)

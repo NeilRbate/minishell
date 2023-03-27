@@ -1,8 +1,8 @@
 *.o
+ms.h
 .DS_Store
 *.swp
 .vscode
-minishell
-valgrindtest
-libft/libft.a
-src/parsing
+src/main.c
+libft/
+Makefile

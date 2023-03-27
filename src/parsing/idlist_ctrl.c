@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   idlist_ctrl.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:12:41 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/27 13:41:12 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/27 15:39:07 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,8 @@ void	ft_catid(t_id *id, int type)
 	stock = id;
 	temp = id->data;
 	id = id->next;
-	if (stock->prev->prev && stock->prev->prev->type == 0
-		&& ft_isanequal(stock->prev->prev) == 1)
-	{
-		stock->prev->prev->data = ft_strjoin(stock->prev->prev->data, stock->data);
+	if (ft_isanequal(stock->prev->prev) == 1)
 		ft_del_idelem(id->prev);
-	}
 	while (id->type != type)
 	{
 		if (id->type == 0)
@@ -60,7 +56,6 @@ void	ft_catid(t_id *id, int type)
 			temp = ft_strjoin(ret, id->data);
 			id = id->next;
 			free(ret);
-			ft_del_idelem(id->prev);
 		}
 		else
 			id = id->next;

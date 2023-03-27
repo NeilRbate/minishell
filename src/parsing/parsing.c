@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:16:07 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/27 14:11:15 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/27 15:51:35 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,6 @@ t_cmd	*ft_cmdlist(t_id *id)
 
 t_id	*ft_clean(t_id *id)
 {
-	if (id->type == 0 && ft_strncmp(id->data, " ", 2) == 0)
-	{
-		if (id->next && id->next->type == 0 && id->prev && id->prev->type == 0)
-			return (ft_freeempty(id));
-	}
 	if (id->type == 0 || id->type == 3)
 		id = id->next;
 	else if (id->next != NULL)
@@ -97,10 +92,18 @@ t_id	*ft_clean_id(t_id *id)
 {
 	t_id	*stock;
 
+	if (id->type != 0)
+	{
+		free(id->data);
+		id = id->next;
+		free(id->prev);
+		id->prev = NULL;
+	}
 	while (id->type != 0 && id != NULL)
 	{
 		id = id->next;
 		ft_del_idelem(id->prev);
+		id->prev = NULL;
 	}
 	stock = id;
 	if (stock == NULL || stock->next == NULL)
@@ -130,6 +133,5 @@ t_cmd	*ft_parsing(char *str)
 		return (ft_del_idlist(lex), NULL);
 	ft_del_idlist(lex);
 	ft_isbuiltin(cmd);
-	ft_print_cmdlist(cmd);
 	return (cmd);
 }

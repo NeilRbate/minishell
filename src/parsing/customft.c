@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 08:43:21 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/27 12:27:08 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/27 15:13:16 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ int	ft_isanequal(t_id *id)
 	else
 		return (0);
 	if (id->data[i] == '=')
+	{
+		id->data = ft_strjoin(id->data, id->next->next->data);
 		return (1);
+	}
 	return (0);
 }
 

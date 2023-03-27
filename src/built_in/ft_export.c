@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 08:49:03 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/27 14:07:55 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/27 16:20:07 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ static int	ft_export_get_keyval(char *keyval, char **key, char **value)
 		{
 			*key = ft_substr(keyval, 0, i);
 			if (keyval[i + 1] == '\0')
+				*value = ft_strdup("");
+			else
 				*value = ft_strdup(keyval + i + 1);
 			return (1);
 		}
