@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:16:43 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/21 12:05:31 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/27 17:20:12 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	ft_set_signals(t_cmd *cmd)
 {
 	if (!ft_strncmp(cmd->cmd[0], "cat", 3) || (\
-	!ft_strncmp(cmd->cmd[0], "grep", 5) && cmd->cmd[1] == 0))
+	!ft_strncmp(cmd->cmd[0], "grep", 5)))
 	{
 		echo_ctl(1);
 		signal(SIGINT, ft_sig_handle_nothing);
@@ -87,7 +87,8 @@ void	ft_do_basic_cmd(t_cmd *cmd)
 	}
 	else
 	{
-		ft_double_minishell();
+		if (!ft_strncmp(cmd->cmd[0], "./minishell", 12))
+			ft_double_minishell();
 		free(access_cmd);
 		if (cmd->outfile != 1)
 			close(cmd->outfile);

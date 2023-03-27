@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 11:08:56 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/27 16:42:38 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/27 17:15:59 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	ft_sig_handle_nothing(int sig)
 {
 	if (sig == SIGINT)
 	{
-		ft_putendl_fd("", 1);
+		printf("\n");
 		*g_data.status_code = 1;
 		return ;
 	}
