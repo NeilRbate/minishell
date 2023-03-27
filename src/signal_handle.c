@@ -6,11 +6,24 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 11:08:56 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/21 15:31:00 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/27 15:23:09 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ms.h"
+
+void	ft_update(void)
+{
+	char	*path;
+
+	if (*g_data.status_code > 255 && *g_data.status_code != 258)
+		*g_data.status_code = (*g_data.status_code / 256);
+	ft_free_split(g_data.cmd_path);
+	path = ft_get_env_value("PATH");
+	g_data.cmd_path = ft_split(path, ':');
+	if (path)
+		free(path);
+}
 
 static void	ft_execute(void)
 {
@@ -62,8 +75,7 @@ void	ft_new_command(void)
 		ft_execute();
 		ft_free_cmd(g_data.cmds);
 	}
-	if (*g_data.status_code > 255 && *g_data.status_code != 258)
-		*g_data.status_code = (*g_data.status_code / 256);
+	ft_update();
 }
 
 void	ft_sig_handle(int sig)
