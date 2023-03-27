@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:12:41 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/27 15:39:07 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/27 17:30:36 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	ft_catid(t_id *id, int type)
 			ret = temp;
 			temp = ft_strjoin(ret, id->data);
 			id = id->next;
-			free(ret);
+			ft_del_idelem(id->prev);
 		}
 		else
 			id = id->next;
