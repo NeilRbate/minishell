@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 08:43:21 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/27 17:49:33 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/27 18:54:08 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ int	ft_isanequal(t_id *id)
 	int	i;
 
 	i = 0;
-	while (id->data[i])
+	if (!id)
+		return (0);
+	while (id && id->data && id->data[i] != '\0')
 		i++;
 	if (i > 0)
 		i--;

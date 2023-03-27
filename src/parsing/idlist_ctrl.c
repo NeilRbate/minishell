@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:12:41 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/27 18:25:05 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/27 18:55:12 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,9 @@ void	ft_catid(t_id *id, int type)
 	stock = id;
 	temp = id->data;
 	id = id->next;
-	if (ft_isanequal(stock->prev->prev) == 1)
+	if (!id || id->next == NULL)
+		return ;
+	if (ft_isanequal(stock->prev->prev) == 1 && id->next != NULL)
 		id = id->next;
 	while (id->type != type)
 	{
