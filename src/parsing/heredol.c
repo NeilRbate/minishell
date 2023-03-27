@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 10:47:47 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/17 07:25:58 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/24 16:04:13 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*ft_cut(char *str, int i, char *charset)
 		j++;
 		k++;
 	}
-	ret = malloc(sizeof(char) * (j + 1));
+	ret = malloc(sizeof(char) * (j + 100));
 	j = 0;
 	while (i < k)
 	{
@@ -111,9 +111,7 @@ char	*ft_splitdoll(char *str, char *doll, char *doll_i)
 	char	**split;
 	char	*ret;
 	char	*stock;
-	int		i;
 
-	i = 0;
 	split = ft_splitstr(str, doll);
 	if (!split)
 		return (NULL);

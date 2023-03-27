@@ -6,11 +6,27 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 08:43:21 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/14 11:05:01 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/27 12:27:08 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/parsing.h"
+
+int	ft_isanequal(t_id *id)
+{
+	int	i;
+
+	i = 0;
+	while (id->data[i])
+		i++;
+	if (i > 0)
+		i--;
+	else
+		return (0);
+	if (id->data[i] == '=')
+		return (1);
+	return (0);
+}
 
 int	ft_containchar(t_id *id)
 {
@@ -34,8 +50,9 @@ char	*ft_strndup(char *str, int size)
 
 	if (ft_strlen(str) < (size_t)size)
 		return (NULL);
-	ret = malloc(sizeof(char) * (size + 1));
-	ft_memcpy(ret, str, size);
+	ret = malloc(sizeof(char) * (size + 10));
+	ft_memmove(ret, str, size);
+	ret[size] = '\0';
 	return (ret);
 }
 

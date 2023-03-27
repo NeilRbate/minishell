@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:16:25 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/24 16:20:14 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/27 13:45:53 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static int	ft_unset_valid_key(char *key)
 		}
 		i++;
 	}
+	*g_data.status_code = 0;
 	return (1);
 }
 
@@ -54,9 +55,10 @@ static void	ft_unset_args(char **to_unset)
 	list = to_unset;
 	while (list[i])
 	{
-		if (ft_unset_valid_key(list[i]) && ft_env_key_exist(list[i]))
+		if (ft_unset_valid_key(list[i]))
 		{
-			ft_env_del(list[i]);
+			if (ft_env_key_exist(list[i]))
+				ft_env_del(list[i]);
 			*g_data.status_code = 0;
 		}
 		i++;

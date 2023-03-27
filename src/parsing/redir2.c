@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 07:17:39 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/21 08:01:58 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/22 08:50:11 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,7 @@ t_id	*ft_multiinfile2(t_id *id, t_id *s)
 	while (id->next != NULL && id->type != 3)
 	{
 		if (id->type == 9 && id->next != NULL && id->next->type != 0)
-			return (*g_data.status_code = 258,
-				ft_puterror_fd("invalid syntax", 2), s->type = 20, id);
+			return (ft_putnlerror_fd(), s->type = 20, id);
 		if (id->type == 0 && id->next->type == 9)
 		{
 			fd = ft_openread(id->data);

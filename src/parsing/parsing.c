@@ -6,37 +6,39 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:16:07 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/21 13:09:54 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/27 14:11:15 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/parsing.h"
 
-t_cmd	*ft_ret(t_cmd *ret, int i, t_id *id, t_id *stock)
+t_cmd	*ft_ret(t_cmd *ret, int i, t_id *stock, int infile)
 {
 	char	**cmd;
 	int		j;
+	int		outfile;
 
 	j = 0;
+	outfile = 1;
 	cmd = malloc(sizeof(char *) * (i + 1));
 	if (!cmd)
 		return (ft_puterror_fd("malloc fail", 2), NULL);
 	cmd[i] = NULL;
 	while (j < i)
 	{
-		if (stock->type != 3)
-			cmd[j] = ft_strdup(stock->data);
+		cmd[j++] = ft_strdup(stock->data);
+		if (stock->infile != 0)
+			infile = stock->infile;
+		if (stock->outfile != 1)
+			outfile = stock->outfile;
 		if (stock->next != NULL)
 			stock = stock->next;
 		else
 			break ;
-		j++;
 	}
 	if (ret == NULL)
-		ret = ft_create_cmdlist(cmd, 0, id->infile, id->outfile);
-	else
-		ft_add_cmdelem(ret, cmd, id->infile, id->outfile);
-	return (ret);
+		return (ret = ft_create_cmdlist(cmd, 0, infile, outfile));
+	return (ft_add_cmdelem(ret, cmd, infile, outfile), ret);
 }
 
 t_cmd	*ft_cmdlist(t_id *id)
@@ -53,12 +55,10 @@ t_cmd	*ft_cmdlist(t_id *id)
 		while (id->next != NULL && id->type != 3)
 		{
 			id = id->next;
-			id->infile = id->prev->infile;
-			id->outfile = id->prev->outfile;
 			if (id->type != 3)
 				i++;
 		}
-		ret = ft_ret(ret, i, id, stock);
+		ret = ft_ret(ret, i, stock, 0);
 		if (id->next == NULL)
 			return (ret);
 		if (id->type == 3)
@@ -69,6 +69,11 @@ t_cmd	*ft_cmdlist(t_id *id)
 
 t_id	*ft_clean(t_id *id)
 {
+	if (id->type == 0 && ft_strncmp(id->data, " ", 2) == 0)
+	{
+		if (id->next && id->next->type == 0 && id->prev && id->prev->type == 0)
+			return (ft_freeempty(id));
+	}
 	if (id->type == 0 || id->type == 3)
 		id = id->next;
 	else if (id->next != NULL)
@@ -125,5 +130,6 @@ t_cmd	*ft_parsing(char *str)
 		return (ft_del_idlist(lex), NULL);
 	ft_del_idlist(lex);
 	ft_isbuiltin(cmd);
+	ft_print_cmdlist(cmd);
 	return (cmd);
 }

@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:10:29 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/21 07:41:17 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/24 15:56:49 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,15 @@ char	*ft_heredocdoll(char *str)
 	}
 	if (ret == NULL)
 		return (str);
-	if (i == 0 && str[j + 1] == '\0')
-		return (free(str), ret);
-	return (free(str), ret);
+	free(str);
+	return (ret);
 }
 
 void	ft_convertdoll(t_id *id, t_env *env, int i)
 {
 	while (env != NULL)
 	{
-		if (ft_strncmp(id->data, env->key, ft_strlen(env->key) + 1) == 0)
+		if (ft_strncmp(id->data, env->key, ft_strlen(env->key)) == 0)
 		{
 			free(id->data);
 			if (env->value)
@@ -91,7 +90,7 @@ void	ft_convertdoll(t_id *id, t_env *env, int i)
 	}
 	free(id->prev->data);
 	id->prev->data = ft_strdup("");
-	id->prev->type = 0;
+	id->prev->type = 20;
 }
 
 t_id	*ft_dollctrl(t_id *id, int *i)

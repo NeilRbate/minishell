@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:19:57 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/21 07:47:16 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/22 09:50:36 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ t_id	*ft_firstoutfile(t_id *id, int type)
 		id->next->outfile = ft_openredir(id->data, type);
 		if (id->next->infile > 0)
 			return (ft_endredir(id));
+		if (id->prev->infile != 0)
+			id->next->infile = id->prev->infile;
 		id->type = 20;
 		stock->type = 20;
 	}
@@ -71,8 +73,8 @@ t_id	*ft_infile(t_id *id, t_id *s)
 {
 	if (id->next->type != 9 && id->next->type != 0)
 	{
-		*g_data.status_code = 258;
-		return (ft_puterror_fd("invalid syntax", 2), id->type = 20, id);
+		id->type = 20;
+		return (ft_putnlerror_fd(), id);
 	}
 	id = id->next;
 	if ((id->next == NULL || id->next->type != 9) && id->type == 0)
@@ -80,6 +82,8 @@ t_id	*ft_infile(t_id *id, t_id *s)
 		s->infile = ft_openread(id->data);
 		if (s->infile < 0)
 			return (s->type = 20, ft_endredir(id));
+		if (s->outfile != 0)
+			id->outfile = s->outfile;
 		return (id->type = 20, id);
 	}
 	else
@@ -87,10 +91,8 @@ t_id	*ft_infile(t_id *id, t_id *s)
 	return (id);
 }
 
-int	ft_redirctrl(t_id *id)
+int	ft_redirctrl(t_id *id, t_id *stock)
 {
-	t_id	*stock;
-
 	stock = NULL;
 	while (id)
 	{
@@ -98,17 +100,18 @@ int	ft_redirctrl(t_id *id)
 			stock = NULL;
 		else if (id->type == 0)
 			stock = id;
-		else if (id->type == 10)
+		else if (id->type == 10 && (id->next == NULL || id->next->type != 0))
+			return (ft_putnlerror_fd(), -1);
+		else if (id && id->type == 10)
 			id = ft_heredoc(id, stock);
-		else if (id->type == 9 && stock != NULL)
+		else if (id && id->type == 9 && stock != NULL)
 			id = ft_infile(id, stock);
-		else if (id->type == 9)
+		else if (id && id->type == 9)
 			id = ft_firstinfile(id);
-		else if (id->type == 7 || id->type == 8)
+		else if (id && (id->type == 7 || id->type == 8))
 			id = ft_redir(id, stock);
-		else if (id->next == NULL)
-			return (0);
-		id = id->next;
+		if (id)
+			id = id->next;
 	}
 	return (0);
 }
