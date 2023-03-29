@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:15:29 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/22 07:37:20 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/29 14:51:49 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,6 @@ void	ft_print_lex(t_id *lex)
 		ft_putendl_fd("", 1);
 		lex = lex->next;
 	}
-}
-
-int	ft_idlist_size(t_id *list)
-{
-	int	i;
-
-	i = 1;
-	while (list->next != NULL)
-	{
-		list = list->next;
-		i++;
-	}
-	return (i);
 }
 
 t_id	*ft_create_idlist(int type, int index, char *data)
@@ -84,7 +71,7 @@ void	ft_del_idelem(t_id *id)
 	t_id	*next;
 	t_id	*prev;
 
-	if (id->next == NULL && id->prev != NULL)
+	if (id && id->next == NULL && id->prev != NULL)
 	{
 		prev = id->prev;
 		free(id->data);
@@ -92,9 +79,9 @@ void	ft_del_idelem(t_id *id)
 		id = id->prev;
 		id->next = NULL;
 	}
-	else if (id->next == NULL && id->prev == NULL)
+	else if (id && id->next == NULL && id->prev == NULL)
 		ft_del_idlist(id);
-	else
+	else if (id)
 	{
 		next = id->next;
 		prev = id->prev;

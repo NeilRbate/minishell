@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:16:07 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/29 14:02:58 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/29 14:30:12 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ t_id	*ft_clean_id(t_id *id)
 {
 	t_id	*stock;
 
-	while (id->type != 0 && id != NULL)
+	while (id && id->type != 0)
 	{
 		id = id->next;
 		ft_del_idelem(id->prev);
@@ -125,6 +125,8 @@ t_cmd	*ft_parsing(char *str)
 	if (ft_containchar(lex) == 0)
 		return (ft_del_idlist(lex), NULL);
 	lex = ft_clean_id(lex);
+	if (!lex)
+		return (NULL);
 	cmd = ft_cmdlist(lex);
 	if (!cmd)
 		return (ft_del_idlist(lex), NULL);
