@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:21:24 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/27 18:25:17 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/22 12:20:12 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,8 @@ t_id	*ft_freeempty(t_id *id);
 int		ft_add_idelem(t_id *list, int type, int index, char *data);
 int		ft_idlist_size(t_id *list);
 int		ft_del_oneid(t_id *id);
-int		ft_isanequal(t_id *id);
-int		ft_containchar(t_id *id);
 char	**ft_splitstr(char *str, char *charset);
+int		ft_containchar(t_id *id);
 void	ft_del_idlist(t_id *list);
 void	ft_doll(t_id *id);
 void	ft_del_idelem(t_id *id);
@@ -64,6 +63,7 @@ void	ft_cleanidws(t_id *id);
 /* ---- parsing parts ---- */
 t_cmd	*ft_parsing(char *str);
 void	ft_freesplit(char **split);
+void	ft_exportquote(t_id *id);
 int		ft_stxctrl(t_id *id);
 int		ft_returnempty(t_id *id);
 /* ---- lexic parts ---- */

@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:10:29 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/27 18:28:26 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/29 11:33:49 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	ft_convertdoll(t_id *id, t_env *env, int i)
 {
 	while (env != NULL)
 	{
-		if (ft_strncmp(id->data, env->key, ft_strlen(env->key)) == 0)
+		if (ft_strncmp(id->data, env->key, ft_strlen(id->data)) == 0)
 		{
 			free(id->data);
 			if (env->value)
@@ -84,13 +84,13 @@ void	ft_convertdoll(t_id *id, t_env *env, int i)
 	}
 	if (i == 0)
 	{
+		printf("coucou\n");
+		printf("id->%s\n", id->data);
 		free(id->data);
-		id->type = 0;
 		id->data = ft_strdup("");
+		if (id->prev && id->prev->type == 11)
+			id->prev->type = 20;
 	}
-	free(id->prev->data);
-	id->prev->data = ft_strdup("");
-	id->prev->type = 0;
 }
 
 t_id	*ft_dollctrl(t_id *id, int *i)

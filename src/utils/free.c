@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:16:37 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/27 16:46:15 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/21 13:39:53 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,16 +79,4 @@ void	ft_free_global(void)
 		ft_free_t_env();
 	if (g_data.status_code)
 		free(g_data.status_code);
-}
-
-void	ft_wait_all_pids(t_cmd *mds)
-{
-	t_cmd	*current;
-
-	current = mds;
-	while (current)
-	{
-		waitpid(current->pid, g_data.status_code, 0);
-		current = current->next;
-	}
 }

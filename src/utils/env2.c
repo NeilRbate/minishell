@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:16:31 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/27 16:35:11 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/20 11:38:10 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ void	ft_set_env_for_exec(void)
 	}
 	new[i] = 0;
 	g_data.exec_env = new;
-	ft_path_setup();
 }
 
 char	*ft_get_env_value(char *key)

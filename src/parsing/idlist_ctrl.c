@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:12:41 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/27 18:55:12 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/29 11:39:22 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,6 @@ void	ft_catid(t_id *id, int type)
 	stock = id;
 	temp = id->data;
 	id = id->next;
-	if (!id || id->next == NULL)
-		return ;
-	if (ft_isanequal(stock->prev->prev) == 1 && id->next != NULL)
-		id = id->next;
 	while (id->type != type)
 	{
 		if (id->type == 0)
@@ -57,6 +53,7 @@ void	ft_catid(t_id *id, int type)
 			ret = temp;
 			temp = ft_strjoin(ret, id->data);
 			id = id->next;
+			free(ret);
 			ft_del_idelem(id->prev);
 		}
 		else
@@ -142,6 +139,9 @@ int	ft_syntax_analyse(t_id *lex)
 	if (ft_stxctrl(lex) != 0)
 		return (-1);
 	ft_cleanidws(lex);
+	ft_print_lex(lex);
+	ft_printf("------------------------\n\n");
+	ft_exportquote(lex);
 	if (ft_redirctrl(lex, lex) != 0)
 		return (-1);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 08:49:03 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/27 16:20:07 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/21 14:27:53 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,13 @@ static int	ft_export_get_keyval(char *keyval, char **key, char **value)
 
 	i = 0;
 	j = 0;
-	if (keyval[0] == ' ')
-		return (0);
 	while (keyval[i])
 	{
 		if (keyval[i] == '=')
 		{
 			*key = ft_substr(keyval, 0, i);
 			if (keyval[i + 1] == '\0')
-				*value = ft_strdup("");
+				*value = 0;
 			else
 				*value = ft_strdup(keyval + i + 1);
 			return (1);
@@ -73,11 +71,9 @@ static int	ft_export_key_is_valid(char *str)
 	int	i;
 
 	i = 0;
-	if (ft_isdigit(str[0]))
-		return (0);
 	while (str[i])
 	{
-		if (!ft_isalnum(str[i]) && str[i] != '_' && str[i] != '=')
+		if (!ft_isalnum(str[i]) && str[i] != '_' && str[i] != '=' && str[i] != '"' && str[i] != 39)
 			return (0);
 		i++;
 	}

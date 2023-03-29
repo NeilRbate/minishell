@@ -39,6 +39,7 @@ SRCS_PARS		=			src/parsing/cmdlist_tools.c \
 							src/parsing/redir3.c \
 							src/parsing/file_gestion2.c \
 							src/parsing/heredol.c \
+							src/parsing/exportquote.c
 
 OBJS_EXEC       =		$(SRCS_EXEC:.c=.o) $(SRCS_PARS:.c=.o)
 
@@ -46,7 +47,7 @@ RM              =		rm -f
 
 CC              =		cc
 
-FLAGS           =		-Wall -Wextra -Werror
+FLAGS           =		-Wall -Wextra -Werror -g
 
 USER			=		$(shell whoami)
 

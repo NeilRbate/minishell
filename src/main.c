@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:31:56 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/27 16:40:23 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/21 10:57:13 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,11 @@ static void	ft_init_global(void)
 	g_data.status_code = 0;
 }
 
-void	ft_path_setup(void)
+static void	ft_path_setup(void)
 {
 	t_env	*current;
 
 	current = g_data.minishell_env;
-	g_data.cmd_path = 0;
 	while (current)
 	{
 		if (!ft_strncmp(current->key, "PATH", 5))

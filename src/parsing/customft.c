@@ -6,33 +6,11 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 08:43:21 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/27 18:54:08 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/24 16:09:21 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/parsing.h"
-
-int	ft_isanequal(t_id *id)
-{
-	int	i;
-
-	i = 0;
-	if (!id)
-		return (0);
-	while (id && id->data && id->data[i] != '\0')
-		i++;
-	if (i > 0)
-		i--;
-	else
-		return (0);
-	if (id->data[i] == '=')
-	{
-		id->data = ft_strjoin(id->data, id->next->next->data);
-		ft_del_idelem(id->next);
-		return (1);
-	}
-	return (0);
-}
 
 int	ft_containchar(t_id *id)
 {
