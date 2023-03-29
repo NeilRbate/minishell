@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:16:17 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/16 15:25:18 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/29 13:03:52 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ static void	ft_contain_only_digits(char *str, int *exit_code)
 	{
 		if (!ft_isdigit(str[i]))
 		{
-			ft_putendl_fd("minishell: exit: ff: numeric argument required", 2);
+			ft_putstr_fd("minishell: exit: ", 2);
+			ft_putstr_fd(str, 1);
+			ft_putendl_fd(": numeric argument required", 1);
 			exit(255);
 		}
 		i++;

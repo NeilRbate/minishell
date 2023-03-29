@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:10:29 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/29 11:33:49 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/29 13:01:31 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,6 @@ void	ft_convertdoll(t_id *id, t_env *env, int i)
 	}
 	if (i == 0)
 	{
-		printf("coucou\n");
-		printf("id->%s\n", id->data);
 		free(id->data);
 		id->data = ft_strdup("");
 		if (id->prev && id->prev->type == 11)
