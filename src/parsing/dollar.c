@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:10:29 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/29 12:48:17 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/29 15:21:08 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	ft_convertdoll(t_id *id, t_env *env, int i)
 {
 	while (env != NULL)
 	{
-		if (ft_strncmp(id->data, env->key, ft_strlen(id->data)) == 0)
+		if (ft_strncmp(id->data, env->key, ft_strlen(env->key) + 1) == 0)
 		{
 			free(id->data);
 			if (env->value)
@@ -78,7 +78,6 @@ void	ft_convertdoll(t_id *id, t_env *env, int i)
 			else
 				id->data = ft_strdup("");
 			i = 1;
-			id->type = 0;
 			break ;
 		}
 		env = env->next;
@@ -87,8 +86,6 @@ void	ft_convertdoll(t_id *id, t_env *env, int i)
 	{
 		free(id->data);
 		id->data = ft_strdup("");
-		if (id->prev && id->prev->type == 11)
-			id->prev->type = 20;
 	}
 }
 
