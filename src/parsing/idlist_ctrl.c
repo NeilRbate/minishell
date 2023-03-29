@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:12:41 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/29 13:01:44 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/29 13:04:53 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,10 +139,7 @@ int	ft_syntax_analyse(t_id *lex)
 	if (ft_stxctrl(lex) != 0)
 		return (-1);
 	ft_exportquote(lex);
-	ft_print_lex(lex);
-	printf("\n----------------\n");
 	ft_cleanidws(lex);
-	ft_print_lex(lex);
 	if (ft_redirctrl(lex, lex) != 0)
 		return (-1);
 	return (0);
