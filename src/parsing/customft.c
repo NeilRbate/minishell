@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 08:43:21 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/29 15:26:25 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/29 15:40:22 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,7 @@ int	ft_returnempty(t_id *id)
 {
 	char	*stock;
 
-	if (id->prev && id->prev->type == 0)
-		stock = ft_strdup("");
-	else
-		stock = ft_strdup(" ");
+	stock = ft_strdup("");
 	id->type = 20;
 	id = id->next;
 	free(id->data);
