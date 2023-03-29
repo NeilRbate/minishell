@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 08:48:38 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/21 11:47:49 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/29 13:49:42 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,7 @@ static void	ft_do_first_pipe(t_cmd *cmd)
 	cmd->pid = fork();
 	if (cmd->pid == 0)
 	{
-		close(cmd->pipe[0]);
-		dup2(cmd->infile, 0);
+		ft_dup_n_close(cmd);
 		if (cmd->outfile == 1 && cmd->next)
 			dup2(cmd->pipe[1], 1);
 		else

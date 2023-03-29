@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:16:17 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/29 13:03:52 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/29 13:43:01 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,9 @@ void	ft_exit(t_cmd *command)
 	ft_putendl_fd("exit", 1);
 	if (!command->cmd[1])
 	{
+		exit_code = *g_data.status_code;
 		ft_free_global();
-		exit (1);
+		exit (exit_code);
 	}
 	exit_code = -1;
 	ft_get_exit_code(command->cmd, &exit_code);

@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 08:49:03 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/21 14:27:53 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/29 13:31:37 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,11 @@ static int	ft_export_get_keyval(char *keyval, char **key, char **value)
 	j = 0;
 	while (keyval[i])
 	{
-		if (keyval[i] == '=')
+		if (keyval[i] == '=' && i != 0)
 		{
 			*key = ft_substr(keyval, 0, i);
 			if (keyval[i + 1] == '\0')
-				*value = 0;
+				*value = ft_strdup("");
 			else
 				*value = ft_strdup(keyval + i + 1);
 			return (1);
@@ -68,15 +68,8 @@ static int	ft_export_get_keyval(char *keyval, char **key, char **value)
 
 static int	ft_export_key_is_valid(char *str)
 {
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (!ft_isalnum(str[i]) && str[i] != '_' && str[i] != '=' && str[i] != '"' && str[i] != 39)
-			return (0);
-		i++;
-	}
+	if (str && !ft_isalpha(str[0]) && str[0] != '_')
+		return (0);
 	return (1);
 }
 
@@ -99,9 +92,7 @@ static void	ft_export_args(char **to_export)
 				*g_data.status_code = 0;
 			}
 			else
-			{
-				ft_export_error_message(key);
-			}
+				ft_export_error_message(list[i]);
 			free(key);
 			free(value);
 		}

@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:16:37 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/21 13:39:53 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/29 13:49:48 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,10 @@ void	ft_free_global(void)
 		ft_free_t_env();
 	if (g_data.status_code)
 		free(g_data.status_code);
+}
+
+void	ft_dup_n_close(t_cmd *cmd)
+{
+	close(cmd->pipe[0]);
+	dup2(cmd->infile, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:16:43 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/21 12:05:31 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/29 14:04:56 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*ft_check_access(char *to_test)
 	try = 0;
 	if (access(to_test, F_OK) == 0)
 		return (ft_strdup(to_test));
-	else if (g_data.cmd_path)
+	else if (g_data.cmd_path != 0)
 	{
 		while (g_data.cmd_path[i])
 		{
