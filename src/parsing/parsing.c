@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:16:07 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/22 12:19:34 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/29 10:53:56 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ t_cmd	*ft_parsing(char *str)
 	if (ft_containchar(lex) == 0)
 		return (ft_del_idlist(lex), NULL);
 	lex = ft_clean_id(lex);
+	ft_print_lex(lex);
 	cmd = ft_cmdlist(lex);
 	if (!cmd)
 		return (ft_del_idlist(lex), NULL);
