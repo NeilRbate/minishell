@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 08:43:21 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/24 16:09:21 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/29 16:58:02 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,26 @@ int	ft_returnempty(t_id *id)
 {
 	char	*stock;
 
-	stock = malloc(sizeof(char) * 2);
-	if (!stock)
-		return (ft_puterror_fd("malloc fail", 2), -1);
-	stock[0] = 32;
-	stock[1] = '\0';
-	id->type = 20;
+	stock = ft_strdup("");
 	id = id->next;
 	free(id->data);
 	id->data = stock;
-	id->type = 0;
+	if ((id->prev->prev && id->prev->prev->type == 0)
+			&& (id->next && id->next->type == 0))
+	{
+		free(id->data);
+		id->data = ft_strjoin(id->prev->prev->data, id->next->data);
+		id->prev->prev->type = 20;
+		id->next->type = 20;
+		id->type = 0;
+		return (id->index);
+		
+	}
+	if ((id->prev->prev && id->prev->prev->type == 0)
+			|| (id->next && id->next->type == 0))
+		id->type = 20;
+	else
+		id->type = 0;
 	return (id->index);
 }
 
