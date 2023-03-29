@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 08:43:21 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/24 16:09:21 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/29 14:10:05 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,10 @@ int	ft_returnempty(t_id *id)
 {
 	char	*stock;
 
-	stock = malloc(sizeof(char) * 2);
-	if (!stock)
-		return (ft_puterror_fd("malloc fail", 2), -1);
-	stock[0] = 32;
-	stock[1] = '\0';
+	if (id->prev && id->prev->type == 0)
+		stock = ft_strdup("");
+	else
+		stock = ft_strdup(" ");
 	id->type = 20;
 	id = id->next;
 	free(id->data);
