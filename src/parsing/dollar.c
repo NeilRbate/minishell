@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:10:29 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/29 11:33:49 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/29 12:48:17 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,14 +78,13 @@ void	ft_convertdoll(t_id *id, t_env *env, int i)
 			else
 				id->data = ft_strdup("");
 			i = 1;
+			id->type = 0;
 			break ;
 		}
 		env = env->next;
 	}
 	if (i == 0)
 	{
-		printf("coucou\n");
-		printf("id->%s\n", id->data);
 		free(id->data);
 		id->data = ft_strdup("");
 		if (id->prev && id->prev->type == 11)
