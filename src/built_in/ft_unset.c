@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:16:25 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/20 15:04:11 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/29 13:41:02 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,26 @@
 
 void	ft_unset_error_message(char *keyval)
 {
-	ft_putstr_fd("minishell: unset: `", 2);
-	ft_putstr_fd(keyval, 2);
-	ft_putendl_fd("': not a valid identifier", 2);
-	*g_data.status_code = 1;
+	if (keyval[0] == '-')
+	{
+		ft_putstr_fd("minishell: unset: ", 2);
+		ft_putstr_fd(keyval, 2);
+		ft_putendl_fd(": invalid option", 2);
+		*g_data.status_code = 1;
+	}
+	else
+	{
+		ft_putstr_fd("minishell: unset: `", 2);
+		ft_putstr_fd(keyval, 2);
+		ft_putendl_fd("': not a valid identifier", 2);
+		*g_data.status_code = 1;
+	}
 }
 
-static int	ft_unset_valid_key(char *key)
+static int	ft_unset_valid_key(char *str)
 {
-	int		i;
-	char	*str;
-
-	str = key;
-	i = 0;
-	while (str[i])
-	{
-		if (!ft_isalnum(str[i]) && str[i] != '_')
-		{
-			ft_unset_error_message(str);
-			*g_data.status_code = 1;
-			return (0);
-		}
-		i++;
-	}
+	if (str && !ft_isalpha(str[0]) && str[0] != '_')
+		return (0);
 	return (1);
 }
 
@@ -49,11 +46,14 @@ static void	ft_unset_args(char **to_unset)
 	list = to_unset;
 	while (list[i])
 	{
-		if (ft_unset_valid_key(list[i]) && ft_env_key_exist(list[i]))
+		if (ft_unset_valid_key(list[i]))
 		{
-			ft_env_del(list[i]);
+			if (ft_env_key_exist(list[i]))
+				ft_env_del(list[i]);
 			*g_data.status_code = 0;
 		}
+		else
+			ft_unset_error_message(list[i]);
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:31:56 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/21 10:57:13 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/29 14:03:50 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	ft_init_global(void)
 	g_data.status_code = 0;
 }
 
-static void	ft_path_setup(void)
+void	ft_path_setup(void)
 {
 	t_env	*current;
 
@@ -47,6 +47,7 @@ static void	ft_path_setup(void)
 		}
 		current = current->next;
 	}
+	g_data.cmd_path = 0;
 }
 
 int	main(int argc, char **argv, char **envp)

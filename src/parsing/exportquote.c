@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 15:25:47 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/29 10:56:02 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/29 13:03:54 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	ft_exportquote(t_id *id)
 					stock = id;
 				if (id->next)
 					id = id->next;
+				if (id->type == 5)
+					return ;
 				while (id->next && id->type != 0)
 					id = id->next;
 				if (id->prev && (id->prev->type == 2 || id->prev->type == 1))
