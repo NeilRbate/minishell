@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:16:56 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/13 12:27:17 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/29 16:41:50 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,6 @@ t_id	*ft_lexical_analyse(char *str)
 	free(lex->data);
 	free(lex);
 	lex = stock;
+	lex->prev = NULL;
 	return (lex);
 }

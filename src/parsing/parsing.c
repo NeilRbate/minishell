@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:16:07 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/29 15:37:58 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/29 16:42:02 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,6 @@ t_cmd	*ft_cmdlist(t_id *id)
 
 t_id	*ft_clean(t_id *id)
 {
-//	if (id->type == 0 && ft_strncmp(id->data, " ", 2) == 0)
-//	{
-//		if (id->next && id->next->type == 0 && id->prev && id->prev->type == 0)
-//			return (ft_freeempty(id));
-//	}
 	if (id->type == 0 || id->type == 3)
 		id = id->next;
 	else if (id->next != NULL)
@@ -116,7 +111,7 @@ t_cmd	*ft_parsing(char *str)
 	t_cmd	*cmd;
 
 	if (str[0] == '\0')
-		return (ft_puterror_fd("invalid syntax", 2), NULL);
+		return (ft_putserror_fd(), NULL);
 	lex = ft_lexical_analyse(str);
 	if (!lex)
 		return (NULL);
