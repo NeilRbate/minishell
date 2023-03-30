@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 12:06:12 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/22 12:50:26 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/30 11:35:30 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,7 @@
 void	ft_sig_handle_heredoc(int sig)
 {
 	if (sig == SIGINT)
-	{
-		*g_data.status_code = 1;
-		exit(0);
-	}
+		exit(1);
 	else if (sig == SIGQUIT)
 	{
 		return ;
@@ -92,7 +89,7 @@ int	ft_heredocstr(t_id *id)
 		exit(0);
 	}
 	else
-		waitpid(tid, NULL, 0);
+		waitpid(tid, g_data.status_code, 0);
 	signal(SIGINT, ft_sig_handle);
 	signal(SIGQUIT, ft_sig_handle);
 	return (close(fd[1]), fd[0]);
