@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:12:41 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/29 16:31:00 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/30 09:37:22 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,7 @@ int	ft_quotectrl(t_id *id, int type)
 		if (stock->type != 0)
 			stock = id;
 		if (id->type == 11 && type == 2 && id->next->type == 0)
-		{
-			ft_doll(id->next);
-			id->type = 20;
-		}
+			ft_quotedoll(id);
 		else if (id->type != type)
 			id->type = 0;
 		if (id->type == type)

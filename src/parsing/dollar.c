@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:10:29 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/29 17:08:55 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/30 09:50:00 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ t_id	*ft_dollctrl(t_id *id, int *i)
 	id = id->next;
 	if (id->type == 0)
 	{
-		ft_doll(id);
+		ft_quotedoll(id->prev);
 		id->prev->type = 20;
 	}		
 	else

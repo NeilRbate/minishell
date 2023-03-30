@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 09:21:24 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/22 12:20:12 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/30 09:39:18 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	ft_doll(t_id *id);
 void	ft_del_idelem(t_id *id);
 void	ft_print_lex(t_id *lex);
 void	ft_cleanidws(t_id *id);
+void	ft_quotedoll(t_id *id);
 /* ---- parsing parts ---- */
 t_cmd	*ft_parsing(char *str);
 void	ft_freesplit(char **split);
