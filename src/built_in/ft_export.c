@@ -50,6 +50,30 @@ static int	ft_export_get_keyval(char *keyval, char **key, char **value)
 	j = 0;
 	while (keyval[i])
 	{
+		if (keyval[i] == '=')
+		{
+			*key = ft_substr(keyval, 0, i);
+			if (keyval[i + 1] == '\0')
+				*value = 0;
+			else
+				*value = ft_strdup(keyval + i + 1);
+			return (1);
+		}
+		i++;
+	}
+	*key = ft_strdup(keyval);
+	*value = 0;
+	return (1);
+}
+
+static int	ft_export_key_is_valid(char *str)
+{
+	int	i;
+  
+	i = 0;
+	j = 0;
+	while (keyval[i])
+	{
 		if (keyval[i] == '=' && i != 0)
 		{
 			*key = ft_substr(keyval, 0, i);

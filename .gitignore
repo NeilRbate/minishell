@@ -3,6 +3,4 @@ ms.h
 .DS_Store
 *.swp
 .vscode
-src/main.c
-libft/
-Makefile
+minishell

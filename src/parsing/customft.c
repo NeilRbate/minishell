@@ -43,7 +43,7 @@ char	*ft_strndup(char *str, int size)
 int	ft_returnempty(t_id *id)
 {
 	char	*stock;
-
+  
 	stock = ft_strdup("");
 	id = id->next;
 	free(id->data);
