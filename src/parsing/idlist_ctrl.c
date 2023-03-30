@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:12:41 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/30 09:37:22 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/30 15:44:37 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_pipectrl(t_id *id)
 			while (id->next != NULL && id->type != 0)
 			{
 				if (id->type == 3)
-					return (ft_putserror_fd(), -1);
+					return (ft_putperror_fd(), -1);
 				id = id->next;
 			}
 			if (id->type != 0 && id->next == NULL)
@@ -70,8 +70,7 @@ int	ft_quotectrl(t_id *id, int type)
 		return (ft_putserror_fd(), -1);
 	if (id->next->type == type)
 		return (ft_returnempty(id));
-	if (id->next != NULL)
-		stock = id->next;
+	stock = id->next;
 	while (id->next != NULL)
 	{
 		id = id->next;
