@@ -34,8 +34,7 @@ char	*ft_check_access(char *to_test)
 		return (ft_strdup(to_test));
 	else if (g_data.cmd_path != 0)
 	{
-		try = ft_strtrijoin(g_data.cmd_path[i], "/", to_test);
-		if (access(try, F_OK) == 0)
+		while (g_data.cmd_path[i])
 		{
 			try = ft_strtrijoin(g_data.cmd_path[i], "/", to_test);
 			if (access(try, F_OK) == 0)
@@ -94,5 +93,4 @@ void	ft_do_basic_cmd(t_cmd *cmd)
 			close(cmd->outfile);
 		waitpid(cmd->pid, g_data.status_code, 0);
 	}
-
 }
