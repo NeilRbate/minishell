@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 15:25:47 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/29 13:59:41 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/30 09:41:10 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,15 @@ void	ft_exportquote(t_id *id)
 		}
 		id = id->next;
 	}
+}
+
+void	ft_quotedoll(t_id *id)
+{
+	char	*stock;
+
+	stock = id->next->data;
+	id->next->data = ft_strjoin(id->data, id->next->data);
+	free(stock);
+	id->next->data = ft_heredocdoll(id->next->data);
+	id->type = 20;
 }
