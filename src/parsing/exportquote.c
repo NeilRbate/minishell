@@ -6,11 +6,25 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 15:25:47 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/31 13:48:29 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/31 15:16:49 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/parsing.h"
+
+void	ft_cleandoll(t_id *id)
+{
+	while (id && id->next != NULL)
+	{
+		if (id && id->type == 20)
+		{
+			id = id->next;
+			ft_del_idelem(id->prev);
+		}
+		else
+			id = id->next;
+	}
+}
 
 void	ft_exportquote3(t_id *id, t_id *stock)
 {
@@ -54,6 +68,7 @@ void	ft_exportquote(t_id *id)
 	t_id	*stock;
 
 	stock = NULL;
+	ft_cleandoll(id);
 	while (id)
 	{
 		if (ft_strncmp(id->data, "export", 7) == 0)

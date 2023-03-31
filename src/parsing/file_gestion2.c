@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 12:06:12 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/31 14:29:05 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/31 15:17:23 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,7 @@ int	ft_heredocstr(t_id *id)
 	else
 	{
 		ft_double_minishell();
-		close(fd[1]);
 		waitpid(tid, g_data.status_code, 0);
 	}
-	return (fd[0]);
+	return (close(fd[1]), fd[0]);
 }
