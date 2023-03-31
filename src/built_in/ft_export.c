@@ -6,40 +6,40 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 08:49:03 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/29 13:31:37 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/31 10:19:32 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/ms.h"
 
-static void	ft_export_no_args(t_cmd *command)
-{
-	t_env	*current;
+// static void	ft_export_no_args(t_cmd *command)
+// {
+// 	t_env	*current;
 
-	current = g_data.minishell_env;
-	while (current)
-	{
-		if (!ft_strncmp(current->key, "_", 2))
-		{
-			current = current->next;
-		}
-		else
-		{
-			ft_putstr_fd("declare -x ", command->outfile);
-			ft_putstr_fd(current->key, command->outfile);
-			if (current->value)
-			{
-				ft_putstr_fd("=", command->outfile);
-				ft_putchar_fd('"', command->outfile);
-				ft_putstr_fd(current->value, command->outfile);
-				ft_putchar_fd('"', command->outfile);
-			}
-			ft_putchar_fd('\n', command->outfile);
-			current = current->next;
-		}
-	}
-	*g_data.status_code = 0;
-}
+// 	current = g_data.minishell_env;
+// 	while (current)
+// 	{
+// 		if (!ft_strncmp(current->key, "_", 2))
+// 		{
+// 			current = current->next;
+// 		}
+// 		else
+// 		{
+// 			ft_putstr_fd("declare -x ", command->outfile);
+// 			ft_putstr_fd(current->key, command->outfile);
+// 			if (current->value)
+// 			{
+// 				ft_putstr_fd("=", command->outfile);
+// 				ft_putchar_fd('"', command->outfile);
+// 				ft_putstr_fd(current->value, command->outfile);
+// 				ft_putchar_fd('"', command->outfile);
+// 			}
+// 			ft_putchar_fd('\n', command->outfile);
+// 			current = current->next;
+// 		}
+// 	}
+// 	*g_data.status_code = 0;
+// }
 
 static int	ft_export_get_keyval(char *keyval, char **key, char **value)
 {
@@ -106,7 +106,7 @@ void	ft_export(t_cmd *command)
 
 	export = command->cmd;
 	if (!export[1])
-		ft_export_no_args(command);
+		ft_export_in_order(command);
 	else
 		ft_export_args(export + 1);
 }

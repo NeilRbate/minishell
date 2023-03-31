@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:16:47 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/06 16:46:02 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/31 12:00:10 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	ft_do_built_in_cmd(t_cmd *command)
 		ft_env(command);
 	else if (!ft_strncmp(str, "exit", 5))
 		ft_exit(command);
-	else if (!ft_strncmp(str, "export", 4))
+	else if (!ft_strncmp(str, "export", 7))
 		ft_export(command);
-	else if (!ft_strncmp(str, "unset", 4))
+	else if (!ft_strncmp(str, "unset", 6))
 		ft_unset(command);
 	else if (!ft_strncmp(str, "cd", 3))
 		ft_cd(command);
