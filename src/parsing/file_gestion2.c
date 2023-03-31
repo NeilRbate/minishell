@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 12:06:12 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/31 14:25:14 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/31 14:29:05 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 void	ft_sig_handle_heredoc(int sig)
 {
 	if (sig == SIGINT)
+	{
+		ft_putendl_fd(">", 1);
 		exit(1);
+	}
 	else if (sig == SIGQUIT)
 		rl_redisplay();
 }
