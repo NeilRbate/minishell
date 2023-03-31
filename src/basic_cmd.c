@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:16:43 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/31 13:07:09 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/31 14:24:52 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	ft_check_slash(char *str)
 	}
 }
 
-static void	ft_double_minishell(void)
+void	ft_double_minishell(void)
 {
 	signal(SIGINT, ft_sig_handle_doubleshell);
 	signal(SIGQUIT, ft_sig_handle_doubleshell);

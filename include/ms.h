@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:15:51 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/31 14:18:21 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/31 14:25:01 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void	ft_prompt(int *i, char **str);
 void	ft_free_cmd(t_cmd *cmd);
 void	ft_export_error_message(char *keyval);
 void	ft_dup_n_close(t_cmd *cmd);
+void	ft_double_minishell(void);
 /* FREE - FREE - FREE - FREE - FREE - FREE - FREE - FREE - FREE - FREE - FREE */
 void	ft_free_split(char **tab);
 void	ft_free_t_env(void);
