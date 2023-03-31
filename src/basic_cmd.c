@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:16:43 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/29 14:04:56 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/30 15:14:30 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ char	*ft_check_access(char *to_test)
 
 	i = 0;
 	try = 0;
-	if (access(to_test, F_OK) == 0)
+	if (access(to_test, R_OK) == 0)
 		return (ft_strdup(to_test));
 	else if (g_data.cmd_path != 0)
 	{
 		while (g_data.cmd_path[i])
 		{
 			try = ft_strtrijoin(g_data.cmd_path[i], "/", to_test);
-			if (access(try, F_OK) == 0)
+			if (access(try, R_OK) == 0)
 			{
 				*g_data.status_code = 0;
 				return (try);
@@ -47,18 +47,25 @@ char	*ft_check_access(char *to_test)
 			i++;
 		}
 	}
-	ft_error_msg(to_test);
 	return (0);
 }
 
 void	ft_check_slash(char *str)
 {
-	if (!ft_strncmp(str, "/", 2))
+	int	fd;
+
+	fd = open(str, O_DIRECTORY);
+	if (fd > 0)
 	{
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(str, 2);
 		ft_putendl_fd(": is a directory", 2);
+		close(fd);
 		exit(126);
+	}
+	else
+	{
+		perror(0);
 	}
 }
 
@@ -82,6 +89,7 @@ void	ft_do_basic_cmd(t_cmd *cmd)
 		ft_check_slash(cmd->cmd[0]);
 		if (access_cmd)
 			execve(access_cmd, cmd->cmd, g_data.exec_env);
+		ft_error_msg(cmd->cmd[0]);
 		close(cmd->infile);
 		exit(127);
 	}

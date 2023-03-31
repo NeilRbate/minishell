@@ -21,6 +21,7 @@ SRCS_EXEC       =		src/main.c \
 									src/utils/free.c \
 									src/signal_handle.c \
 									src/utils/error_msg.c \
+									src/built_in/ft_export_utils.c
 
 SRCS_PARS		=			src/parsing/cmdlist_tools.c \
 							src/parsing/free.c \

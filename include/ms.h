@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:15:51 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/29 13:55:27 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/31 10:59:18 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	ft_pwd(t_cmd *command);
 void	ft_cd(t_cmd *command);
 void	ft_export(t_cmd *command);
 void	ft_unset(t_cmd *command);
+void	ft_export_in_order(t_cmd *command);
 /* UTILS - UTILS - UTILS - UTILS - UTILS - UTILS - UTILS - UTILS - UTILS */
 void	ft_env_setup(char **envp);
 int		ft_env_key_exist(char *key);
