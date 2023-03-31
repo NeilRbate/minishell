@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:15:51 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/31 10:59:18 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/31 14:18:21 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@
 # include <termios.h>
 
 # include "parsing.h"
-# define PROMPT_MESS "minishell-5.7$ "
+# define PROMPT_MESS "firmishell$ "
+# define PROMPT_MESS2 "barbashell$ "
 
 # define BASIC 0
 # define BUILT_IN 1
@@ -79,6 +80,7 @@ char	*ft_strtrijoin(char const *s1, char const *s2, char const *s3);
 void	ft_error_msg(char *command);
 void	ft_free_global(void);
 void	ft_path_setup(void);
+void	ft_prompt(int *i, char **str);
 void	ft_free_cmd(t_cmd *cmd);
 void	ft_export_error_message(char *keyval);
 void	ft_dup_n_close(t_cmd *cmd);

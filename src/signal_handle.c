@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 11:08:56 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/30 18:03:13 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/31 14:17:17 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	ft_execute(void)
 	}
 }
 
-void	ft_update(void)
+void	ft_update()
 {
 	if (*g_data.status_code > 255 && *g_data.status_code != 258)
 		*g_data.status_code = (*g_data.status_code / 256);
@@ -49,22 +49,21 @@ void	ft_update(void)
 
 void	ft_new_command(void)
 {
-	char	*str;
+	char		*str;
+	static int	i = 0;
 
 	echo_ctl(0);
 	signal(SIGINT, ft_sig_handle);
 	signal(SIGQUIT, ft_sig_handle);
 	str = 0;
-	str = readline(PROMPT_MESS);
+	ft_prompt(&i, &str);
 	if (str == NULL)
 	{
 		ft_putendl_fd("exit", 0);
 		exit(0);
 	}
 	else if (str[0] == 0)
-	{
 		free(str);
-	}
 	else
 	{
 		add_history(str);

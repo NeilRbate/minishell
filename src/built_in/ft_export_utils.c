@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:33:44 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/31 11:15:06 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/31 11:57:43 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,14 @@ static void	ft_create_n_add(char *key, char *value, t_env **to)
 
 	new = malloc(sizeof(t_env));
 	new->next = 0;
-	new->key = ft_strdup(key);
-	new->value = ft_strdup(value);
+	if (key)
+		new->key = ft_strdup(key);
+	else
+		new->key = 0;
+	if (value)
+		new->value = ft_strdup(value);
+	else
+		new->value = 0;
 	if (*to == 0)
 		*to = new;
 	else
@@ -97,7 +103,8 @@ void	ft_export_in_order(t_cmd *command)
 	{
 		haa = ft_get_order(to_print);
 		ft_putstr_fd("declare -x ", command->outfile);
-		ft_putstr_fd(haa->key, command->outfile);
+		if (haa->key)
+			ft_putstr_fd(haa->key, command->outfile);
 		if (haa->value)
 		{
 			ft_putstr_fd("=", command->outfile);
