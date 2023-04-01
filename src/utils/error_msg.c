@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 08:45:54 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/31 14:18:27 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/04/01 11:08:48 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,19 +47,5 @@ void	ft_sig_handle_doubleshell(int sig)
 	else if (sig == SIGQUIT)
 	{
 		return ;
-	}
-}
-
-void	ft_prompt(int *i, char **str)
-{
-	if (*i == 0)
-	{
-		*str = readline(PROMPT_MESS);
-		*i = 1;
-	}
-	else
-	{
-		*str = readline(PROMPT_MESS2);
-		*i = 0;
 	}
 }

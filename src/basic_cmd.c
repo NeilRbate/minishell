@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:16:43 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/31 14:24:52 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/04/01 11:06:58 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ void	ft_check_slash(char *str)
 	}
 	else
 	{
-		// perror(0);
 	}
 }
 
