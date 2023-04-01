@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:10:29 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/30 09:50:00 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/31 16:01:37 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ char	*ft_cutheredocdoll(char *ret)
 		return (free(ret), ret = ft_itoa(*g_data.status_code), ret);
 	while (env != NULL)
 	{
-		if (ft_strncmp(ret + 1, env->key,
-				ft_strlen(env->key) + 1) == 0)
+		if (ft_strncmp(ret + 1, env->key, ft_strlen(env->key) + 1) == 0)
 		{
 			if (ret != NULL)
 				free(ret);
 			if (env->value == NULL)
 				ret = ft_strdup("");
-			ret = ft_strdup(env->value);
+			else
+				ret = ft_strdup(env->value);
 			break ;
 		}
 		env = env->next;

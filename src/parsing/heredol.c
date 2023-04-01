@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 10:47:47 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/24 16:04:13 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/04/01 09:33:58 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ char	*ft_retd(int i, int j, char *str)
 	doll = ft_strdup(stock);
 	ret = ft_cutheredocdoll(stock);
 	if ((size_t)(i - j) != ft_strlen(str))
+	{
 		ret = ft_splitdoll(str, doll, ret);
+		free(doll);
+	}
 	else
 		free(doll);
 	return (ret);
