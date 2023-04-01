@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 11:08:56 by efirmino          #+#    #+#             */
-/*   Updated: 2023/04/01 11:11:48 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/04/01 11:14:17 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,6 @@ void	ft_new_command(void)
 	if (str == NULL)
 	{
 		ft_putendl_fd("exit", 0);
-		
-		ft_free_global();
 		exit(0);
 	}
 	else if (str[0] == 0)
