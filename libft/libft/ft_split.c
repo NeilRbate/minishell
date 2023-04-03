@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 10:13:14 by efirmino          #+#    #+#             */
-/*   Updated: 2022/11/14 18:09:37 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/04/01 15:38:31 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,12 @@ char	**ft_split(char const *s, char c)
 {
 	char	**split;
 
-	if (!s)
-		return (0);
+	if (s == NULL)
+		return (NULL);
 	split = malloc(sizeof(char *) * (my_wordcount(s, c) + 1));
 	if (!split)
-		return (0);
+		return (NULL);
 	if (!(my_create_items(split, s, c)))
-		return (0);
+		return (NULL);
 	return (split);
 }

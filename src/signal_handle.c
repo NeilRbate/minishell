@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 11:08:56 by efirmino          #+#    #+#             */
-/*   Updated: 2023/04/01 11:14:17 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/04/01 17:55:42 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,10 @@ static void	ft_execute(void)
 	}
 }
 
-void	ft_update(void)
+static void	ft_update_status_code(void)
 {
 	if (*g_data.status_code > 255 && *g_data.status_code != 258)
 		*g_data.status_code = (*g_data.status_code / 256);
-	if (g_data.cmd_path)
-	{
-		ft_freesplit(g_data.cmd_path);
-		ft_path_setup();
-	}
 }
 
 void	ft_new_command(void)
@@ -71,7 +66,7 @@ void	ft_new_command(void)
 		ft_execute();
 		ft_free_cmd(g_data.cmds);
 	}
-	ft_update();
+	ft_update_status_code();
 }
 
 void	ft_sig_handle(int sig)
@@ -90,17 +85,29 @@ void	ft_sig_handle(int sig)
 	}
 }
 
-void	ft_sig_handle_nothing(int sig)
+void	ft_sig_handle_lock_cmd(int sig)
 {
 	if (sig == SIGINT)
 	{
-		ft_putendl_fd("", 1);
-		*g_data.status_code = 1;
-		return ;
+		ft_printf("\n");
+		exit(130);
 	}
 	else if (sig == SIGQUIT)
 	{
 		ft_putendl_fd("Quit: 3", 1);
-		*g_data.status_code = 1;
+		exit(1);
+	}
+}
+
+void	ft_sig_handle_do_nothing(int sig)
+{
+	echo_ctl(0);
+	if (sig == SIGINT)
+	{
+		return ;
+	}
+	else if (sig == SIGQUIT)
+	{
+		return ;
 	}
 }

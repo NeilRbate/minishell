@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:16:31 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/29 13:57:02 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/04/01 15:35:05 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ void	ft_set_env_for_exec(void)
 
 char	*ft_get_env_value(char *key)
 {
-	char	*value;
 	t_env	*current;
 
 	current = g_data.minishell_env;
@@ -93,8 +92,7 @@ char	*ft_get_env_value(char *key)
 	{
 		if (!ft_strncmp(current->key, key, ft_strlen(key) + 1))
 		{
-			value = ft_strdup(current->value);
-			return (value);
+			return (ft_strdup(current->value));
 		}
 		current = current->next;
 	}

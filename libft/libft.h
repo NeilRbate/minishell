@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 10:28:49 by efirmino          #+#    #+#             */
-/*   Updated: 2022/12/13 09:52:14 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/04/01 16:13:35 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,6 @@ void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
+char	*ft_strtrijoin(char const *s1, char const *s2, char const *s3);
 
 #endif
