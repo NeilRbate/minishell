@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:31:56 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/29 14:03:50 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/04/01 17:17:56 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,7 @@ static void	ft_init_global(void)
 	g_data.cmds = 0;
 	g_data.minishell_env = 0;
 	g_data.exec_env = 0;
-	g_data.cmd_path = 0;
 	g_data.status_code = 0;
-}
-
-void	ft_path_setup(void)
-{
-	t_env	*current;
-
-	current = g_data.minishell_env;
-	while (current)
-	{
-		if (!ft_strncmp(current->key, "PATH", 5))
-		{
-			g_data.cmd_path = ft_split(current->value, ':');
-			return ;
-		}
-		current = current->next;
-	}
-	g_data.cmd_path = 0;
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -60,7 +42,6 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	ft_init_global();
 	ft_env_setup(envp);
-	ft_path_setup();
 	while (1)
 	{
 		ft_new_command();

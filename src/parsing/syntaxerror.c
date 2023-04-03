@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 10:20:08 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/29 16:38:23 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/31 16:23:32 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,5 @@ int	ft_stxctrl(t_id *id)
 	}
 	if (s > 0)
 		return (0);
-	return (*g_data.status_code = 258,
-		ft_puterror_fd("invalid syntax", 2), -1);
+	return (ft_putserror_fd(), -1);
 }

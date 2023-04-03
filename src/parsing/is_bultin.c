@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:15:57 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/02/24 09:15:59 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/31 12:00:39 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void	ft_isbuiltin(t_cmd *id)
 			id->type = 1;
 		else if (!ft_strncmp(id->cmd[0], "exit", 5))
 			id->type = 1;
-		else if (!ft_strncmp(id->cmd[0], "export", 4))
+		else if (!ft_strncmp(id->cmd[0], "export", 7))
 			id->type = 1;
-		else if (!ft_strncmp(id->cmd[0], "unset", 4))
+		else if (!ft_strncmp(id->cmd[0], "unset", 6))
 			id->type = 1;
 		else if (!ft_strncmp(id->cmd[0], "cd", 3))
 			id->type = 1;

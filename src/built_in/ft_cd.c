@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:16:09 by efirmino          #+#    #+#             */
-/*   Updated: 2023/03/20 13:53:09 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/03/30 14:40:06 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,30 +35,41 @@ static void	ft_go_home(void)
 	}
 }
 
+static void	ft_set_gcwd_error(int fd)
+{
+	ft_putstr_fd("cd: error retrieving current ", 2);
+	perror("directory: getcwd: cannot access parent directories");
+	close(fd);
+	*g_data.status_code = 0;
+}
+
 static void	ft_go_to(char *str)
 {
 	char	*current_pwd;
+	int		fd;
 
-	if (access(str, F_OK) == 0)
+	fd = open(str, O_DIRECTORY);
+	if (fd < 0)
 	{
-		if (open(str, O_DIRECTORY) != -1)
-		{
-			current_pwd = getcwd(0, 1000);
-			ft_env_add("OLDPWD", current_pwd);
-			free(current_pwd);
-			chdir(str);
-			current_pwd = getcwd(0, 1000);
-			ft_env_add("PWD", current_pwd);
-			return (free(current_pwd));
-		}
-		ft_putstr_fd("minishell: cd: ", 2);
-		ft_putstr_fd(str, 2);
-		ft_putendl_fd(": Not a directory", 2);
+		ft_putstr_fd("minishell: ", 2);
+		perror(str);
 		*g_data.status_code = 1;
 		return ;
 	}
-	perror("minishel: ");
-	*g_data.status_code = 1;
+	current_pwd = ft_get_env_value("PWD");
+	ft_env_add("OLDPWD", current_pwd);
+	free(current_pwd);
+	chdir(str);
+	current_pwd = getcwd(0, 1000);
+	if (current_pwd == 0)
+	{
+		ft_set_gcwd_error(fd);
+		return ;
+	}
+	ft_env_add("PWD", current_pwd);
+	free(current_pwd);
+	*g_data.status_code = 0;
+	close(fd);
 }
 
 void	ft_cd(t_cmd *cmd)

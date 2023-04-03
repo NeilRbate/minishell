@@ -6,7 +6,7 @@
 /*   By: jbarbate <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 08:43:21 by jbarbate          #+#    #+#             */
-/*   Updated: 2023/03/30 09:25:22 by jbarbate         ###   ########.fr       */
+/*   Updated: 2023/03/30 12:59:37 by jbarbate         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*ft_strndup(char *str, int size)
 int	ft_returnempty(t_id *id)
 {
 	char	*stock;
-  
+
 	stock = ft_strdup("");
 	id = id->next;
 	free(id->data);
