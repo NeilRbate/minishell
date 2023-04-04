@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:16:43 by efirmino          #+#    #+#             */
-/*   Updated: 2023/04/01 17:48:29 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/04/04 09:32:41 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,6 @@ static void	ft_execute_basic_cmd(t_cmd *cmd)
 {
 	char	*try;
 
-	if (!ft_strncmp(cmd->cmd[0], "cat", 3) || (\
-	!ft_strncmp(cmd->cmd[0], "grep", 5) && cmd->cmd[1] == 0))
-	{
-		echo_ctl(1);
-		signal(SIGINT, ft_sig_handle_lock_cmd);
-		signal(SIGQUIT, ft_sig_handle_lock_cmd);
-	}
 	try = ft_basic_check_access(cmd->cmd[0]);
 	if (try && (open(cmd->cmd[0], O_DIRECTORY) > 0))
 		ft_directory_quit_error_msg(cmd->cmd[0]);
@@ -59,6 +52,9 @@ static void	ft_execute_basic_cmd(t_cmd *cmd)
 
 void	ft_do_basic_cmd(t_cmd *cmd)
 {
+	echo_ctl(3);
+	signal(SIGINT, ft_sig_handle_lock_cmd);
+	signal(SIGQUIT, ft_sig_handle_lock_cmd);
 	cmd->pid = fork();
 	if (cmd->pid == 0)
 	{
@@ -67,9 +63,7 @@ void	ft_do_basic_cmd(t_cmd *cmd)
 		ft_execute_basic_cmd(cmd);
 	}
 	else
-	{
-		// signal(SIGINT, ft_sig_handle_do_nothing);
-		// signal(SIGQUIT, ft_sig_handle_do_nothing);
+	{	
 		waitpid(cmd->pid, g_data.status_code, 0);
 		if (cmd->outfile != 1)
 			close(cmd->outfile);
