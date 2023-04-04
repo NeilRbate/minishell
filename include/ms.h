@@ -6,7 +6,7 @@
 /*   By: efirmino <efirmino@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:15:51 by efirmino          #+#    #+#             */
-/*   Updated: 2023/04/01 17:55:17 by efirmino         ###   ########.fr       */
+/*   Updated: 2023/04/04 10:30:18 by efirmino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ void	ft_env_replace(char *key, char *value);
 char	*ft_get_env_value(char *key);
 void	ft_dup_n_close(t_cmd *cmd);
 void	ft_close_all_n_dup(t_cmd *cmd);
+void	ft_update_status_code(void);
+void	ft_set_signal_nothing(void);
 /* FREE - FREE - FREE - FREE - FREE - FREE - FREE - FREE - FREE - FREE - FREE */
 void	ft_free_cmd(t_cmd *cmd);
 void	ft_free_split(char **tab);
