@@ -1,6 +1,6 @@
 # Minishell (42 project)
 
-This project consist in reproducing a shell. (like bash or zsh)
+This project consists to reproduce a (mini)shell. (like bash)
 
 It has a few feature such as :
 - Command-line interface
